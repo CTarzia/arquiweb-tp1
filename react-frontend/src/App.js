@@ -1,18 +1,16 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./screens/Home";
 
 function App() {
 	return (
-		<div>
+		<Fragment>
 			<Router>
-				<div className="container">
-					<Switch>
-						<Route path="/" exact component={Home}></Route>
-					</Switch>
-				</div>
+				<Switch>
+					<Route path="/" component={Home}></Route>
+				</Switch>
 			</Router>
-		</div>
+		</Fragment>
 	);
 }
 

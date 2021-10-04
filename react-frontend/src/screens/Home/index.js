@@ -1,6 +1,16 @@
 import React from "react";
-import styles from "./styles.scss";
+import { Button } from "@mui/material";
 
-const Home = () => <div className={styles.container}> Bienvenidos </div>;
+import styles from "./styles.module.scss";
+
+const Home = () => {
+	const handleOnClick = () => console.log("Hola!");
+	return (
+		<div className={styles.container}>
+			<span className={styles.label}> Bienvenido </span>
+			<Button onClick={handleOnClick}>Hace Click aca</Button>
+		</div>
+	);
+};
 
 export default Home;
