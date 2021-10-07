@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -19,13 +20,13 @@ public class MenuStorageService {
 
     public Menu store(Long restaurantId, MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Menu Menu = new Menu(restaurantId, fileName, file.getContentType(), file.getBytes());
+        Menu menu = new Menu(restaurantId, fileName, file.getContentType(), file.getBytes());
 
-        return menuRepository.save(Menu);
+        return menuRepository.save(menu);
     }
 
-    public Menu getFile(Long id) {
-        return menuRepository.findById(id).get();
+    public Optional<Menu> getFile(Long id) {
+        return menuRepository.findById(id);
     }
 
     public void deleteFile(Long id) {

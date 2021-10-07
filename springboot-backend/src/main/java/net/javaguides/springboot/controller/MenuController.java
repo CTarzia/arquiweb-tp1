@@ -1,6 +1,8 @@
 package net.javaguides.springboot.controller;
 
+import net.javaguides.springboot.exception.ResourceNotFoundException;
 import net.javaguides.springboot.message.MenuResponseMessage;
+import net.javaguides.springboot.model.Employee;
 import net.javaguides.springboot.model.Menu;
 import net.javaguides.springboot.service.MenuStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class MenuController {
 
   @PostMapping("/{restaurantId}")
   public ResponseEntity<MenuResponseMessage> uploadMenu(@PathVariable Long restaurantId, @RequestParam("file") MultipartFile file) {
-    String message = "";
+    String message;
     try {
       storageService.store(restaurantId, file);
 
@@ -34,7 +36,8 @@ public class MenuController {
 
   @GetMapping("/{restaurantId}")
   public ResponseEntity<byte[]> getFile(@PathVariable Long restaurantId) {
-    Menu menu = storageService.getFile(restaurantId);
+    Menu menu = storageService.getFile(restaurantId)
+            .orElseThrow(() -> new ResourceNotFoundException("Menu does not exist with restaurant id :" + restaurantId));
 
     return ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + menu.getName() + "\"")
@@ -43,8 +46,11 @@ public class MenuController {
 
   @PutMapping("/{restaurantId}")
   public ResponseEntity<MenuResponseMessage> replaceMenu(@PathVariable Long restaurantId, @RequestParam("file") MultipartFile file) {
-    String message = "";
+    String message;
     try {
+      storageService.getFile(restaurantId)
+              .orElseThrow(() -> new ResourceNotFoundException("Menu does not exist with restaurant id :" + restaurantId));
+
       storageService.deleteFile(restaurantId);
       storageService.store(restaurantId, file);
 
