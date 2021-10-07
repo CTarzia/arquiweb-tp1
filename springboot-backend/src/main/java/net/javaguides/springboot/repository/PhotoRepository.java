@@ -1,6 +1,5 @@
 package net.javaguides.springboot.repository;
 
-import net.javaguides.springboot.model.Menu;
 import net.javaguides.springboot.model.Photo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

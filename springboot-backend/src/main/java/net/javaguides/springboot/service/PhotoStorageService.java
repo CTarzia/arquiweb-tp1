@@ -1,7 +1,5 @@
 package net.javaguides.springboot.service;
 
-
-import net.javaguides.springboot.model.Menu;
 import net.javaguides.springboot.model.Photo;
 import net.javaguides.springboot.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

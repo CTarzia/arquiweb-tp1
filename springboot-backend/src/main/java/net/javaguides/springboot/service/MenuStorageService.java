@@ -1,6 +1,5 @@
 package net.javaguides.springboot.service;
 
-
 import net.javaguides.springboot.model.Menu;
 import net.javaguides.springboot.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;

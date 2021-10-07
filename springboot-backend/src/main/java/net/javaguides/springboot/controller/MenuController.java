@@ -2,7 +2,6 @@ package net.javaguides.springboot.controller;
 
 import net.javaguides.springboot.exception.ResourceNotFoundException;
 import net.javaguides.springboot.message.MenuResponseMessage;
-import net.javaguides.springboot.model.Employee;
 import net.javaguides.springboot.model.Menu;
 import net.javaguides.springboot.service.MenuStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
