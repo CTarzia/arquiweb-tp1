@@ -1,0 +1,22 @@
+@import "src/styles/_colors.scss";
+
+.container {
+	align-items: center;
+	background-color: $light-tan;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 20px;
+	height: 100vh;
+}
+
+.label {
+	color: $light-green;
+	background-color: $dark-green;
+	border-radius: 10px;
+	padding: 20px 40px;
+}
+
+.button {
+	margin: 40px;
+}
