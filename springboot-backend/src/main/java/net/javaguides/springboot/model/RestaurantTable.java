@@ -18,7 +18,11 @@ public class RestaurantTable {
     @Column(name = "table_calling_server")
     private Boolean calling_server;
 
+    @Column(name = "restaurantid")
+    private Long restaurantId;
+
     /*
+
     Dejo esto acá pero hay que agregarlo cuando armemos el modelo para el restaurant
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="restaurant_id")
@@ -60,4 +64,11 @@ public class RestaurantTable {
         this.calling_server = calling_server;
     }
 
+    public Long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
 }
