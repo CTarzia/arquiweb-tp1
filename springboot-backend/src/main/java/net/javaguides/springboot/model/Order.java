@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 //@Inheritance
 //@DiscriminatorColumn(name = "Order_Type")
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
     @Id
