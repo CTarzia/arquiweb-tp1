@@ -8,27 +8,22 @@ public class RestaurantTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    // @Column(name = "tableId")
+    private long tableId;
 
-    // Es necesario poner Column? No lo pone automáticamente?
-    // Puede ser que sea para especificar el nombre.
+    @Column(name = "table_number")
+    private long tableNumber;
+
+
+
     @Column(name = "table_status")
     private Boolean status;
 
     @Column(name = "table_calling_server")
-    private Boolean calling_server;
+    private Boolean callingServer;
 
     @Column(name = "restaurantid")
     private Long restaurantId;
-
-    /*
-
-    Dejo esto acá pero hay que agregarlo cuando armemos el modelo para el restaurant
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="restaurant_id")
-    private Restaurant restaurant;
-
-     */
 
     public RestaurantTable() {
 
@@ -37,15 +32,15 @@ public class RestaurantTable {
     public RestaurantTable(Boolean status, Boolean calling_server) {
         super();
         this.status = status;
-        this.calling_server = calling_server;
+        this.callingServer = calling_server;
     }
 
-    public long getId() {
-        return id;
+    public long getTableID() {
+        return tableId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setTableID(long id) {
+        this.tableId = id;
     }
 
     public Boolean getStatus() {
@@ -57,11 +52,11 @@ public class RestaurantTable {
     }
 
     public Boolean getCalling_server() {
-        return calling_server;
+        return callingServer;
     }
 
     public void setCalling_server(Boolean calling_server) {
-        this.calling_server = calling_server;
+        this.callingServer = calling_server;
     }
 
     public Long getRestaurantId() {
@@ -70,5 +65,13 @@ public class RestaurantTable {
 
     public void setRestaurantId(Long restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public long getTableNumber() {
+        return tableNumber;
+    }
+
+    public void setTableNumber(long tableNumber) {
+        this.tableNumber = tableNumber;
     }
 }
