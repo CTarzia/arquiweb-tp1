@@ -13,7 +13,7 @@ package net.javaguides.springboot.controller;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/order/")
+@RequestMapping("/orders/")
 public class OrderController {
 
     @Autowired

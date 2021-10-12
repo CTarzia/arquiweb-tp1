@@ -17,7 +17,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long orderId;
 
     @Column(name = "content")
     private String content;
@@ -52,11 +52,11 @@ public class Order {
     }
 
     public long getId() {
-        return id;
+        return orderId;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.orderId = id;
     }
 }
 
