@@ -1,15 +1,17 @@
 package net.javaguides.springboot.controller;
 
-        import java.util.HashMap;
-        import java.util.Map;
+import java.util.HashMap;
 
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.http.ResponseEntity;
-        import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
-        import net.javaguides.springboot.exception.ResourceNotFoundException;
-        import net.javaguides.springboot.model.Order;
-        import net.javaguides.springboot.repository.OrderRepository;
+import net.javaguides.springboot.model.PickupOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import net.javaguides.springboot.exception.ResourceNotFoundException;
+import net.javaguides.springboot.model.Order;
+import net.javaguides.springboot.repository.OrderRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -29,18 +31,19 @@ public class OrderController {
 
     // create order
     @PostMapping("/{restoid}")
-    public Order createOrder(@RequestBody Order order, @PathVariable Long restoid) {
+    public Order createOrder(@RequestBody Order order, @PathVariable Long restoid, @PathVariable Integer type) {
         return orderRepository.save(order);
     }
 
     // update order rest api
 
     @PutMapping("/{orderid}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long orderid, @RequestParam String accept){
+    public ResponseEntity<Order> updateOrder(@PathVariable Long orderid, @RequestBody Order newOrder){
         Order order = orderRepository.findById(orderid)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not exist with id :" + orderid));
 
-        order.setStatus(accept);
+        order.setStatus(newOrder.getStatus());
+        order.setContent(newOrder.getContent());
 
         Order updatedOrder = orderRepository.save(order);
         return ResponseEntity.ok(updatedOrder);
