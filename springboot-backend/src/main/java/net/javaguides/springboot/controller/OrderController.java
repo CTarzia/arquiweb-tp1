@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.javaguides.springboot.model.PickupOrder;
+import net.javaguides.springboot.model.TableOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +24,22 @@ public class OrderController {
 
     // get one order by id
     @GetMapping("/{orderid}")
-    public ResponseEntity<Order> getOrder(@PathVariable Long orderid){
+    public ResponseEntity<Order> getTableOrder(@PathVariable Long orderid){
         Order order = orderRepository.findById(orderid)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not exist with id :" + orderid));
         return ResponseEntity.ok(order);
     }
 
     // create order
-    @PostMapping("/{restoid}")
-    public Order createOrder(@RequestBody Order order, @PathVariable Long restoid, @PathVariable Integer type) {
+    @PostMapping("/table/{restoid}")
+    public Order createTableOrder(@RequestBody TableOrder order, @PathVariable Long restoid) {
+        order.setRestoId(restoid);
+        return orderRepository.save(order);
+    }
+
+    @PostMapping("/client/{restoid}")
+    public Order createPickupOrder(@RequestBody PickupOrder order, @PathVariable Long restoid) {
+        order.setRestoId(restoid);
         return orderRepository.save(order);
     }
 

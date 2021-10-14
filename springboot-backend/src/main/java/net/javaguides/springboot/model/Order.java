@@ -23,16 +23,20 @@ public class Order {
     private String content;
 
     @Column(name = "status")
-    private String status;
+    private Status  status;
+
+    @Column(name = "restoId")
+    private Long restoId;
 
     public Order() {
 
     }
 
-    public Order(String content, String status) {
+    public Order(String content, Status status, Long restoId) {
         super();
         this.content = content;
         this.status = status;
+        this.restoId = restoId;
     }
 
     public String getContent() {
@@ -43,20 +47,28 @@ public class Order {
         this.content = content;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public long getId() {
+    public long getOrderId() {
         return orderId;
     }
 
-    public void setId(long id) {
-        this.orderId = id;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Long getRestoId() {
+        return restoId;
+    }
+
+    public void setRestoId(Long restoId) {
+        this.restoId = restoId;
     }
 }
 
