@@ -20,7 +20,7 @@ class OrderStatus extends React.Component {
 
 	handleChange(event) {    this.setState({value: event.target.value});  }
 	handleSubmit(event) {
-	  alert('A name was submitted: ' + this.state.value);
+	//   alert('A name was submitted: ' + this.state.value);
 	  fetch(
 		"http://localhost:8080/orders/${encodeURIComponent(this.state.value)}")
 					.then((res) => res.json())
@@ -49,8 +49,8 @@ class OrderStatus extends React.Component {
 	}
 	render() {
 		const { DataisLoaded, order } = this.state;
-		if (!DataisLoaded) return <div>
-			<h1> Por favor espere.... </h1> </div> ;
+		// if (!DataisLoaded) return <div>
+		// 	<h1> Por favor espere.... </h1> </div> ;
 
 		return (
 		<div className = "App">
@@ -65,7 +65,7 @@ class OrderStatus extends React.Component {
 					Numero de pedido: { order.orderId },
 					Contenido: { order.content },
 					Estado: { order.status }
-					</p>
+				</p>
 			}
 		</div>
 	);
