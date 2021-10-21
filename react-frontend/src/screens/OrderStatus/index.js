@@ -20,9 +20,8 @@ class OrderStatus extends React.Component {
 
 	handleChange(event) {    this.setState({value: event.target.value});  }
 	handleSubmit(event) {
-	//   alert('A name was submitted: ' + this.state.value);
 	  fetch(
-		"http://localhost:8080/orders/${encodeURIComponent(this.state.value)}")
+		"http://localhost:8080/orders/" + this.state.value)
 					.then((res) => res.json())
 					.then((json) => {
 						this.setState({
@@ -36,24 +35,46 @@ class OrderStatus extends React.Component {
 
 	// ComponentDidMount is used to
 	// execute the code
-	componentDidMount() {
-		fetch(
-			"http://localhost:8080/orders/${encodeURIComponent(this.state.value)}")
-						.then((res) => res.json())
-						.then((json) => {
-							this.setState({
-								order: json,
-								DataisLoaded: true
-							});
-						})
-	}
+	// componentDidMount() {
+	// 	fetch(
+	// 		"http://localhost:8080/orders/" + this.state.value)
+	// 					.then((res) => res.json())
+	// 					.then((json) => {
+	// 						this.setState({
+	// 							order: json,
+	// 							DataisLoaded: true
+	// 						});
+	// 					})
+	// }
 	render() {
 		const { DataisLoaded, order } = this.state;
 		// if (!DataisLoaded) return <div>
 		// 	<h1> Por favor espere.... </h1> </div> ;
 
+		if (!DataisLoaded)
+			return <div>
+				<h1> Estado de Pedido </h1> 
+					<form onSubmit={this.handleSubmit}>        <label>
+						Numero de pedido:
+						<input type="text" value={this.state.value} onChange={this.handleChange} />        </label>
+					<input type="submit" value="Buscar Pedido" />
+					</form>
+				</div>
+		
+		if (order.status == '404')
+			return <div>
+			<h1> Estado de Pedido </h1> 
+				<form onSubmit={this.handleSubmit}>        <label>
+					Numero de pedido:
+					<input type="text" value={this.state.value} onChange={this.handleChange} />        </label>
+				<input type="submit" value="Buscar Pedido" />
+				</form>
+				<p>Pedido no encontrado, revise la informacion ingresada e intentelo de nuevo.</p>
+			</div>
+
+		console.log(order)
 		return (
-		<div className = "App">
+		<div className = "OrderStatus">
 			<h1> Estado de Pedido </h1> 
 			<form onSubmit={this.handleSubmit}>        <label>
 				Numero de pedido:
