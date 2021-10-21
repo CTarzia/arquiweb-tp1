@@ -32,24 +32,8 @@ class OrderStatus extends React.Component {
 	  event.preventDefault();
 	}
 
-
-	// ComponentDidMount is used to
-	// execute the code
-	// componentDidMount() {
-	// 	fetch(
-	// 		"http://localhost:8080/orders/" + this.state.value)
-	// 					.then((res) => res.json())
-	// 					.then((json) => {
-	// 						this.setState({
-	// 							order: json,
-	// 							DataisLoaded: true
-	// 						});
-	// 					})
-	// }
 	render() {
 		const { DataisLoaded, order } = this.state;
-		// if (!DataisLoaded) return <div>
-		// 	<h1> Por favor espere.... </h1> </div> ;
 
 		if (!DataisLoaded)
 			return <div>
