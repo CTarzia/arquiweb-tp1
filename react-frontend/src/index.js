@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { StylesProvider } from "@material-ui/styles";
 
 import "./index.scss";
