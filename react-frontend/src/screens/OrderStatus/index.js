@@ -1,7 +1,5 @@
 import React from "react";
 
-import styles from "./styles.module.scss";
-
 class OrderStatus extends React.Component {
 
 	// Constructor
