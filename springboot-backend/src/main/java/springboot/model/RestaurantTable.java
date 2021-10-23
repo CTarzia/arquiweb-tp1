@@ -14,8 +14,6 @@ public class RestaurantTable {
     @Column(name = "table_number")
     private long tableNumber;
 
-
-
     @Column(name = "table_status")
     private Boolean status;
 
