@@ -11,7 +11,7 @@ function App() {
 		<Fragment>
 			<Router>
 				<Switch>
-					<Route exact path="/" component={Home}></Route>
+					<Route exact path={ROUTES.HOME} component={Home}></Route>
 					<Route
 						exact
 						path={ROUTES.CREATE_ORDER}
