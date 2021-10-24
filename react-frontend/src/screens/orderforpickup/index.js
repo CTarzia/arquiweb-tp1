@@ -1,112 +1,82 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import { Button, Typography, Container, TextField } from "@mui/material";
-import ordersService from "../../services/ordersService";
 import { useParams } from 'react-router';
-
-
+import { Link } from "react-router-dom";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import ordersService from "../../services/ordersService";
+import { ROUTES } from "../../constants/routes";
 import styles from "./styles.module.scss";
 
 const OrderForPickup = ({ location }) => {
-	const [name, setName] = useState('')
-	const [order, setOrder] = useState('')
-	const [nameError, setNameError] = useState(false)
-	const [orderError, setOrderError] = useState(false)
-
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		setNameError(false)
-		setOrderError(false)
-
-		if (name == '') {
-			setNameError(true)
-		}
-		if (order == '') {
-			setOrderError(true)
-		}
-		if (name && order) {
-			console.log(name, order)
-		}
-	}
-
+	const [restaurantName, setRestaurantName] = useState()
+	const [statusError, setStatusError] = useState(false)
+	const [order, setOrder] = useState({})
 	const { id: restaurantId } = useParams()
 
 	useEffect(() => {
 		fetch(
-			`http://localhost:8080/restaurant/${restaurantId}`
-				.then((res) => res.json())
-				.then((json) => {
-					this.setState({
-						order: json,
-						DataisLoaded: true
-					});
-				})
-		)
+			`http://localhost:8080/restaurantes/${restaurantId}`)
+			.then((res) => res.json())
+			.then((json) => {
+				if (json.status === 404) {
+					setStatusError(true)
+					setRestaurantName("Su restaurante no ha sido encontrado.")
+				} else {
+					setRestaurantName(json.name)
+				}
+			})
+	}, [])
 
-	}, []
+	const handleOnInputChange = (evt) => {
+		setOrder({ ...order, [evt.target.name]: evt.target.value })
+	}
 
-	)
+	const handleSubmit = (evt) => {
+		evt.preventDefault()
+		fetch(
+			`http://localhost:8080/orders/client/${restaurantId}`, {
+				method: 'POST', body: JSON.stringify(order), headers: {
+					'Content-Type': 'application/json'
+				}
+		})
+			.then((res) => res.json())
+			.then((json) => {
+				window.alert(`Su número de pedido es: ${json}`)
+			}
+			)
 
-	// Del tutorial
-	/*
-	useEffect(() => {
-		console.log("useffect")
-		fetch('http://localhost:3000/orders/1')
-		  .then(res => res.json())
-		  .then(data => setName(data))
-	  }, [])
-	  */
+	}
 
 	return (
 		<div>
-			Prueba
-			{console.log("texto")}
-		</div>
-		/*
-		<div align="center">
-			<Typography
-				variant="h3"
-				// component="div"
-				align="center"
-				gutterBottom>
-				Nombre del Restaurante
-			</Typography>
-			
-			<form noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<TextField
-					onChange={(e) => setName(e.target.value)}
-					id="outlined-basic"
-					label="Ingrese su nombre"
-					variant="outlined"
-					fullWidth
-					margin="dense"
-					required
-					error={nameError}
-				/>
-
-				<TextField
-					onChange={(e) => setOrder(e.target.value)}
-					id="outlined-basic"
-					label="Ingrese su pedido"
-					variant="outlined"
-					multiline
-					rows="10"
-					fullWidth
-					margin="dense"
-					required
-					error={orderError}
-				/>
-				<Container align="right">
-					<Button
-						type="submit"
-						variant="contained">
-						Hacer Pedido
-					</Button>
+			<div>
+				<h1>{restaurantName}</h1>
+				<Link to={ROUTES.HOME}>
+					<button type="button">
+						<HighlightOffIcon />
+					</button>
+				</Link>
+			</div>
+			<form onSubmit={handleSubmit}>
+				<div>
+					<label>
+						Ingrese su nombre:
+					</label>
+					<input type="text" name="clientName" onChange={handleOnInputChange} />
 				</div>
+				<div>
+					<label>
+						Ingrese su pedido:
+					</label>
+					<input type="text" name="content" onChange={handleOnInputChange} />
+				</div>
+				<button type="submit">
+					Enviar pedido
+				</button>
 			</form>
-			
-			
-		</Container>*/
+		</div>
+
 	)
 }
 export default OrderForPickup;

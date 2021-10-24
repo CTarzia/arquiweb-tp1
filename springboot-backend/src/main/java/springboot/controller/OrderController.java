@@ -38,9 +38,10 @@ public class OrderController {
     }
 
     @PostMapping("/client/{restoid}")
-    public Order createPickupOrder(@RequestBody PickupOrder order, @PathVariable Long restoid) {
+    public long createPickupOrder(@RequestBody PickupOrder order, @PathVariable Long restoid) {
         order.setRestoId(restoid);
-        return orderRepository.save(order);
+        orderRepository.save(order);
+        return order.getOrderId();
     }
 
     // update order rest api
