@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import { Button, Typography, Container, TextField } from "@mui/material";
+import ordersService from "../../services/ordersService";
+import { useParams } from 'react-router';
 
 
 import styles from "./styles.module.scss";
 
-export default function OrderForPickup() {
+const OrderForPickup = ({ location }) => {
 	const [name, setName] = useState('')
 	const [order, setOrder] = useState('')
 	const [nameError, setNameError] = useState(false)
@@ -15,7 +17,7 @@ export default function OrderForPickup() {
 		e.preventDefault()
 		setNameError(false)
 		setOrderError(false)
-	
+
 		if (name == '') {
 			setNameError(true)
 		}
@@ -27,8 +29,41 @@ export default function OrderForPickup() {
 		}
 	}
 
-	return(
-		<Container align="center">
+	const { id: restaurantId } = useParams()
+
+	useEffect(() => {
+		fetch(
+			`http://localhost:8080/restaurant/${restaurantId}`
+				.then((res) => res.json())
+				.then((json) => {
+					this.setState({
+						order: json,
+						DataisLoaded: true
+					});
+				})
+		)
+
+	}, []
+
+	)
+
+	// Del tutorial
+	/*
+	useEffect(() => {
+		console.log("useffect")
+		fetch('http://localhost:3000/orders/1')
+		  .then(res => res.json())
+		  .then(data => setName(data))
+	  }, [])
+	  */
+
+	return (
+		<div>
+			Prueba
+			{console.log("texto")}
+		</div>
+		/*
+		<div align="center">
 			<Typography
 				variant="h3"
 				// component="div"
@@ -61,28 +96,17 @@ export default function OrderForPickup() {
 					required
 					error={orderError}
 				/>
-
-				<Button
-					type="submit"
-					variant="contained">
-					Hacer Pedido
-				</Button>
+				<Container align="right">
+					<Button
+						type="submit"
+						variant="contained">
+						Hacer Pedido
+					</Button>
+				</div>
 			</form>
 			
-
-		
-			{/* <Container align="right">
-				<Button
-					variant="contained"
-					onClick={() => {
-						//completar
-						console.log('Pedido realizado')
-					}}>Hacer Pedido
-				</Button>
-			</Container> */}
 			
-		</Container>
+		</Container>*/
 	)
 }
-
-// ReactDOM.render(<App />, document.querySelector('#app'));
+export default OrderForPickup;
