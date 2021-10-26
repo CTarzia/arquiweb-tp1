@@ -32,9 +32,10 @@ public class OrderController {
 
     // create order
     @PostMapping("/table/{restoid}")
-    public Order createTableOrder(@RequestBody TableOrder order, @PathVariable Long restoid) {
+    public long createTableOrder(@RequestBody TableOrder order, @PathVariable Long restoid) {
         order.setRestoId(restoid);
-        return orderRepository.save(order);
+        orderRepository.save(order);
+        return order.getOrderId();
     }
 
     @PostMapping("/client/{restoid}")

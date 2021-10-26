@@ -2,7 +2,8 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./screens/Home";
-import OrderForPickup from "./screens/OrderForPickup";
+import CreateOrder from "./screens/CreateOrder";
+import CurrentOrders from "./screens/CurrentOrders";
 import OrderStatus from "./screens/OrderStatus";
 import { ROUTES } from "./constants/routes";
 
@@ -15,7 +16,12 @@ function App() {
 					<Route
 						exact
 						path={ROUTES.CREATE_ORDER}
-						component={OrderForPickup}
+						component={CreateOrder}
+					></Route>
+					<Route
+						exact
+						path={ROUTES.CURRENT_ORDERS}
+						component={CurrentOrders}
 					></Route>
 					<Route
 						exact

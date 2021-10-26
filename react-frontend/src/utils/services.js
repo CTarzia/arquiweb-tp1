@@ -1,6 +1,7 @@
-async function apiGet (url = "", successCallback, failureCallback) {
-	const response = await fetch(`http://localhost:8080/${url}`)
+function apiGet(url = "", successCallback, failureCallback) {
+	const response = fetch(`http://localhost:8080/${url}`)
 		.then((res) => res.json())
+		.catch(() => console.log('prueba'))
 		.then((json) => {
 			if (json.status === 404) {
 				if (failureCallback) failureCallback();

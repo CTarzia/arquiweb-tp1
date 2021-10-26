@@ -1,0 +1,17 @@
+@import "src/styles/_colors.scss";
+
+.titleContainer{
+	// background-color: $light-tan;
+	display: flex;
+	justify-content: space-between;
+	padding: 5px;
+}
+.form{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 5px;
+	.submitButton{
+		align-self: flex-start;
+	}
+}

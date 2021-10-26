@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { useLocation } from "react-router-dom";
 
 import GoBackButton from "../../components/GoBack";
 import { apiGet, apiPost } from "../../utils/services";
 import { ROUTES } from "../../constants/routes";
 
 import styles from "./styles.module.scss";
+import PostOrder from "./components/PostOrder";
 
-const OrderForPickup = () => {
+const CreateOrder = () => {
 	const [restaurantName, setRestaurantName] = useState();
 	const [statusError, setStatusError] = useState(false);
 	const [order, setOrder] = useState({});
 	const [restaurantLoading, setRestaurantLoading] = useState(false);
-	const [orderLoading, setOrderLoading] = useState(false);
+	const [orderLoading, setOrderLoading] = useState(true);
 
 	const { id: restaurantId } = useParams();
+	const search = useLocation().search;
+	const tableNumber = new URLSearchParams(search).get('mesa');
+
 
 	useEffect(() => {
 		fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
@@ -37,9 +42,14 @@ const OrderForPickup = () => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault()
 		setOrderLoading(false)
-		fetch(`http://localhost:8080/orders/client/${restaurantId}`, {
+		const type = (tableNumber) ? ("table") : ("client")
+		let orderToSend = order
+		if (tableNumber) {
+			orderToSend = { ...order, tableNumber }
+		}
+		fetch(`http://localhost:8080/orders/${type}/${restaurantId}`, {
 			method: "POST",
-			body: JSON.stringify(order),
+			body: JSON.stringify(orderToSend),
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -47,33 +57,35 @@ const OrderForPickup = () => {
 			.then((res) => res.json())
 			.then((json) => {
 				setOrderLoading(true)
-				window.alert(`Su número de pedido es: ${json}`);
+				if (tableNumber) {
+					window.alert(`Su pedido ha sido enviado.`);
+				} else {
+					window.alert(`Su pedido ha sido enviado. Su número de pedido es: ${json}.`);
+				}
 			});
 	};
 
 	return (
 		restaurantLoading ? (
-			<div>
-			<div className={styles.titleContainer}>
-				<h1>{restaurantName}</h1>
-				<GoBackButton route={ROUTES.HOME} />
-			</div>
-			<form onSubmit={handleSubmit}>
+			orderLoading ? (
 				<div>
-					<label>Ingrese su nombre:</label>
-					<input type="text" name="clientName" onChange={handleOnInputChange} />
+					<div className={styles.titleContainer}>
+						<h1>{restaurantName}</h1>
+						<GoBackButton route={ROUTES.HOME} />
+					</div>
+					<PostOrder
+						handleSubmit={handleSubmit}
+						handleOnInputChange={handleOnInputChange}
+						tableNumber={tableNumber}
+					/>
 				</div>
-				<div>
-					<label>Ingrese su pedido:</label>
-					<input type="text" name="content" onChange={handleOnInputChange} />
-				</div>
-				<button type="submit">Enviar pedido</button>
-			</form>
-		</div>
+
+			) : (<p>Enviando su pedido.</p>)
+
 		) : (
 			<p>Recuperando información del restaurante.</p>
 		)
-		
+
 	);
 };
-export default OrderForPickup;
+export default CreateOrder;
