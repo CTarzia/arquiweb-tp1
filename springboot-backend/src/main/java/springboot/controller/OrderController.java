@@ -37,13 +37,8 @@ public class OrderController {
         return orderRepository.save(order);
     }
 
-<<<<<<< HEAD
-    @PostMapping("/pickup/{restoid}")
-    public Order createPickupOrder(@RequestBody PickupOrder order, @PathVariable Long restoid) {
-=======
     @PostMapping("/client/{restoid}")
     public long createPickupOrder(@RequestBody PickupOrder order, @PathVariable Long restoid) {
->>>>>>> 29-vista2-detalleRestaurant
         order.setRestoId(restoid);
         orderRepository.save(order);
         return order.getOrderId();

@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const GoBackButton = ({route}) => (
 	<Link to={route}>
 		<button type="button">
-			<HighlightOffIcon />
+			<ArrowBackIosIcon />
 		</button>
 	</Link>
 );
