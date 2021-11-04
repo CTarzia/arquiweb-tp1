@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Button} from "@mui/material";
 
 const GoBackButton = ({route}) => (
 	<Link to={route}>
-		<button type="button">
-			<ArrowBackIosIcon />
-		</button>
+		<Button type="button"  >
+			<ArrowBackIcon />
+		</Button>
 	</Link>
 );
 

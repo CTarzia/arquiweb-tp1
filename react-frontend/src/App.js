@@ -7,6 +7,8 @@ import OrderStatus from "./screens/OrderStatus";
 import WelcomeTable from "./screens/WelcomeTable";
 import { ROUTES } from "./constants/routes";
 import Menu from "./screens/Menu";
+import CurrentOrders from "./screens/CurrentOrders";
+import PendingOrders from "./screens/PendingOrders";
 
 function App() {
 	return (
@@ -33,6 +35,16 @@ function App() {
 						exact
 						path={ROUTES.MENU}
 						component={Menu}
+					></Route>
+					<Route
+						exact
+						path={ROUTES.CURRENT_ORDERS}
+						component={CurrentOrders}
+					></Route>
+					<Route
+						exact
+						path={ROUTES.PENDING_ORDERS}
+						component={PendingOrders}
 					></Route>
 				</Switch>
 			</Router>

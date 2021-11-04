@@ -7,6 +7,7 @@ import { ROUTES } from "../../constants/routes";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
 import { Container, Button, ButtonGroup, Typography, Box } from "@mui/material";
+import DisplayMenu from "./components/DisplayMenu";
 
 const WelcomeTable = () => {
 	const [restaurantName, setRestaurantName] = useState();
@@ -44,7 +45,7 @@ const WelcomeTable = () => {
 			});
 	}, []);
 
-    const handleColor = () =>{
+    const handleMozo = () =>{
         setColor(!color);
         if (color) {
             window.alert("mozo llamado")
@@ -57,51 +58,39 @@ const WelcomeTable = () => {
 	return (
 		restaurantLoading ? (
 			<div>
-				<GoBackButton route={ROUTES.HOME} />
-				<Typography
-				align="center">
-					<h1>{restaurantName}</h1>
-					<h4>mesa {tableNumber}</h4>
-				</Typography>
+				<div className={styles.titleContainer}>
+                    <h1>Pedidos en curso {restaurantName}</h1>
+                    <GoBackButton route={ROUTES.HOME} />
+                </div>
+				<div className={styles.table}>
+					mesa {tableId}
+				</div>
 			
-            <Box
-                textAlign="center">
+            <div className={styles.displayButtonsColumn}>
 				<ButtonGroup
                 orientation="vertical"
-                variant="outlined"
-                //size="large"
+				align="center"
                 >
-					<Link 
-                    to={`/menu/${restaurantId}`} 
-                    >
-		            <Button
-                        type="submit"
-                        variant="outlined"
-                        > 
+					<Link  to={`/menu/${restaurantId}`}>
+		            <Button> 
                         Ver carta
                     </Button>
 	                </Link>
 
-                    <Link 
-                    to={`/restaurante/${restaurantId}/hacer_pedido`} 
-                    >
-		            <Button
-                        type="submit"
-                        variant="outlined"
-                        > 
+                    <Link to={`/restaurante/${restaurantId}/hacer_pedido`} >
+		            <Button> 
                         Hacer pedido
                     </Button>
 	                </Link>
 
                     <Button
-                    type="submit"
-                    onClick = {handleColor}
-                    color={color ? "primary" : "secondary"}
-                    variant={color ? "outlined" : "contained"}> 
+                    onClick = {handleMozo}
+                    color={color ? "primary" : "primary"}
+                    variant={color ? "default" : "contained"}> 
                     LLamar mozo
                     </Button>
 				</ButtonGroup>
-            </Box>
+            </div>
 		</div>
 		) : (
 			<p>Recuperando información del restaurante.</p>
