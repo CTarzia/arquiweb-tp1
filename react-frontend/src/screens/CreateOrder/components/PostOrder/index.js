@@ -1,6 +1,9 @@
 import React from "react";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 import styles from "../../styles.module.scss"
+import { Typography } from "@mui/material";
 
 const PostOrder = ({
     handleSubmit,
@@ -11,20 +14,20 @@ const PostOrder = ({
         <form onSubmit={handleSubmit} className={styles.form}>
             {(!tableNumber) ? (
                 <div>
-                    <label>Ingrese su nombre:</label>
-                    <input type="text" name="clientName" onChange={handleOnInputChange} />
+                    <Typography variant="h6">Ingrese su nombre:</Typography>
+                    <TextField name="clientName" label="Ingrese su nombre" variant="outlined" onChange={handleOnInputChange}/>
                 </div>
             ) : (
-                <div>
+                <Typography variant="h6">
                     Usted está en la mesa {tableNumber}.
-                </div>
+                </Typography>
             )}
 
             <div>
-                <label>Ingrese su pedido:</label>
-                <input type="text" name="content" onChange={handleOnInputChange} />
+                <Typography cariant="h6">Ingrese su pedido:</Typography>
+                <TextField name="content" label="Ingrese su pedido" variant="outlined" onChange={handleOnInputChange}/>
             </div>
-            <button type="submit" className={styles.submitButton}>Enviar pedido</button>
+            <Button type="submit" className={styles.submitButton}>Enviar pedido</Button>
         </form>
     );
 };

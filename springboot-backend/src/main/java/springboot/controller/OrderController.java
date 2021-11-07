@@ -6,6 +6,7 @@ import java.util.Map;
 
 import springboot.model.PickupOrder;
 import springboot.model.TableOrder;
+import springboot.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import springboot.exception.ResourceNotFoundException;
 import springboot.model.Order;
 import springboot.repository.OrderRepository;
+
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -33,14 +35,18 @@ public class OrderController {
     // create order
     @PostMapping("/table/{restoid}")
     public long createTableOrder(@RequestBody TableOrder order, @PathVariable Long restoid) {
+        Status initialStatus = Status.PENDING;
         order.setRestoId(restoid);
+        order.setStatus(initialStatus);
         orderRepository.save(order);
         return order.getOrderId();
     }
 
     @PostMapping("/client/{restoid}")
     public long createPickupOrder(@RequestBody PickupOrder order, @PathVariable Long restoid) {
+        Status initialStatus = Status.PENDING;
         order.setRestoId(restoid);
+        order.setStatus(initialStatus);
         orderRepository.save(order);
         return order.getOrderId();
     }

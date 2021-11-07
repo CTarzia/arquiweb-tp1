@@ -8,6 +8,7 @@ import { ROUTES } from "../../constants/routes";
 
 import styles from "./styles.module.scss";
 import PostOrder from "./components/PostOrder";
+import { Typography } from "@mui/material";
 
 const CreateOrder = () => {
 	const [restaurantName, setRestaurantName] = useState();
@@ -70,7 +71,7 @@ const CreateOrder = () => {
 			orderLoading ? (
 				<div>
 					<div className={styles.titleContainer}>
-						<h1>{restaurantName}</h1>
+						<Typography variant="h3" component="h1">{restaurantName}</Typography>
 						<GoBackButton route={ROUTES.HOME} />
 					</div>
 					<PostOrder
