@@ -67,25 +67,30 @@ const CreateOrder = () => {
 	};
 
 	return (
-		restaurantLoading ? (
-			orderLoading ? (
-				<div>
-					<div className={styles.titleContainer}>
-						<Typography variant="h3" component="h1">{restaurantName}</Typography>
-						<GoBackButton route={ROUTES.HOME} />
+		!statusError ? (
+			restaurantLoading ? (
+				orderLoading ? (
+					<div>
+						<div className={styles.titleContainer}>
+							<Typography variant="h3" component="h1">{restaurantName}</Typography>
+							<GoBackButton route={ROUTES.HOME} />
+						</div>
+						<PostOrder
+							handleSubmit={handleSubmit}
+							handleOnInputChange={handleOnInputChange}
+							tableNumber={tableNumber}
+						/>
 					</div>
-					<PostOrder
-						handleSubmit={handleSubmit}
-						handleOnInputChange={handleOnInputChange}
-						tableNumber={tableNumber}
-					/>
-				</div>
 
-			) : (<p>Enviando su pedido.</p>)
+				) : (<p>Enviando su pedido.</p>)
 
+			) : (
+				<p>Recuperando información del restaurante.</p>
+			)
 		) : (
-			<p>Recuperando información del restaurante.</p>
+			<p>Ha ocurrido un error.</p>
 		)
+
 
 	);
 };

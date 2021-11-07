@@ -16,19 +16,6 @@ class OrderService {
         return axios.post(ORDER_API_BASE_URL + '/client/' + orderId);
     }
 
-    /*
-    getEmployeeById(employeeId){
-        return axios.get(ORDER_API_BASE_URL + '/' + employeeId);
-    }
-
-    updateEmployee(employee, employeeId){
-        return axios.put(ORDER_API_BASE_URL + '/' + employeeId, employee);
-    }
-
-    deleteEmployee(employeeId){
-        return axios.delete(ORDER_API_BASE_URL + '/' + employeeId);
-    }
-    */
 }
 
 export default new OrderService()
