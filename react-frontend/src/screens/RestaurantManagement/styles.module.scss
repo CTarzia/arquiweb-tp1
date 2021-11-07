@@ -1,0 +1,23 @@
+@import "src/styles/_colors.scss";
+@import "src/styles/styles.scss";
+
+.managementSection{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 5px;
+	background-color: $light-green;
+	//border: 1px solid #888; 
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.rectangleOfDeath{
+	display: flex;
+    background-position-x: 1cm;
+    background-color: $blue;
+}

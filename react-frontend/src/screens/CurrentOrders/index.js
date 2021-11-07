@@ -67,7 +67,7 @@ const CurrentOrders = () => {
         restaurantLoading ? (
             <div>
                 <div className={styles.titleContainer}>
-                    <h1>Pedidos en curso {restaurantName}</h1>
+                    <h1>{restaurantName}</h1>
                     <GoBackButton route={ROUTES.HOME} />
                 </div>
                 <div>
@@ -82,7 +82,7 @@ const CurrentOrders = () => {
                                 ))}
                             </div>
                             <div>
-                            <Typography variant="h5" align="center" > Pedidos listos </Typography>
+                                <Typography variant="h5" align="center" > Pedidos listos </Typography>
                                 {readyOrders.map(order => (
                                     <DisplayOrderReady
                                         order={order}

@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-
+import styles from "./styles.module.scss";
 import GoBackButton from "../../components/GoBack";
-import { apiGet, apiPost } from "../../utils/services";
 import { ROUTES } from "../../constants/routes";
-import { Link } from "react-router-dom";
-import { Button, ButtonGroup, Typography, Box } from "@mui/material";
+import { Button, Typography} from "@mui/material";
+
 
 const Menu = () => {
 	const [restaurantName, setRestaurantName] = useState();
-    const [tableNumber, setTableNumber] = useState();
 	const [statusError, setStatusError] = useState(false);
 	const [restaurantLoading, setRestaurantLoading] = useState(false);
-    const [color, setColor] = useState(true)
 	
 	const { restoId: restaurantId} = useParams();
 
@@ -31,27 +28,24 @@ const Menu = () => {
 	}, []);
 
 	return (
-		<div>
-		<GoBackButton route={ROUTES.HOME} />
-		<Typography
-		align="center">
-			<h1>{restaurantName}</h1>
-			<h4>Menu {tableNumber}</h4>
-		</Typography>
+		restaurantLoading ? (
+			<div>
+				<div className={styles.titleContainer}>
+        		    <h1 > {restaurantName}</h1>
+					<GoBackButton route={ROUTES.HOME} />
+        		</div>
+				<Typography verient="h5" className={styles.subtitle}>
+					<h4>Menu</h4>
+				</Typography>
 
-		
-
-		<Link 
-        to={`/restaurante/${restaurantId}/hacer_pedido`} 
-        >
-		<Button
-            type="submit"
-            variant="outlined"
-            > 
-            Hacer pedido
-        </Button>
-	    </Link>
-    	</div>
+			    <Button variant="text" href={`/restaurante/${restaurantId}/hacer_pedido`}> 
+        	        Hacer pedido
+        	    </Button>
+			
+    		</div>
+		) : (
+			<p>Recuperando información del restaurante.</p>
+		)
     );
 };
 

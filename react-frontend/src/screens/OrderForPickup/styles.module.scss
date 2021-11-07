@@ -1,5 +1,6 @@
-@import "src/styles/_colors.scss";
-
-/*.titleContainer{
-	background-color: $light-tan;
-}*/
+.titleContainer{
+	// background-color: $light-tan;
+	display: flex;
+	justify-content: space-between;
+	padding: 5px;
+}

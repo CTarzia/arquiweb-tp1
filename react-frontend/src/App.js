@@ -9,6 +9,7 @@ import { ROUTES } from "./constants/routes";
 import Menu from "./screens/Menu";
 import CurrentOrders from "./screens/CurrentOrders";
 import PendingOrders from "./screens/PendingOrders";
+import RestaurantManagment from "./screens/RestaurantManagement";
 
 function App() {
 	return (
@@ -45,6 +46,11 @@ function App() {
 						exact
 						path={ROUTES.PENDING_ORDERS}
 						component={PendingOrders}
+					></Route>
+					<Route
+						exact
+						path={ROUTES.RESTAURANT_MANAGMENT}
+						component={RestaurantManagment}
 					></Route>
 				</Switch>
 			</Router>

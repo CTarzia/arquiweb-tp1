@@ -36,10 +36,11 @@ const DisplayOrderInProgress = ({
 
 
     return (
-        <div className={styles.displayOrdersColumns}>
+        <div className={styles.cardColumns}>
             <Card>
-                <CardContent>
+                <CardContent className={styles.cards}>
                     <div className={styles.displayOrder}>
+                        <p>{order["orderId"]}</p>
                         <div>
                             {(order.clientName)?(
                             <p>
@@ -52,7 +53,6 @@ const DisplayOrderInProgress = ({
                             )}
                         </div>
                             
-                        <p>Número de Orden: {order["orderId"]}</p>
                         <div class="btn-group">
                             <DisplayOrderContent
                                 order={order}

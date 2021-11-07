@@ -36,9 +36,10 @@ const DisplayOrderReady = ({
     };
 
     return (
-        <div className={styles.displayOrdersColumns}>
+        <div className={styles.cardColumns}>
             <Card>
-                <CardContent>
+                <CardContent className={styles.cards}>
+                    <p>{order["orderId"]}</p>
                     <div>
                         {(order.clientName) ? (
                             <p>
@@ -50,7 +51,7 @@ const DisplayOrderReady = ({
                             </p>
                         )}
                     </div>
-                    <p>Número de Orden: {order["orderId"]}</p>
+                    
                     <div class="btn-group">
                         <DisplayOrderContent
                             order={order}

@@ -1,7 +1,5 @@
 import { Button, Card, CardContent} from "@mui/material";
-import { style } from "@mui/system";
 import React from "react";
-import { Link } from "react-router-dom";
 import DisplayOrderContent from "../../../CurrentOrders/components/DisplayOrderContent";
 import styles from "../../styles.module.scss"
 
@@ -30,9 +28,9 @@ const DisplayOrderPending = ({order}) => {
     };
 
 	return(
-	<div className={styles.displayOrdersColumns}>	
+	<div className={styles.cardColumns}>	
 		<Card > 
-			<CardContent>
+			<CardContent className={styles.cards}>
 				<div >
 					{order.orderId}
 					{(order.clientName) ? (

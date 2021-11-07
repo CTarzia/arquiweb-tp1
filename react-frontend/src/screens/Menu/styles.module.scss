@@ -1,5 +1,8 @@
 @import "src/styles/_colors.scss";
+@import "src/styles/styles.scss";
 
-/*.titleContainer{
-	background-color: $light-tan;
-}*/
+.table{
+	display: flex;
+	justify-content:center;
+	padding: 5px;
+}

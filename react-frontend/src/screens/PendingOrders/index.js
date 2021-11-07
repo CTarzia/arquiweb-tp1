@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { apiGet, apiPost } from "../../utils/services";
 import styles from "./styles.module.scss";
 import GoBackButton from "../../components/GoBack";
 import DisplayOrder from "./components/DisplayOrderPending";
@@ -38,8 +37,7 @@ const PendingOrders = () => {
                     setRestaurantName("Su restaurante no ha sido encontrado.");
                 } else {
                     setPendingOrders(json.filter(pendingFilter))
-                    setOrdersLoading(true)
-                    
+                    setOrdersLoading(true)                  
                 }
             });
         // apiGet(`http://localhost:8080/restaurantes/${restaurantId}`)
@@ -50,10 +48,10 @@ const PendingOrders = () => {
         restaurantLoading ? (
             <div>
                 <div className={styles.titleContainer}>
-                    <h1>Pedidos en curso {restaurantName}</h1>
+                    <h1>{restaurantName}</h1>
                     <GoBackButton route={ROUTES.HOME} />
                 </div>
-
+                
                 <div>{(ordersLoading) ? (
                     <div className={styles.displayOrdersColumns}>
                         <div>
@@ -63,7 +61,6 @@ const PendingOrders = () => {
                                     order={order}
                                 />
                             ))}
-    
                         </div>
                     </div>
                     ) : (

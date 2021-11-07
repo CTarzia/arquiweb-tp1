@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import GoBackButton from "../../components/GoBack";
 import { apiGet, apiPost } from "../../utils/services";
 import { ROUTES } from "../../constants/routes";
-
+import { Button} from "@mui/material";
 import styles from "./styles.module.scss";
 
 const OrderForPickup = () => {
@@ -55,9 +55,9 @@ const OrderForPickup = () => {
 		restaurantLoading ? (
 			<div>
 			<div className={styles.titleContainer}>
-				<h1>{restaurantName}</h1>
-				<GoBackButton route={ROUTES.HOME} />
-			</div>
+                    <h1>{restaurantName}</h1>
+                    <GoBackButton route={ROUTES.HOME} />
+                </div>
 			<form onSubmit={handleSubmit}>
 				<div>
 					<label>Ingrese su nombre:</label>
@@ -67,7 +67,7 @@ const OrderForPickup = () => {
 					<label>Ingrese su pedido:</label>
 					<input type="text" name="content" onChange={handleOnInputChange} />
 				</div>
-				<button type="submit">Enviar pedido</button>
+				<Button type="submit">Enviar pedido</Button>
 			</form>
 		</div>
 		) : (
