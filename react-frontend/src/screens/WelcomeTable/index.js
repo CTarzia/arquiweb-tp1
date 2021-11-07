@@ -12,7 +12,7 @@ const WelcomeTable = () => {
     const [table, setTable] = useState();
 	const [statusError, setStatusError] = useState(false);
 	const [restaurantLoading, setRestaurantLoading] = useState(false);
-    const [color, setColor] = useState(true)
+    const [color, setColor] = useState()
 
 	const { restoId: restaurantId} = useParams();
     const { tableId} = useParams();
@@ -38,7 +38,8 @@ const WelcomeTable = () => {
 					setRestaurantName("Su mesa no ha sido encontrado.");
 				} else {
                     setTable(json);
-					setRestaurantLoading(true)
+					setRestaurantLoading(true);
+					setColor(!json.calling_server)
 				}
 			});
 	}, []);

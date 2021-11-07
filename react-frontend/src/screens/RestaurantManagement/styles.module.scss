@@ -18,6 +18,23 @@
 
 .rectangleOfDeath{
 	display: flex;
-    background-position-x: 1cm;
-    background-color: $blue;
+    width: 70%;
+    background-color: $light-tan;
+}
+
+.displayOrdersColumns{
+	display: flex;
+	flex-direction: column;
+	justify-content:space-around;
+	padding: 5px;
+	//background-color: $light-green;
+	//border: 1px solid #888;
+}
+
+.cards{
+	background-color: $blue;
+}
+
+.cardColumns{
+	padding: 5px;
 }

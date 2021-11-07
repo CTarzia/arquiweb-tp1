@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import styles from "./styles.module.scss";
 import GoBackButton from "../../components/GoBack";
-import { apiGet, apiPost } from "../../utils/services";
 import { ROUTES } from "../../constants/routes";
-import Link from '@mui/material/Link';
 import { Button, ButtonGroup, Typography, Box } from "@mui/material";
-
+import DisplayTable from "./DisplayTable";
 
 const RestaurantManagment = () => {
 	const [restaurantName, setRestaurantName] = useState();
@@ -37,7 +35,6 @@ const RestaurantManagment = () => {
 		.then((json) => {
 			setTables(json)
 		});
-
 	}
 
 	return (
@@ -77,7 +74,13 @@ const RestaurantManagment = () => {
 				</div>
 
 				<div className={styles.rectangleOfDeath}>
-					hola
+					<div className={styles.displayOrdersColumns}>
+						{tables.map(table => (
+                    	    <DisplayTable
+                    	        table={table}
+                    	    />
+                    	))}
+					</div>
 				</div>
 			</div>
     	</div>
