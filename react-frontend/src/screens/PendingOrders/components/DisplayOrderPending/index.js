@@ -24,6 +24,13 @@ const DisplayOrderPending = ({order}) => {
 			headers: {
 				"Content-Type": "application/json",
 			},
+		});
+		fetch(`http://localhost:8080/mesas/${order.restoId}/${order.tableNumber}/status`, {
+			method: "PUT",
+			body: JSON.stringify({}),
+			headers: {
+				"Content-Type": "application/json",
+			},
 		})
     };
 

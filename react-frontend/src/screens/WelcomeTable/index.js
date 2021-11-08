@@ -83,7 +83,7 @@ const WelcomeTable = () => {
             	    orientation="vertical"
 					align="center"
             	    >
-		    	        <Button variant="text" href={`/menu/${restaurantId}`}> 
+		    	        <Button variant="text" href={`/menu/${restaurantId}?mesa=${tableId}`}> 
             	            Ver carta
             	        </Button>
 
@@ -96,7 +96,7 @@ const WelcomeTable = () => {
             	        color={color ? "primary" : "secondary"}
             	        variant={color ? "text" : "contained"}
 						> 
-            	        	LLamar mozo
+            	        	{color ? "LLamar mozo" : "Liberar mozo"}
             	        </Button>
 					</ButtonGroup>
             	</div>

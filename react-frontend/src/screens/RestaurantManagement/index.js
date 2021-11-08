@@ -73,7 +73,7 @@ const RestaurantManagment = () => {
 					</ButtonGroup>
 				</div>
 
-				<div className={styles.rectangleOfDeath}>
+				<div  className={styles.rectangleOfDeath}>
 					<div className={styles.displayOrdersColumns}>
 						{tables.map(table => (
                     	    <DisplayTable

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, CardContent} from "@mui/material";
+import { Button, Card, CardContent, Typography} from "@mui/material";
 import styles from "../styles.module.scss"
+import ReactDOM from 'react-dom'
 
 const DisplayTable = ({table}) => {
-    //const [table, setTable] = useState();
 	const [statusError, setStatusError] = useState(false);
-    const [color, setColor] = useState()
+    const [occupied, setOccupied] = useState();
+	const [server, setServer] = useState();
 
 	useEffect(() => {
 		fetch(`http://localhost:8080/mesas/${table.restaurantId}/${table.tableID}`)
@@ -14,7 +15,8 @@ const DisplayTable = ({table}) => {
 				if (json.status === 404) {
 					setStatusError(true);
 				}else{
-					setColor(!table.calling_server)
+					setServer(table.calling_server)
+					setOccupied(table.status)
 				}
 			});
 	}, []);
@@ -29,15 +31,8 @@ const DisplayTable = ({table}) => {
 		})
 		.then((res) => res.json())
 		.then((json) => {
-			//setTable(json);
 			window.location.reload()
-			setColor(table.calling_server);
-			if (color === true){
-				window.alert(`mozo llamado`);
-			}else{
-				window.alert(`mozo liberado`);
-			}
-			console.log(table)
+			setServer(table.calling_server);
 		})
     };
 
@@ -48,15 +43,14 @@ const DisplayTable = ({table}) => {
 				<div>
 					{table.tableNumber}
 					<div className={styles.table}>
-						<p className={styles.atributte}>ocupada:{JSON.stringify(table.status)} </p>
-						<p className={styles.atributte}>mozo:{JSON.stringify(table.calling_server)} </p>
-						<Button
-            	        onClick = {handleMozo}
-            	        color={color ? "primary" : "secondary"}
-            	        variant={color ? "text" : "contained"}
-						> 
-            	        	Llamaron mozo
-            	        </Button>
+
+						<Typography color={!occupied ? "green" : "crimson"} className={styles.atributte}> 
+							{occupied ? "ocupada" : "libre"} 
+						</Typography>
+
+						<Typography color={!server ? "green" : "crimson"} className={styles.atributte}> 
+						{server ? "llamaron mozo" : "mozo libre"}
+						</Typography>
 					</div>
 				</div>
 			</CardContent>
@@ -64,5 +58,7 @@ const DisplayTable = ({table}) => {
 	</div>
 	)
 };
+
+
 
 export default DisplayTable;
