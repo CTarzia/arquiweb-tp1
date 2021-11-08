@@ -1,5 +1,3 @@
-//DENIED, ACCEPTED, PROGRESS, READY
-
 export function deniedFilter(order){
     return(order.status==="DENIED")
 }

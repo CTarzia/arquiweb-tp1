@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
@@ -36,37 +36,41 @@ const DisplayOrderReady = ({
     };
 
     return (
-        <div className={styles.cardColumns}>
-            <Card>
-                <CardContent className={styles.cards}>
-                    <p>{order["orderId"]}</p>
-                    <div>
-                        {(order.clientName) ? (
-                            <p>
-                                Nombre del cliente: {order["clientName"]}
-                            </p>
-                        ) : (
-                            <p>
-                                Número de mesa: {order["tableNumber"]}
-                            </p>
-                        )}
-                    </div>
-                    
-                    <div class="btn-group">
-                        <DisplayOrderContent
-                            order={order}
-                        />
-                        <Button onClick={handleInProgress}>
-                            IN PROGRESS</Button>
-                        <Tooltip title="Eliminar pedido" >
-                            <IconButton aria-label="delete" onClick={handleDelete}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </div>
-                </CardContent>
-            </Card>
+        <div className={styles.displayOrder}>
+            <div>
+                <Card>
+                    <CardContent>
+                        <div>
+                            {(order.clientName) ? (
+                                <Typography>
+                                    Orden para {order["clientName"]}
+                                </Typography>
+                            ) : (
+                                <Typography>
+                                    Orden para mesa {order["tableNumber"]}
+                                </Typography>
+                            )}
+                        </div>
+                        <Typography>Orden número {order["orderId"]}</Typography>
+                        <div class="btn-group">
+                            <DisplayOrderContent
+                                order={order}
+                            />
+                            <Button onClick={handleInProgress}>
+                                IN PROGRESS</Button>
+                            <Tooltip title="Eliminar pedido" >
+                                <IconButton aria-label="delete" onClick={handleDelete}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+
         </div>
+
     );
 };
 

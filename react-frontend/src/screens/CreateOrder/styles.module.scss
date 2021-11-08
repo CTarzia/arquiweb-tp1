@@ -14,8 +14,9 @@
 	justify-content: center;
 	padding: 5px;
 	.submitButton{
-		align-self: flex-start;
+		align-self: flex-end;
 	}
+	background-color: $light-green
 }
 
 .displayOrder{

@@ -34,7 +34,6 @@ const CurrentOrders = () => {
                     setRestaurantName("Su restaurante no ha sido encontrado.");
                 } else {
                     setRestaurantName(json.name);
-                    console.log(restaurantName) // Esto me da undefined
                     setRestaurantLoading(true)
                 }
             });
@@ -50,24 +49,17 @@ const CurrentOrders = () => {
                     setPendingOrders(json.filter(pendingFilter))
                     setInProgressOrders(json.filter(inProgressFilter))
                     setReadyOrders(json.filter(readyFilter))
-                    console.log(json)
                     setOrdersLoading(true)
                 }
             });
         // apiGet(`http://localhost:8080/restaurantes/${restaurantId}`)
     }, []);
 
-
-    console.log("Denied:", deniedOrders)
-    console.log("Pending:", pendingOrders)
-    console.log("In Progress:", inProgressOrders)
-    console.log("Ready:", readyOrders)
-
     return (
         restaurantLoading ? (
             <div>
                 <div className={styles.titleContainer}>
-                    <h1>{restaurantName}</h1>
+                    <Typography variant="h3" component="h1">Pedidos en curso {restaurantName}</Typography>
                     <GoBackButton route={ROUTES.HOME} />
                 </div>
                 <div>
@@ -82,7 +74,7 @@ const CurrentOrders = () => {
                                 ))}
                             </div>
                             <div>
-                                <Typography variant="h5" align="center" > Pedidos listos </Typography>
+                            <Typography variant="h5" align="center" > Pedidos listos </Typography>
                                 {readyOrders.map(order => (
                                     <DisplayOrderReady
                                         order={order}

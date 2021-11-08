@@ -87,7 +87,7 @@ const WelcomeTable = () => {
             	            Ver carta
             	        </Button>
 
-		    	        <Button color="primary" variant="text" href={`/restaurante/${restaurantId}/hacer_pedido`}> 
+		    	        <Button color="primary" variant="text" href={`/restaurante/${restaurantId}/hacer_pedido?mesa=${tableId}`}> 
             	            Hacer pedido
             	        </Button>
 

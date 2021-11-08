@@ -2,13 +2,13 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./screens/Home";
-import OrderForPickup from "./screens/OrderForPickup";
 import OrderStatus from "./screens/OrderStatus";
 import WelcomeTable from "./screens/WelcomeTable";
 import { ROUTES } from "./constants/routes";
 import Menu from "./screens/Menu";
-import CurrentOrders from "./screens/CurrentOrders";
 import PendingOrders from "./screens/PendingOrders";
+import CurrentOrders from "./screens/CurrentOrders";
+import CreateOrder from "./screens/CreateOrder";
 import RestaurantManagment from "./screens/RestaurantManagement";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
 					<Route
 						exact
 						path={ROUTES.CREATE_ORDER}
-						component={OrderForPickup}
+						component={CreateOrder}
 					></Route>
 					<Route
 						exact

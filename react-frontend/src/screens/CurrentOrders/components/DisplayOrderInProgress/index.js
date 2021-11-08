@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 import DisplayOrderContent from "../DisplayOrderContent";
 
 import styles from "../../styles.module.scss"
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 
 const DisplayOrderInProgress = ({
     order,
@@ -36,36 +36,35 @@ const DisplayOrderInProgress = ({
 
 
     return (
-        <div className={styles.cardColumns}>
+        <div className={styles.displayOrder}>
             <Card>
-                <CardContent className={styles.cards}>
-                    <div className={styles.displayOrder}>
-                        <p>{order["orderId"]}</p>
-                        <div>
-                            {(order.clientName)?(
-                            <p>
-                                Nombre del cliente: {order["clientName"]}
-                            </p>
-                            ):(
-                            <p>
-                                Número de mesa: {order["tableNumber"]}
-                            </p>
-                            )}
-                        </div>
-                            
-                        <div class="btn-group">
-                            <DisplayOrderContent
-                                order={order}
-                            />
-                            <Button onClick={handleReady}>
-                                Pedidio listo</Button>
-                            <Button onClick={handleReject}>
-                                Rechazar</Button>
-                        </div>
+                <CardContent>
+                    <div>
+                        {(order.clientName) ? (
+                            <Typography>
+                                Orden para {order["clientName"]}
+                            </Typography>
+                        ) : (
+                            <Typography>
+                                Orden para mesa {order["tableNumber"]}
+                            </Typography>
+                        )}
+                    </div>
+                    <Typography>Orden número {order["orderId"]}</Typography>
+                    <div class="btn-group">
+                        <DisplayOrderContent
+                            order={order}
+                        />
+                        <Button onClick={handleReady}>
+                            Pedidio listo</Button>
+                        <Button onClick={handleReject}>
+                            Rechazar</Button>
+
                     </div>
                 </CardContent>
             </Card>
         </div>
+
     );
 };
 
