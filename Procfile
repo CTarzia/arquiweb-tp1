@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar springboot-backend/target/springboot-backend.jar
+web: java -jar springboot-backend/target/springboot-backend.jar
