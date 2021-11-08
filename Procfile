@@ -1,0 +1,1 @@
+web: java -jar target/springboot-backend-1.0.jar
