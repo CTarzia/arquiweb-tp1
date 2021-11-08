@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import springboot.model.PickupOrder;
+import springboot.model.Status;
 import springboot.model.TableOrder;
 import springboot.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +62,8 @@ public class OrderController {
         order.setStatus(newOrder.getStatus());
         order.setContent(newOrder.getContent());
 
-        Order updatedOrder = orderRepository.save(order);
-        return ResponseEntity.ok(updatedOrder);
+        orderRepository.save(order);
+        return ResponseEntity.ok(order);
     }
 
     // delete order rest api

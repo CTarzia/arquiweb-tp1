@@ -36,6 +36,8 @@ public class RestaurantTableController {
             RestaurantTable lastTable = tables.get(tables.size() - 1);
             restaurantTable.setTableNumber(lastTable.getTableNumber() + 1);
         }
+        restaurantTable.setStatus(false);
+        restaurantTable.setCalling_server(false);
         return restaurantTableRepository.save(restaurantTable);
     }
 
@@ -50,11 +52,20 @@ public class RestaurantTableController {
     }
 
     // change table state
-    @PutMapping("/{restoid}/{tableid}")
+    @PutMapping("/{restoid}/{tableid}/status")
     public ResponseEntity<RestaurantTable> changeTableState(@PathVariable Long restoid,@PathVariable Long tableid) {
         RestaurantTable table = restaurantTableRepository.findById(tableid)
                 .orElseThrow(() -> new ResourceNotFoundException("Table does not exist with id :" + tableid));
         table.setStatus(!(table.getStatus()));
+        restaurantTableRepository.save(table);
+        return ResponseEntity.ok(table);
+    }
+
+    @PutMapping("/{restoid}/{tableid}/server")
+    public ResponseEntity<RestaurantTable> changeTableServerState(@PathVariable Long restoid,@PathVariable Long tableid) {
+        RestaurantTable table = restaurantTableRepository.findById(tableid)
+                .orElseThrow(() -> new ResourceNotFoundException("Table does not exist with id :" + tableid));
+        table.setCalling_server(!(table.getCalling_server()));
         restaurantTableRepository.save(table);
         return ResponseEntity.ok(table);
     }
