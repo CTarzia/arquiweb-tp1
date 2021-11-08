@@ -1,1 +1,1 @@
-web: java -jar target/springboot-backend-0.0.1.jar
+web: java -jar target/springboot-backend-2.3.0.RELEASE.jar
