@@ -17,6 +17,7 @@ const CreateOrder = () => {
 	const [restaurantLoading, setRestaurantLoading] = useState(false);
 	const [orderLoading, setOrderLoading] = useState(true);
 	const [orderTaken, setOrderTaken] = useState(false);
+	const [orderStatus, setOrderStatus] = useState();
 
 	const { id: restaurantId } = useParams();
 	const search = useLocation().search;
@@ -38,10 +39,9 @@ const CreateOrder = () => {
 		fetch(`http://localhost:8080/mesas/${restaurantId}/${tableNumber}`)
 		.then((res) => res.json())
 		.then((json) => {
-			console.log(json.status)
+			console.log(orderTaken);
 			if (json.status) {
 				setOrderTaken(json.status);
-				console.log(orderTaken)
 			}
 		});
 	}, []);
@@ -53,16 +53,13 @@ const CreateOrder = () => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault()
 		setOrderLoading(false)
-		const type = (tableNumber) ? ("table") : ("client")
-		let orderToSend = order
-		if (tableNumber) {
-			orderToSend = { ...order, tableNumber }
-		};
-		console.log(typeof(orderTaken));
-		if(orderTaken){
-			setOrderLoading(true);
-			window.alert(`no puede realizar mas de un pedido`);
-		}else{
+		if(!orderTaken){
+			const type = (tableNumber) ? ("table") : ("client")
+			let orderToSend = order
+			if (tableNumber) {
+				orderToSend = { ...order, tableNumber }
+			};
+			console.log(typeof(orderTaken));
 			fetch(`http://localhost:8080/orders/${type}/${restaurantId}`, {
 				method: "POST",
 				body: JSON.stringify(orderToSend),
@@ -86,6 +83,9 @@ const CreateOrder = () => {
 					"Content-Type": "application/json",
 				},
 			});
+		}else{
+			setOrderLoading(true);
+			window.alert(`no puede realizar mas de un pedido`);
 		}
 		window.location.reload();
 	};

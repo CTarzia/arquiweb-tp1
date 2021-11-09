@@ -78,6 +78,7 @@ public class RestaurantTable {
 
     public String getRestaurantName() {
         return restaurantName;
+
     }
 
     public void setRestaurantName(String restaurantName) {

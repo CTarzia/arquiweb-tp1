@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, CardContent, Typography} from "@mui/material";
-import styles from "../styles.module.scss"
+import styles from "../../styles.module.scss"
 import ReactDOM from 'react-dom'
 
 const DisplayTable = ({table}) => {
@@ -21,21 +21,6 @@ const DisplayTable = ({table}) => {
 			});
 	}, []);
 	
-	const handleMozo = () =>{
-        fetch(`http://localhost:8080/mesas/${table.restaurantId}/${table.tableID}/server`, {
-			method: "PUT",
-			body: JSON.stringify({}),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-		.then((res) => res.json())
-		.then((json) => {
-			window.location.reload()
-			setServer(table.calling_server);
-		})
-    };
-
 	return(
 	<div className={styles.cardColumns}>	
 		<Card> 
