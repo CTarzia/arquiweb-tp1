@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DisplayImages from "../DisplayImages";
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 
 
@@ -39,10 +41,6 @@ const UploadImages = ({
             .then(imageIds => {
                 imageIds.map(fetchImages)
             });
-
-
-
-
     }, []);
 
 
@@ -57,7 +55,6 @@ const UploadImages = ({
             .then(dataUri => {
                 setDataUri(dataUri);
             });
-        console.log(file)
 
         const data = new FormData()
         data.append('file', file)
@@ -67,32 +64,42 @@ const UploadImages = ({
             body: data
         })
             .then(res => res.json())
-            .then(data => { console.log(data)})
-
+            .then(data => { })
+        window.location.reload()
 
     }
 
-
-
     return (
-        imagesLoading ? (
-            <div>
-                
-                <input type="file" onChange={(event) => onChange(event.target.files[0] || null)} />
-                <Grid container spacing={2}>
-                    {photos.map(img => (
-                        <Grid item xs={4}>
-                            <DisplayImages
-                                img={img}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
 
+            <div>
+                <label htmlFor="upload-photo">
+                    <input
+                        style={{ display: 'none' }}
+                        id="upload-photo"
+                        name="upload-photo"
+                        type="file"
+                        onChange={(event) => onChange(event.target.files[0] || null)}
+                    />
+                    <Button variant="contained" component="span" endIcon={<PhotoCamera />}>
+                        Añadir imagen
+                    </Button>
+                </label>
+
+                {imagesLoading ? (
+                    <Grid container spacing={2}>
+                        {photos.map(img => (
+                            <Grid item xs={4}>
+                                <DisplayImages
+                                    img={img}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
+                ) : (
+                    <div>Recuperando imágenes de su restaurante...</div>
+                )}
+                
             </div>
-        ) : (
-            <div>Recuperando imágenes de su restaurate...</div>
-        )
 
     );
 };

@@ -81,12 +81,13 @@ const Menu = () => {
         			    <h1 > {restaurantName}</h1>
 						<GoBackButton route={ROUTES.HOME} />
         			</div>
-					<div>
-						<Typography verient="h5" className={styles.subtitle}>
+					<Typography verient="h5" className={styles.subtitle}>
 							<h4>Menu</h4>
-						</Typography>
+					</Typography>
+					<div className={styles.menuButton}>
 						
-						<object data={menu} type="application/pdf" width="100%" height="500px" />
+						
+						<object data={menu} type="application/pdf" width="80%" height="500px" />
 
 				    	<Button variant="text" href={(tableId) ? (`/restaurante/${restaurantId}/hacer_pedido?mesa=${tableId}`) : (`/restaurante/${restaurantId}/hacer_pedido`)}> 
         		    	    Hacer pedido

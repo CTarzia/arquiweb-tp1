@@ -1,8 +1,12 @@
 @import "src/styles/_colors.scss";
 @import "src/styles/styles.scss";
 
-.table{
+
+.menuButton{
 	display: flex;
+	flex-direction: column;
 	justify-content:center;
+	align-items: center;
 	padding: 5px;
+	background-color: $light-green;
 }
