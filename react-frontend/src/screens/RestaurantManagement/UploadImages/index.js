@@ -74,7 +74,7 @@ const UploadImages = ({
     }
 
     return (
-        imagesLoading ? (
+
             <div>
                 <label htmlFor="upload-photo">
                     <input
@@ -85,24 +85,24 @@ const UploadImages = ({
                         onChange={(event) => onChange(event.target.files[0] || null)}
                     />
                     <Button variant="contained" component="span" endIcon={<PhotoCamera />}>
-                    Añadir imagen
+                        Añadir imagen
                     </Button>
                 </label>
+                {imagesLoading ? (
+                    <Grid container spacing={2}>
+                        {photos.map(img => (
+                            <Grid item xs={4}>
+                                <DisplayImages
+                                    img={img}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
+                ) : (
+                    <div>Recuperando imágenes de su restaurante...</div>
+                )}
                 
-                <Grid container spacing={2}>
-                    {photos.map(img => (
-                        <Grid item xs={4}>
-                            <DisplayImages
-                                img={img}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-
             </div>
-        ) : (
-            <div>Recuperando imágenes de su restaurante...</div>
-        )
 
     );
 };
