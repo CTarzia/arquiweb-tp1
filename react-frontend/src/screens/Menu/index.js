@@ -17,6 +17,29 @@ const Menu = () => {
 	const search = useLocation().search;
 	const tableId = new URLSearchParams(search).get('mesa');
 
+	function showFile(blob){
+		// It is necessary to create a new blob object with mime-type explicitly set
+		// otherwise only Chrome works like it should
+		var newBlob = new Blob([blob], {type: "application/pdf"})
+	  
+		// IE doesn't allow using a blob object directly as link href
+		// instead it is necessary to use msSaveOrOpenBlob
+	
+		// For other browsers: 
+		// Create a link pointing to the ObjectURL containing the blob.
+		const data = window.URL.createObjectURL(newBlob);
+		var link = document.createElement('a');
+		link.href = data;
+		//link.download="file.pdf";
+		//link.click();
+		//setTimeout(function(){
+		//  // For Firefox it is necessary to delay revoking the ObjectURL
+		//  window.URL.revokeObjectURL(data);
+		//}, 100);
+		setMenu(data);
+		setMenuLoading(true);
+	};
+
 	useEffect(() => {
 		fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
 			.then((res) => res.json())
@@ -29,15 +52,26 @@ const Menu = () => {
 					setRestaurantLoading(true)
 				}
 		});
-		fetch(`http://localhost:8080/carta/${restaurantId}`)
+		fetch(`http://localhost:8080/carta/${restaurantId}`,{responseType: "blob"})
+		
+		//.then(response => response.blob())
+		//.then(file => {
+		//	Create a local URL of that file
+		//	const fileUrl = URL.createObjectURL(file);
+		//	console.log(file);
+		//	setMenu(fileUrl);
+		//	setMenuLoading(true);
+		
 		.then(response => response.blob())
-		.then(file => {
-			// Create a local URL of that image
-			const localUrl = URL.createObjectURL(file);
-			setMenu(localUrl);
-			setMenuLoading(true);
-		});
-	}, []);
+		.then(showFile)
+		
+		//.then(response =>{
+		//	const file = new Blob([response.data], {type: 'application/pdf'});
+		//	const url = URL.createObjectURL(file);
+		//	setMenu(url);
+		//	setMenuLoading(true);
+		//});
+	},[]);
 
 	return (
 		restaurantLoading ? (
@@ -51,16 +85,8 @@ const Menu = () => {
 						<Typography verient="h5" className={styles.subtitle}>
 							<h4>Menu</h4>
 						</Typography>
-
-						<iframe src="http://localhost:3000/6de81bf7-5f2e-44c2-93c0-758da95efdc5" width="100%" height="500px">	
-    					</iframe>	
-
-						<a href={menu}> </a> 
-
-						{console.log("soy un pdf")}
-						{console.log(menu)}
-
-						<embed src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/ee5d5337-c821-47c5-ae08-dbe7b71a8a69/VerLaCarta.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211109%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211109T195226Z&X-Amz-Expires=86400&X-Amz-Signature=9c4f13df72504f164dbfbef436f84a7da5f535e71323e61671f3d1cb857ebed7&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22VerLaCarta.pdf%22" type="application/pdf" width="100%" height="600px" />
+						
+						<object data={menu} type="application/pdf" width="100%" height="500px" />
 
 				    	<Button variant="text" href={(tableId) ? (`/restaurante/${restaurantId}/hacer_pedido?mesa=${tableId}`) : (`/restaurante/${restaurantId}/hacer_pedido`)}> 
         		    	    Hacer pedido
