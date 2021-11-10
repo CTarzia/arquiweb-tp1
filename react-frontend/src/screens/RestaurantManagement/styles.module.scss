@@ -32,7 +32,7 @@
 }
 
 .cards{
-	background-color: $blue;
+	//background-color: $blue;
 }
 
 .cardColumns{
@@ -42,10 +42,6 @@
 .table{
 	display: flex;
 	flex-direction: row;
-	padding: 5px;
-}
-
-.atributte{
-	display: flex;
+	justify-content: space-around;
 	padding: 5px;
 }

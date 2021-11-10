@@ -23,17 +23,17 @@ const DisplayTable = ({table}) => {
 	
 	return(
 	<div className={styles.cardColumns}>	
-		<Card> 
+		<Card sx={{ maxWidth: 345 }}> 
 			<CardContent className={styles.cards} >
 				<div>
 					{table.tableNumber}
 					<div className={styles.table}>
 
-						<Typography color={!occupied ? "green" : "crimson"} className={styles.atributte}> 
+						<Typography color={!occupied ? "green" : "crimson"} > 
 							{occupied ? "ocupada" : "libre"} 
 						</Typography>
 
-						<Typography color={!server ? "green" : "crimson"} className={styles.atributte}> 
+						<Typography color={!server ? "green" : "crimson"} > 
 						{server ? "llamaron mozo" : "mozo libre"}
 						</Typography>
 					</div>
