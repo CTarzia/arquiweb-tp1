@@ -81,14 +81,14 @@ const Menu = () => {
 						<Typography variant="h3" component="h1">{restaurantName}</Typography>
 						<GoBackButton route={ROUTES.HOME} />
         			</div>
-					<Typography verient="h5" className={styles.subtitle}>
-							<h4>Menu</h4>
+					<Typography variant="h5" className={styles.subtitle}>
+							Menu
 					</Typography>
 					<div className={styles.menuButton}>					
 						
 						<object data={menu} type="application/pdf" width="60%" height="500px" />
 
-				    	<Button variant="text" href={(tableId) ? (`/restaurante/${restaurantId}/hacer_pedido?mesa=${tableId}`) : (`/restaurante/${restaurantId}/hacer_pedido`)}> 
+				    	<Button variant="text" href={(tableId) ? (`/restaurante/${restaurantId}/hacer_pedido?mesa=${tableId}`) : (`/restaurante/${restaurantId}/hacer_pedido`)} className={styles.submitButton}> 
         		    	    Hacer pedido
         		    	</Button>
 					</div>			

@@ -13,9 +13,13 @@
 	display: flex;
 	justify-content:center;
 	padding: 5px;
+	padding-bottom: 5%;
 	background-color: $light-green;
 }
 
+.submitButton{
+	align-self: center;	
+}
 /* The Modal (background) */
 .modal {
 	display: none; /* Hidden by default */

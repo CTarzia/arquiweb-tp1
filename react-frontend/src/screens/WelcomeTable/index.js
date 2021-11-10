@@ -73,8 +73,8 @@ const WelcomeTable = () => {
 					<GoBackButton route={ROUTES.HOME} />
                 </div>
 				
-				<Typography verient="h5" className={styles.subtitle}>
-					<h4>mesa {tableId}</h4>
+				<Typography variant="h5" className={styles.subtitle}>
+					Mesa {tableId}
 				</Typography>
 			
             	<div className={styles.displayButtonsColumn}>

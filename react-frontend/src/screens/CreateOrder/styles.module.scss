@@ -1,4 +1,5 @@
 @import "src/styles/_colors.scss";
+@import "src/styles/styles.scss";
 
 .titleContainer{
 	// background-color: $light-tan;
@@ -13,9 +14,6 @@
 	flex-direction: column;
 	justify-content: center;
 	padding: 5px;
-	.submitButton{
-		align-self: flex-end;
-	}
 	background-color: $light-green
 }
 
