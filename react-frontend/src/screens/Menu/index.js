@@ -78,16 +78,15 @@ const Menu = () => {
 			menuLoading ? (
 				<div>
 					<div className={styles.titleContainer}>
-        			    <h1 > {restaurantName}</h1>
+						<Typography variant="h3" component="h1">{restaurantName}</Typography>
 						<GoBackButton route={ROUTES.HOME} />
         			</div>
 					<Typography verient="h5" className={styles.subtitle}>
 							<h4>Menu</h4>
 					</Typography>
-					<div className={styles.menuButton}>
+					<div className={styles.menuButton}>					
 						
-						
-						<object data={menu} type="application/pdf" width="80%" height="500px" />
+						<object data={menu} type="application/pdf" width="60%" height="500px" />
 
 				    	<Button variant="text" href={(tableId) ? (`/restaurante/${restaurantId}/hacer_pedido?mesa=${tableId}`) : (`/restaurante/${restaurantId}/hacer_pedido`)}> 
         		    	    Hacer pedido

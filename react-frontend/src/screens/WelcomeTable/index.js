@@ -69,8 +69,7 @@ const WelcomeTable = () => {
 		restaurantLoading ? (
 			<div >
 				<div className={styles.titleContainer}>
-					
-                    <h1 >{restaurantName}</h1>
+					<Typography variant="h3" component="h1">{restaurantName}</Typography>
 					<GoBackButton route={ROUTES.HOME} />
                 </div>
 				
