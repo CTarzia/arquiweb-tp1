@@ -47,18 +47,18 @@ const DisplayOrderReady = ({
             <div>
                 <Card>
                     <CardContent>
+                        <Typography>Orden {order.orderId}</Typography>
                         <div>
                             {(order.clientName) ? (
-                                <Typography>
-                                    Orden para {order["clientName"]}
-                                </Typography>
-                            ) : (
-                                <Typography>
-                                    Orden para mesa {order["tableNumber"]}
-                                </Typography>
-                            )}
+    	                        <Typography>
+    	                            Nombre del cliente: {order["clientName"]}
+    	                        </Typography>
+    	                    ) : (
+    	                        <Typography>
+    	                            Número de mesa: {order["tableNumber"]}
+    	                        </Typography>
+    	                    )}
                         </div>
-                        <Typography>Orden número {order["orderId"]}</Typography>
                         <div class="btn-group">
                             <DisplayOrderContent
                                 order={order}

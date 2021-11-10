@@ -4,8 +4,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 
-import styles from "../../styles.module.scss"
-
 const DisplayOrderContent = ({
     order
 }) => {

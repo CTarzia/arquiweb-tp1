@@ -26,7 +26,7 @@ const DisplayTable = ({table}) => {
 		<Card sx={{ maxWidth: 345 }}> 
 			<CardContent className={styles.cards} >
 				<div>
-					{table.tableNumber}
+					Mesa {table.tableNumber}
 					<div className={styles.table}>
 
 						<Typography color={!occupied ? "green" : "crimson"} > 

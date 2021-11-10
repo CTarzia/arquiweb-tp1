@@ -1,6 +1,6 @@
-import { Button, Card, CardContent} from "@mui/material";
+import { Button, Card, CardContent, Typography} from "@mui/material";
 import React from "react";
-import DisplayOrderContent from "../../../CurrentOrders/components/DisplayOrderContent";
+import DisplayOrderContent from "../../../../components/DisplayOrderContent";
 import styles from "../../styles.module.scss"
 
 const DisplayOrderPending = ({order}) => {
@@ -39,15 +39,15 @@ const DisplayOrderPending = ({order}) => {
 		<Card > 
 			<CardContent className={styles.cards}>
 				<div >
-					{order.orderId}
+					Orden {order.orderId}
 					{(order.clientName) ? (
-    	                <p>
+    	                <Typography>
     	                    Nombre del cliente: {order["clientName"]}
-    	                </p>
+    	                </Typography>
     	            ) : (
-    	                <p>
+    	                <Typography>
     	                    Número de mesa: {order["tableNumber"]}
-    	                </p>
+    	                </Typography>
     	            )}
 					<div class="btn-group">
 						<DisplayOrderContent
