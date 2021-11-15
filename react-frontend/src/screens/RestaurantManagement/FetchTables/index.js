@@ -18,6 +18,7 @@ const FetchTables = ({
 				setTables(json)
 				setTablesLoading(true);
 			});
+			console.log(tables);			
     }, []);
 
 	const handleCreateTable = (() => {

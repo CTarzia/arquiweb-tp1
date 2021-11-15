@@ -39,7 +39,15 @@
 	padding: 5px;
 }
 
-.table{
+.tableTitle{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+}
+
+.tableAttributes{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
