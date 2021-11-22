@@ -41,10 +41,6 @@ const UploadImages = ({
             .then(imageIds => {
                 imageIds.map(fetchImages)
             });
-
-
-
-
     }, []);
 
 
@@ -88,6 +84,7 @@ const UploadImages = ({
                         Añadir imagen
                     </Button>
                 </label>
+
                 {imagesLoading ? (
                     <Grid container spacing={2}>
                         {photos.map(img => (
