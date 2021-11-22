@@ -1,0 +1,13 @@
+@import "src/styles/_colors.scss";
+@import "src/styles/styles.scss";
+
+.displayButtonsColumn{
+	display: flex;
+	flex-direction: row;
+	justify-content:center;
+	padding: 5px;
+	background-color: $light-green;
+	//border: 1px solid #888;
+}
+
+

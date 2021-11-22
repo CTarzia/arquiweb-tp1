@@ -1,0 +1,55 @@
+@import "src/styles/_colors.scss";
+@import "src/styles/styles.scss";
+
+.managementSection{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 5px;
+	background-color: $light-green;
+	//border: 1px solid #888; 
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.rectangleOfDeath{
+	display: flex;
+    width: 80%;
+    background-color: $light-tan;
+}
+
+.displayOrdersColumns{
+	display: flex;
+	flex-direction: column;
+	justify-content:space-around;
+	padding: 5px;
+	//background-color: $light-green;
+	//border: 1px solid #888;
+}
+
+.cards{
+	//background-color: $blue;
+}
+
+.cardColumns{
+	padding: 5px;
+}
+
+.tableTitle{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+}
+
+.tableAttributes{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 5px;
+}
