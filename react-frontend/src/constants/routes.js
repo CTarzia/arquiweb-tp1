@@ -6,5 +6,8 @@ export const ROUTES = {
 	PENDING_ORDERS: "/restaurante/:id/pedidos_pendientes",
 	MENU: "/menu/:restoId",
 	HOME: "/",
+	RESTAURANT_MANAGMENT: "/restaurante/:restoId",
+	NEARBY_RESTAURANTS: "/restaurantes_cercanos"
 	RESTAURANT_MANAGMENT: "/restaurante/:restoId"
+
 };

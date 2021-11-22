@@ -5,8 +5,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
 import DisplayOrderContent from "../../../../components/DisplayOrderContent";
+
 
 import styles from "../../styles.module.scss"
 
@@ -32,6 +32,7 @@ const DisplayOrderReady = ({
             headers: {
                 "Content-Type": "application/json",
             },
+
         });
         fetch(`http://localhost:8080/mesas/${order.restoId}/${order.tableNumber}/status`, {
 			method: "PUT",
@@ -40,6 +41,7 @@ const DisplayOrderReady = ({
 				"Content-Type": "application/json",
 			},
 		})
+
     };
 
     return (

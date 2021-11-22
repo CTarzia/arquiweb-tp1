@@ -18,7 +18,9 @@ const PostOrder = ({
                     <TextField name="clientName" label="Ingrese su nombre" variant="outlined" onChange={handleOnInputChange}/>
                 </div>
             ) : (
+
                 <Typography variant="h5">
+
                     Usted está en la mesa {tableNumber}.
                 </Typography>
             )}

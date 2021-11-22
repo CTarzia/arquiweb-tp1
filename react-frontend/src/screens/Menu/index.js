@@ -6,6 +6,7 @@ import { ROUTES } from "../../constants/routes";
 import { Button, Typography} from "@mui/material";
 import { useLocation } from "react-router-dom";
 
+
 const Menu = () => {
 	const [restaurantName, setRestaurantName] = useState();
 	const [statusError, setStatusError] = useState(false);

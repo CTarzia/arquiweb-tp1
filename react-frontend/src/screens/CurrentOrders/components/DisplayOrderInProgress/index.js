@@ -2,8 +2,8 @@ import React from "react";
 import { Button, Typography } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
 import DisplayOrderContent from "../../../../components/DisplayOrderContent";
+
 
 import styles from "../../styles.module.scss"
 
@@ -59,7 +59,6 @@ const DisplayOrderInProgress = ({
     	                    </Typography>
     	                )}
                     </div>
-                    
                     <div class="btn-group">
                         <DisplayOrderContent
                             order={order}

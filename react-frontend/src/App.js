@@ -10,6 +10,7 @@ import PendingOrders from "./screens/PendingOrders";
 import CurrentOrders from "./screens/CurrentOrders";
 import CreateOrder from "./screens/CreateOrder";
 import RestaurantManagment from "./screens/RestaurantManagement";
+import NearbyRestaurants from "./screens/NearbyRestaurants";
 
 function App() {
 	return (
@@ -51,6 +52,12 @@ function App() {
 						exact
 						path={ROUTES.RESTAURANT_MANAGMENT}
 						component={RestaurantManagment}
+					></Route>
+
+					<Route
+						exact
+						path={ROUTES.NEARBY_RESTAURANTS}
+						component={NearbyRestaurants}
 					></Route>
 				</Switch>
 			</Router>

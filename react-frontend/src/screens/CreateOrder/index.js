@@ -53,6 +53,7 @@ const CreateOrder = () => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault()
 		setOrderLoading(false)
+
 		if(!orderTaken){
 			const type = (tableNumber) ? ("table") : ("client")
 			let orderToSend = order
@@ -76,6 +77,7 @@ const CreateOrder = () => {
 					window.alert(`Su pedido ha sido enviado. Su número de pedido es: ${json}.`);
 				}
 			});
+
 			fetch(`http://localhost:8080/mesas/${restaurantId}/${tableNumber}/status`, {
 				method: "PUT",
 				body: JSON.stringify({}),

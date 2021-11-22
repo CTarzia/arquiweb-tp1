@@ -81,8 +81,8 @@ const WelcomeTable = () => {
 					<ButtonGroup
             	    orientation="vertical"
 					align="center"
-            	    >
 		    	        <Button variant="text" href={`/menu/${restaurantId}?mesa=${tableId}`}> 
+
             	            Ver carta
             	        </Button>
 

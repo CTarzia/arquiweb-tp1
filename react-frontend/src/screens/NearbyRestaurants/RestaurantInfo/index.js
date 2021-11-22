@@ -80,6 +80,18 @@ const RestaurantInfo = ({ restoId: restaurantId }) => {
                             <div>Recuperando imágenes de su restaurante...</div>
                         )}
                     </div>
+                    <div>
+                        <ButtonGroup>
+                            <Button variant="text" href={`http://localhost:3000/menu/${restaurantId}`}>
+                                Ver Carta
+                            </Button>
+                            <Button variant="text" href={`/restaurante/${restaurantId}/hacer_pedido`}>
+                                Hacer Pedido
+                            </Button>
+                        </ButtonGroup>
+
+                    </div>
+
 
                 </Paper>
             </div>

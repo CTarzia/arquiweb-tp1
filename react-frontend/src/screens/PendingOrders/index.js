@@ -49,6 +49,7 @@ const PendingOrders = () => {
             <div>
                 <div className={styles.titleContainer}>
                     <Typography variant="h3" component="h1">{restaurantName}</Typography>
+
                     <GoBackButton route={ROUTES.HOME} />
                 </div>
                 

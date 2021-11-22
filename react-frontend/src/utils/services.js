@@ -1,6 +1,8 @@
+
 async function apiGet (url = "", successCallback, failureCallback) {
 	const response = await fetch(`http://localhost:8080/${url}`)
 		.then((res) => res.json())
+
 		.then((json) => {
 			if (json.status === 404) {
 				if (failureCallback) failureCallback();

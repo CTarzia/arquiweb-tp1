@@ -1,6 +1,7 @@
 import { Button, Card, CardContent, Typography} from "@mui/material";
 import React from "react";
 import DisplayOrderContent from "../../../../components/DisplayOrderContent";
+
 import styles from "../../styles.module.scss"
 
 const DisplayOrderPending = ({order}) => {
@@ -24,6 +25,7 @@ const DisplayOrderPending = ({order}) => {
 			headers: {
 				"Content-Type": "application/json",
 			},
+
 		});
 		fetch(`http://localhost:8080/mesas/${order.restoId}/${order.tableNumber}/status`, {
 			method: "PUT",
