@@ -40,7 +40,7 @@ public class User {
 		this.name = name;
 	}
 
-	public long getPassword() {
+	public String getPassword() {
 		return password;
 	}
 	public void setPassword(long id) {
