@@ -2,8 +2,8 @@ import React from "react";
 import { Button, Typography } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import DisplayOrderContent from "../../../../components/DisplayOrderContent";
 
-import DisplayOrderContent from "../DisplayOrderContent";
 
 import styles from "../../styles.module.scss"
 
@@ -19,7 +19,7 @@ const DisplayOrderInProgress = ({
             headers: {
                 "Content-Type": "application/json",
             },
-        })
+        });
     };
 
     const handleReject = () => {
@@ -30,7 +30,14 @@ const DisplayOrderInProgress = ({
             headers: {
                 "Content-Type": "application/json",
             },
-        })
+        });
+        fetch(`http://localhost:8080/mesas/${order.restoId}/${order.tableNumber}/status`, {
+			method: "PUT",
+			body: JSON.stringify({}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
     };
 
 
@@ -39,18 +46,19 @@ const DisplayOrderInProgress = ({
         <div className={styles.displayOrder}>
             <Card>
                 <CardContent>
+                    <Typography>Orden {order.orderId}</Typography>
+
                     <div>
                         {(order.clientName) ? (
-                            <Typography>
-                                Orden para {order["clientName"]}
-                            </Typography>
-                        ) : (
-                            <Typography>
-                                Orden para mesa {order["tableNumber"]}
-                            </Typography>
-                        )}
+    	                    <Typography>
+    	                        Nombre del cliente: {order["clientName"]}
+    	                    </Typography>
+    	                ) : (
+    	                    <Typography>
+    	                        Número de mesa: {order["tableNumber"]}
+    	                    </Typography>
+    	                )}
                     </div>
-                    <Typography>Orden número {order["orderId"]}</Typography>
                     <div class="btn-group">
                         <DisplayOrderContent
                             order={order}

@@ -53,6 +53,7 @@ function App() {
 						path={ROUTES.RESTAURANT_MANAGMENT}
 						component={RestaurantManagment}
 					></Route>
+
 					<Route
 						exact
 						path={ROUTES.NEARBY_RESTAURANTS}

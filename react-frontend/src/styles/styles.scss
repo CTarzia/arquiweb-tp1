@@ -1,18 +1,25 @@
 @import "src/styles/_colors.scss";
 
 .titleContainer{
-	background-color: $light-tan;
+	//background-color: $light-tan;
 	display: flex;
 	justify-content: space-between;
 	padding: 5px;
+	background-color:$dark-green;
+	color: $white
 }
 
 .subtitle{
 	display: flex;
 	justify-content:center;
 	padding: 5px;
+	padding-bottom: 5%;
+	background-color: $light-green;
 }
 
+.submitButton{
+	align-self: center;	
+}
 /* The Modal (background) */
 .modal {
 	display: none; /* Hidden by default */

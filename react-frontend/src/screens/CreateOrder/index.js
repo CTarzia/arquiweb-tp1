@@ -16,6 +16,8 @@ const CreateOrder = () => {
 	const [order, setOrder] = useState({});
 	const [restaurantLoading, setRestaurantLoading] = useState(false);
 	const [orderLoading, setOrderLoading] = useState(true);
+	const [orderTaken, setOrderTaken] = useState(false);
+	const [orderStatus, setOrderStatus] = useState();
 
 	const { id: restaurantId } = useParams();
 	const search = useLocation().search;
@@ -24,16 +26,24 @@ const CreateOrder = () => {
 
 	useEffect(() => {
 		fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
-			.then((res) => res.json())
-			.then((json) => {
-				if (json.status === 404) {
-					setStatusError(true);
-					setRestaurantName("Su restaurante no ha sido encontrado.");
-				} else {
-					setRestaurantName(json.name);
-					setRestaurantLoading(true)
-				}
-			});
+		.then((res) => res.json())
+		.then((json) => {
+			if (json.status === 404) {
+				setStatusError(true);
+				setRestaurantName("Su restaurante no ha sido encontrado.");
+			} else {
+				setRestaurantName(json.name);
+				setRestaurantLoading(true)
+			}
+		});
+		fetch(`http://localhost:8080/mesas/${restaurantId}/${tableNumber}`)
+		.then((res) => res.json())
+		.then((json) => {
+			console.log(orderTaken);
+			if (json.status) {
+				setOrderTaken(json.status);
+			}
+		});
 	}, []);
 
 	const handleOnInputChange = (evt) => {
@@ -43,18 +53,21 @@ const CreateOrder = () => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault()
 		setOrderLoading(false)
-		const type = (tableNumber) ? ("table") : ("client")
-		let orderToSend = order
-		if (tableNumber) {
-			orderToSend = { ...order, tableNumber }
-		}
-		fetch(`http://localhost:8080/orders/${type}/${restaurantId}`, {
-			method: "POST",
-			body: JSON.stringify(orderToSend),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
+
+		if(!orderTaken){
+			const type = (tableNumber) ? ("table") : ("client")
+			let orderToSend = order
+			if (tableNumber) {
+				orderToSend = { ...order, tableNumber }
+			};
+			console.log(typeof(orderTaken));
+			fetch(`http://localhost:8080/orders/${type}/${restaurantId}`, {
+				method: "POST",
+				body: JSON.stringify(orderToSend),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			})
 			.then((res) => res.json())
 			.then((json) => {
 				setOrderLoading(true)
@@ -64,6 +77,19 @@ const CreateOrder = () => {
 					window.alert(`Su pedido ha sido enviado. Su número de pedido es: ${json}.`);
 				}
 			});
+
+			fetch(`http://localhost:8080/mesas/${restaurantId}/${tableNumber}/status`, {
+				method: "PUT",
+				body: JSON.stringify({}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		}else{
+			setOrderLoading(true);
+			window.alert(`no puede realizar mas de un pedido`);
+		}
+		window.location.reload();
 	};
 
 	return (

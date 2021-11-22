@@ -69,21 +69,20 @@ const WelcomeTable = () => {
 		restaurantLoading ? (
 			<div >
 				<div className={styles.titleContainer}>
-					
-                    <h1 >{restaurantName}</h1>
+					<Typography variant="h3" component="h1">{restaurantName}</Typography>
 					<GoBackButton route={ROUTES.HOME} />
                 </div>
 				
-				<Typography verient="h5" className={styles.subtitle}>
-					<h4>mesa {tableId}</h4>
+				<Typography variant="h5" className={styles.subtitle}>
+					Mesa {tableId}
 				</Typography>
 			
             	<div className={styles.displayButtonsColumn}>
 					<ButtonGroup
             	    orientation="vertical"
 					align="center"
-            	    >
-		    	        <Button variant="text" href={`/menu/${restaurantId}`}> 
+		    	        <Button variant="text" href={`/menu/${restaurantId}?mesa=${tableId}`}> 
+
             	            Ver carta
             	        </Button>
 
@@ -96,7 +95,7 @@ const WelcomeTable = () => {
             	        color={color ? "primary" : "secondary"}
             	        variant={color ? "text" : "contained"}
 						> 
-            	        	LLamar mozo
+            	        	{color ? "LLamar mozo" : "Liberar mozo"}
             	        </Button>
 					</ButtonGroup>
             	</div>

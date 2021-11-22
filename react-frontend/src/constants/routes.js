@@ -8,4 +8,6 @@ export const ROUTES = {
 	HOME: "/",
 	RESTAURANT_MANAGMENT: "/restaurante/:restoId",
 	NEARBY_RESTAURANTS: "/restaurantes_cercanos"
+	RESTAURANT_MANAGMENT: "/restaurante/:restoId"
+
 };

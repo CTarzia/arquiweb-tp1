@@ -92,6 +92,7 @@ const RestaurantInfo = ({ restoId: restaurantId }) => {
 
                     </div>
 
+
                 </Paper>
             </div>
         ) : (
