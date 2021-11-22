@@ -80,7 +80,7 @@ const WelcomeTable = () => {
             	<div className={styles.displayButtonsColumn}>
 					<ButtonGroup
             	    orientation="vertical"
-					align="center"
+					align="center">
 		    	        <Button variant="text" href={`/menu/${restaurantId}?mesa=${tableId}`}> 
 
             	            Ver carta
