@@ -43,6 +43,7 @@ public class OrderController {
         Status initialStatus = Status.PENDING;
         order.setRestoId(restoid);
         order.setStatus(initialStatus);
+        order.setAppId(App.APP_ID);
         orderRepository.save(order);
         return order.getOrderId();
     }
