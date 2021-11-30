@@ -1,6 +1,6 @@
 
 async function apiGet (url = "", successCallback, failureCallback) {
-	const response = await fetch(`http://localhost:8080/${url}`)
+	const response = await fetch(`https://ver-la-carta.herokuapp.com/${url}`)
 		.then((res) => res.json())
 
 		.then((json) => {
@@ -15,7 +15,7 @@ async function apiGet (url = "", successCallback, failureCallback) {
 };
 
 const apiPost = (url = "", data = {}, successCallback, failureCallback) => {
-	fetch(`http://localhost:8080/${url}`, {
+	fetch(`https://ver-la-carta.herokuapp.com/${url}`, {
 		method: "POST",
 		body: JSON.stringify(data),
 		headers: {

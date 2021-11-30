@@ -19,7 +19,7 @@ const WelcomeTable = () => {
 
 
 	useEffect(() => {
-		fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
+		fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
 			.then((res) => res.json())
 			.then((json) => {
 				if (json.status === 404) {
@@ -30,7 +30,7 @@ const WelcomeTable = () => {
 					setRestaurantLoading(true)
 				}
 			});
-		fetch(`http://localhost:8080/mesas/${restaurantId}/${tableId}`)
+		fetch(`https://ver-la-carta.herokuapp.com/mesas/${restaurantId}/${tableId}`)
 			.then((res) => res.json())
 			.then((json) => {
 				if (json.status === 404) {
@@ -45,7 +45,7 @@ const WelcomeTable = () => {
 	}, []);
 
     const handleMozo = () =>{
-        fetch(`http://localhost:8080/mesas/${restaurantId}/${tableId}/server`, {
+        fetch(`https://ver-la-carta.herokuapp.com/mesas/${restaurantId}/${tableId}/server`, {
 			method: "PUT",
 			body: JSON.stringify({}),
 			headers: {

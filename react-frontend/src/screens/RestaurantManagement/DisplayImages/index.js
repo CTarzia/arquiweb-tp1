@@ -11,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const DisplayImages = ({ img }) => {
     const handleDelete = () => {
         window.location.reload(false);
-        fetch(`http://localhost:8080/imagen/${img.id}`, {
+        fetch(`https://ver-la-carta.herokuapp.com/imagen/${img.id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

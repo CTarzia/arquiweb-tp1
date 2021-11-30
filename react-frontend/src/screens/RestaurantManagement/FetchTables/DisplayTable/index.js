@@ -11,7 +11,7 @@ const DisplayTable = ({table}) => {
 	const [server, setServer] = useState();
 
 	useEffect(() => {
-		fetch(`http://localhost:8080/mesas/${table.restaurantId}/${table.tableID}`)
+		fetch(`https://ver-la-carta.herokuapp.com/mesas/${table.restaurantId}/${table.tableID}`)
 			.then((res) => res.json())
 			.then((json) => {
 				if (json.status === 404) {
@@ -25,7 +25,7 @@ const DisplayTable = ({table}) => {
 
 	const handleDelete = () => {
         window.location.reload(false);
-        fetch(`http://localhost:8080/mesas/${table.restaurantId}/${table.tableID}`, {
+        fetch(`https://ver-la-carta.herokuapp.com/mesas/${table.restaurantId}/${table.tableID}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

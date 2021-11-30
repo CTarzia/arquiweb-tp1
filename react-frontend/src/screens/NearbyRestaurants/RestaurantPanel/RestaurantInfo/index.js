@@ -19,7 +19,7 @@ const RestaurantInfo = ({ restoId: restaurantId }) => {
     const [photos, setPhotos] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
+        fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
             .then((res) => res.json())
             .then((json) => {
                 if (json.status === 404) {
@@ -33,7 +33,7 @@ const RestaurantInfo = ({ restoId: restaurantId }) => {
             });
 
         const fetchImages = imageId => {
-            fetch(`http://localhost:8080/imagen/${imageId}`)
+            fetch(`https://ver-la-carta.herokuapp.com/imagen/${imageId}`)
                 .then(response => response.blob())
                 .then(image => {
                     // Create a local URL of that image
@@ -43,7 +43,7 @@ const RestaurantInfo = ({ restoId: restaurantId }) => {
                 });
         }
 
-        fetch(`http://localhost:8080/imagen/resto/${restaurantId}`)
+        fetch(`https://ver-la-carta.herokuapp.com/imagen/resto/${restaurantId}`)
             .then(response => response.json())
             .then(imageIds => {
                 imageIds.map(fetchImages)

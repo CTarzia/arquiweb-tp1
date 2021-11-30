@@ -13,7 +13,7 @@ const DisplayOrderInProgress = ({
 
     const handleReady = () => {
         window.location.reload(false);
-        fetch(`http://localhost:8080/orders/${order.orderId}`, {
+        fetch(`https://ver-la-carta.herokuapp.com/orders/${order.orderId}`, {
             method: "PUT",
             body: JSON.stringify({ "status": "READY", "content": order.content }),
             headers: {
@@ -24,14 +24,14 @@ const DisplayOrderInProgress = ({
 
     const handleReject = () => {
         window.location.reload(false);
-        fetch(`http://localhost:8080/orders/${order.orderId}`, {
+        fetch(`https://ver-la-carta.herokuapp.com/orders/${order.orderId}`, {
             method: "PUT",
             body: JSON.stringify({ "status": "DENIED", "content": order.content }),
             headers: {
                 "Content-Type": "application/json",
             },
         });
-        fetch(`http://localhost:8080/mesas/${order.restoId}/${order.tableNumber}/status`, {
+        fetch(`https://ver-la-carta.herokuapp.com/mesas/${order.restoId}/${order.tableNumber}/status`, {
 			method: "PUT",
 			body: JSON.stringify({}),
 			headers: {

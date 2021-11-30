@@ -26,7 +26,7 @@ const CurrentOrders = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
+        fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
             .then((res) => res.json())
             .then((json) => {
                 if (json.status === 404) {
@@ -38,7 +38,7 @@ const CurrentOrders = () => {
                 }
             });
 
-        fetch(`http://localhost:8080/restaurantes/${restaurantId}/pedidos`)
+        fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}/pedidos`)
             .then((res) => res.json())
             .then((json) => {
                 if (json.status === 404) {
@@ -52,7 +52,7 @@ const CurrentOrders = () => {
                     setOrdersLoading(true)
                 }
             });
-        // apiGet(`http://localhost:8080/restaurantes/${restaurantId}`)
+        // apiGet(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
     }, []);
 
     return (

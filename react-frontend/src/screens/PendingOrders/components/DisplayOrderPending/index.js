@@ -8,7 +8,7 @@ const DisplayOrderPending = ({order}) => {
 
 	const handleAccept = () =>{
 		window.location.reload(false);
-        fetch(`http://localhost:8080/orders/${order.orderId}`, {
+        fetch(`https://ver-la-carta.herokuapp.com/orders/${order.orderId}`, {
 			method: "PUT",
 			body: JSON.stringify({"status": "PROGRESS","content": order.content}),
 			headers: {
@@ -19,7 +19,7 @@ const DisplayOrderPending = ({order}) => {
 
 	const handleDeny = () =>{
 		window.location.reload(false);
-        fetch(`http://localhost:8080/orders/${order.orderId}`, {
+        fetch(`https://ver-la-carta.herokuapp.com/orders/${order.orderId}`, {
 			method: "PUT",
 			body: JSON.stringify({"status": "DENIED","content": order.content}),
 			headers: {
@@ -27,7 +27,7 @@ const DisplayOrderPending = ({order}) => {
 			},
 
 		});
-		fetch(`http://localhost:8080/mesas/${order.restoId}/${order.tableNumber}/status`, {
+		fetch(`https://ver-la-carta.herokuapp.com/mesas/${order.restoId}/${order.tableNumber}/status`, {
 			method: "PUT",
 			body: JSON.stringify({}),
 			headers: {

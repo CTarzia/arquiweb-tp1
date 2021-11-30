@@ -13,7 +13,7 @@ const FetchTables = ({
 
 
     useEffect(() => {
-        fetch(`http://localhost:8080/mesas/${restaurantId}`)
+        fetch(`https://ver-la-carta.herokuapp.com/mesas/${restaurantId}`)
 			.then((res) => res.json())
 			.then((json) => {
 				setTables(json)
@@ -23,7 +23,7 @@ const FetchTables = ({
     }, []);
 
 	const handleCreateTable = (() => {
-		fetch(`http://localhost:8080/mesas/${restaurantId}`, {
+		fetch(`https://ver-la-carta.herokuapp.com/mesas/${restaurantId}`, {
 			method: "POST",
 			body: JSON.stringify({"restaurantId": restaurantId}),
 			headers: {
