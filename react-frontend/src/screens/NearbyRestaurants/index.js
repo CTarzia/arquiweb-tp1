@@ -80,7 +80,6 @@ const NearbyRestaurants = () => {
 									<Restaurant
 										restaurant={restaurant}
 										handleClick={onSelectRestaurant}
-										onGoToOrder={onGoToOrder}
 									/>
 								</div>
 							</Popup>
