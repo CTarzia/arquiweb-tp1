@@ -1,0 +1,35 @@
+@import "src/styles/_colors.scss";
+
+.closedContainer {
+	width: 0px;
+}
+
+.container {
+	max-width: 350px;
+	width: 350px;
+	max-height: calc(100vh - 86px);
+	padding: 15px;
+}
+
+.title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.button {
+	background-color: $gray;
+	border: none;
+	border-radius: 20px;
+	color: $white;
+	padding: 7px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+
+
+	&:hover {
+		background-color: darken($gray, 20);
+	}
+}

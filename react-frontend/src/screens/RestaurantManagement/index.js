@@ -20,7 +20,7 @@ const RestaurantManagment = () => {
 	const { restoId: restaurantId } = useParams();
 
 	useEffect(() => {
-		fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
+		fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
 			.then((res) => res.json())
 			.then((json) => {
 				if (json.status === 404) {

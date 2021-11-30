@@ -1,0 +1,42 @@
+@import "src/styles/_colors.scss";
+
+.container {
+	align-items: center;
+	background-color: $light-tan;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+.title {
+	display: flex;
+	background-color: $dark-green;
+	color: $light-green;
+	justify-content: center;
+	width: 100%;
+	padding: 40px;
+}
+
+.button {
+	background-color: $gray;
+	border: none;
+	color: $white;
+	padding: 20px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin-top: 10px;
+	min-width: 300px;
+
+	&:hover {
+		background-color: darken($gray, 20);
+	}
+}
+
+.buttonsContainer {
+	margin-top: 40px;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}

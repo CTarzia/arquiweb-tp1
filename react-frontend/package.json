@@ -22,6 +22,7 @@
 		"react-dom": "^16.13.1",
 		"react-leaflet": "^3.2.2",
 		"react-pdf": "^5.5.0",
+		"react-qr-code": "^2.0.3",
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "3.4.1"
 	},

@@ -1,0 +1,55 @@
+@import "src/styles/_colors.scss";
+
+.container {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	background-color: $light-tan;
+}
+
+.title {
+	display: flex;
+	background-color: $dark-green;
+	color: $light-green;
+	width: 100%;
+	padding: 40px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: flex-start;
+
+	padding: 40px;
+	justify-content: center;
+}
+
+.input {
+	display: flex;
+	margin-bottom: 15px;
+	align-items: center;
+}
+
+.label {
+	display: flex;
+	align-self: center;
+	margin-right: 10px;
+}
+
+.button {
+	background-color: $gray;
+	border: none;
+	color: $white;
+	padding: 20px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin-top: 10px;
+	min-width: 300px;
+
+	&:hover {
+		background-color: darken($gray, 20);
+	}
+}

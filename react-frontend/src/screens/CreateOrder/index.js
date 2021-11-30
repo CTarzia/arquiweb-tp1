@@ -25,7 +25,7 @@ const CreateOrder = () => {
 
 
 	useEffect(() => {
-		fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
+		fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
 		.then((res) => res.json())
 		.then((json) => {
 			if (json.status === 404) {
@@ -36,7 +36,7 @@ const CreateOrder = () => {
 				setRestaurantLoading(true)
 			}
 		});
-		fetch(`http://localhost:8080/mesas/${restaurantId}/${tableNumber}`)
+		fetch(`https://ver-la-carta.herokuapp.com/mesas/${restaurantId}/${tableNumber}`)
 		.then((res) => res.json())
 		.then((json) => {
 			console.log(orderTaken);
@@ -61,7 +61,7 @@ const CreateOrder = () => {
 				orderToSend = { ...order, tableNumber }
 			};
 			console.log(typeof(orderTaken));
-			fetch(`http://localhost:8080/orders/${type}/${restaurantId}`, {
+			fetch(`https://ver-la-carta.herokuapp.com/orders/${type}/${restaurantId}`, {
 				method: "POST",
 				body: JSON.stringify(orderToSend),
 				headers: {
@@ -78,7 +78,7 @@ const CreateOrder = () => {
 				}
 			});
 
-			fetch(`http://localhost:8080/mesas/${restaurantId}/${tableNumber}/status`, {
+			fetch(`https://ver-la-carta.herokuapp.com/mesas/${restaurantId}/${tableNumber}/status`, {
 				method: "PUT",
 				body: JSON.stringify({}),
 				headers: {
@@ -99,7 +99,7 @@ const CreateOrder = () => {
 					<div>
 						<div className={styles.titleContainer}>
 							<Typography variant="h3" component="h1">{restaurantName}</Typography>
-							<GoBackButton route={ROUTES.HOME} />
+							<GoBackButton route={ROUTES.NEARBY_RESTAURANTS} />
 						</div>
 						<PostOrder
 							handleSubmit={handleSubmit}
