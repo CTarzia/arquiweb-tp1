@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import { Link } from "react-router-dom";
 
 import styles from "./styles.module.scss";
 
@@ -86,12 +87,12 @@ const RestaurantInfo = ({ restaurant, isOpen, handleClose }) => {
 					>
 						Ver Carta
 					</Button>
-					<Button
-						variant="text"
-						href={`/restaurante/${restaurant.id}/hacer_pedido`}
-					>
-						Hacer Pedido
-					</Button>
+					<Link to={`/menu/${restaurant.id}`}>
+						<button> Hacer Pedido </button>
+					</Link>
+					<Link to={`/restaurante/${restaurant.id}/hacer_pedido?appId=2`}>
+						<button> Hacer Pedido </button>
+					</Link>
 				</ButtonGroup>
 			</div>
 		</div>
