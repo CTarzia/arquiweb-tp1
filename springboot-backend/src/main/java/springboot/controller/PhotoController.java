@@ -1,6 +1,5 @@
 package springboot.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +17,11 @@ import java.util.List;
 @RequestMapping("/imagen/")
 public class PhotoController {
 
-  @Autowired
-  private PhotoStorageService storageService;
+  private final PhotoStorageService storageService;
+
+  public PhotoController(PhotoStorageService storageService) {
+    this.storageService = storageService;
+  }
 
   @PostMapping("/{restaurantId}")
   public ResponseEntity<PhotoResponseMessage> uploadPhoto(@PathVariable Long restaurantId, @RequestParam("file") MultipartFile file) {
