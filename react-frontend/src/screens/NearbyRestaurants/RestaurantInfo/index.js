@@ -90,7 +90,7 @@ const RestaurantInfo = ({ restaurant, isOpen, handleClose }) => {
 					<Link to={`/menu/${restaurant.id}`}>
 						<button> Hacer Pedido </button>
 					</Link>
-					<Link to={`/restaurante/${restaurant.id}/hacer_pedido?appId=2`}>
+					<Link to={`/restaurante/${restaurant.id}/hacer_pedido`}>
 						<button> Hacer Pedido </button>
 					</Link>
 				</ButtonGroup>
