@@ -41,7 +41,7 @@ const Menu = () => {
 	}
 
 	useEffect(() => {
-		fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}/`)
+		fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
 			.then((res) => res.json())
 			.then((json) => {
 				if (json.status === 404) {
@@ -51,21 +51,20 @@ const Menu = () => {
 					setRestaurantName(json.name);
 					setRestaurantLoading(true);
 				}
-			});
-		fetch(`https://ver-la-carta.herokuapp.com/carta/${restaurantId}/`, {
-			responseType: "blob",
-		})
-			//.then(response => response.blob())
-			//.then(file => {
-			//	Create a local URL of that file
-			//	const fileUrl = URL.createObjectURL(file);
-			//	console.log(file);
-			//	setMenu(fileUrl);
-			//	setMenuLoading(true);
-
-			.then((response) => response.blob())
-			.then(showFile);
-
+		});
+		fetch(`https://ver-la-carta.herokuapp.com/carta/${restaurantId}`,{responseType: "blob"})
+		
+		//.then(response => response.blob())
+		//.then(file => {
+		//	Create a local URL of that file
+		//	const fileUrl = URL.createObjectURL(file);
+		//	console.log(file);
+		//	setMenu(fileUrl);
+		//	setMenuLoading(true);
+		
+		.then(response => response.blob())
+		.then(showFile)
+		
 		//.then(response =>{
 		//	const file = new Blob([response.data], {type: 'application/pdf'});
 		//	const url = URL.createObjectURL(file);

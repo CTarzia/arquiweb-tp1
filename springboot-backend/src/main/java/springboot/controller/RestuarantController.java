@@ -21,11 +21,19 @@ import java.util.stream.Collectors;
 @RequestMapping("/restaurantes/")
 public class RestuarantController {
 
-	@Autowired
 	private RestaurantRepository restaurantRepository;
 
+	private final OrderRepository orderRepository;
+
+	public RestuarantController(OrderRepository orderRepository) {
+		this.orderRepository = orderRepository;
+	}
+
 	@Autowired
-	private OrderRepository orderRepository;
+	public RestuarantController(RestaurantRepository restaurantRepository, OrderRepository orderRepository) {
+		this.restaurantRepository = restaurantRepository;
+		this.orderRepository = orderRepository;
+	}
 
 	@GetMapping("/")
 	public List<Restaurant> getAllRestaurants(){

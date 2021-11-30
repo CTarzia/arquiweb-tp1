@@ -20,7 +20,11 @@ class OrderStatus extends React.Component {
 	}
 
 	handleSubmit(event) {
+<<<<<<< HEAD
 		fetch("https://ver-la-carta.herokuapp.com/" + this.state.value)
+=======
+		fetch("https://ver-la-carta.herokuapp.com/orders/" + this.state.value)
+>>>>>>> b258d278b195d8d4fd08ba578119273c37830839
 			.then((res) => res.json())
 			.then((json) => {
 				this.setState({

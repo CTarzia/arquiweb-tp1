@@ -1,15 +1,14 @@
 package springboot.controller;
 
-import springboot.exception.ResourceNotFoundException;
-import springboot.message.PhotoResponseMessage;
-import springboot.model.Photo;
-import springboot.service.PhotoStorageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springboot.exception.ResourceNotFoundException;
+import springboot.message.PhotoResponseMessage;
+import springboot.model.Photo;
+import springboot.service.PhotoStorageService;
 
 import java.util.List;
 
@@ -18,8 +17,11 @@ import java.util.List;
 @RequestMapping("/imagen/")
 public class PhotoController {
 
-  @Autowired
-  private PhotoStorageService storageService;
+  private final PhotoStorageService storageService;
+
+  public PhotoController(PhotoStorageService storageService) {
+    this.storageService = storageService;
+  }
 
   @PostMapping("/{restaurantId}")
   public ResponseEntity<PhotoResponseMessage> uploadPhoto(@PathVariable Long restaurantId, @RequestParam("file") MultipartFile file) {
@@ -37,8 +39,6 @@ public class PhotoController {
 
   @DeleteMapping("/{photoId}")
   public ResponseEntity<PhotoResponseMessage> deletePhoto(@PathVariable Long photoId) {
-    storageService.deleteFile(photoId);
-
     storageService.getFile(photoId)
             .orElseThrow(() -> new ResourceNotFoundException("Photo not exist with id :" + photoId));
 

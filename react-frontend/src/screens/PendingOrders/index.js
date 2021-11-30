@@ -17,7 +17,7 @@ const PendingOrders = () => {
     const [ordersLoading, setOrdersLoading] = useState(false);
 
     useEffect(() => {
-        fetch(`https://ver-la-carta.herokuapp.com/${restaurantId}`)
+        fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
             .then((res) => res.json())
             .then((json) => {
                 if (json.status === 404) {
@@ -29,7 +29,7 @@ const PendingOrders = () => {
                 }
             });
 
-        fetch(`https://ver-la-carta.herokuapp.com/${restaurantId}/pedidos`)
+        fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}/pedidos`)
             .then((res) => res.json())
             .then((json) => {
                 if (json.status === 404) {
