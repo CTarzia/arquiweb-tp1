@@ -59,8 +59,6 @@ public class RestaurantTableController {
         RestaurantTable table = restaurantTableRepository.findById(tableid)
                 .orElseThrow(() -> new ResourceNotFoundException("Table does not exist with id :" + tableid));
         return ResponseEntity.ok(table);
-        // No estoy usando el restoid porque el id de la mesa es único
-        // El id de la mesa no es el número de mesa. Tendría que incluír el número de mesa en el struct de mesa?
     }
 
     // change table state
