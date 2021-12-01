@@ -9,7 +9,7 @@ import springboot.repository.RestaurantTableRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 @RequestMapping("/mesas/")
 public class RestaurantTableController {

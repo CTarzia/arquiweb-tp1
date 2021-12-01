@@ -12,7 +12,7 @@ import springboot.service.PhotoStorageService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 @RequestMapping("/imagen/")
 public class PhotoController {

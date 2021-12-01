@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 @RequestMapping("/orders/")
 public class OrderController {

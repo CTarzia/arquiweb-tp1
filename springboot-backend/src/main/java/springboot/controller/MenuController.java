@@ -10,7 +10,7 @@ import springboot.message.MenuResponseMessage;
 import springboot.model.Menu;
 import springboot.service.MenuStorageService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 @RequestMapping("/carta/")
 public class MenuController {
