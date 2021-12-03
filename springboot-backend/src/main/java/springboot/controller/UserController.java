@@ -38,7 +38,7 @@ public class UserController {
 	@GetMapping("/")
 	public ResponseEntity<Long> checkUser(@RequestBody User user) {
 		List<User> userList =  userRepository.findAll().stream()
-				.filter(u -> Objects.equals(u.getName(), user.getName()) && Objects.equals(u.getPassword(), user.getPassword()))
+				.filter(u -> Objects.equals(u.getUsername(), user.getUsername()) && Objects.equals(u.getPassword(), user.getPassword()))
 				.collect(Collectors.toList());
 
 		if (userList.isEmpty()) {
