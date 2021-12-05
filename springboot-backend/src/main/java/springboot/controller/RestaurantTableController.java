@@ -24,7 +24,6 @@ public class RestaurantTableController {
     @GetMapping("/{restoid}")
     public List<RestaurantTable> getAllTables(@PathVariable Long restoid){
         return getByRestaurantId(restoid).stream().sorted(Comparator.comparing(RestaurantTable::getTableNumber)).collect(Collectors.toList());
-                //.orElseThrow(() -> new ResourceNotFoundException("Restaurant not exist with id :" + restoid));
     }
 
     // create table for a restaurant
