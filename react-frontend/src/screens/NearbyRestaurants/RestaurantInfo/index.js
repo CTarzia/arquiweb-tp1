@@ -1,92 +1,105 @@
 import React, { useState, useEffect } from "react";
-import { Button, ButtonGroup, Typography, } from "@mui/material";
-import Paper from '@mui/material/Paper';
-import DisplayImages from '../../RestaurantManagement/DisplayImages';
-import UploadImages from '../../RestaurantManagement/UploadImages';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardMedia from '@mui/material/CardMedia';
-import Grid from '@mui/material/Grid';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import { Button, ButtonGroup } from "@mui/material";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 
-const RestaurantInfo = ({ restoId: restaurantId }) => {
-    const [restaurantName, setRestaurantName] = useState();
-    const [info, setInfo] = useState();
-    const [statusError, setStatusError] = useState(false);
-    const [restaurantLoading, setRestaurantLoading] = useState(false);
-    const [imagesLoading, setImagesLoading] = useState(false);
-    const [photos, setPhotos] = useState([]);
+import styles from "./styles.module.scss";
 
-    useEffect(() => {
-        fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
-            .then((res) => res.json())
-            .then((json) => {
-                if (json.status === 404) {
-                    setStatusError(true);
-                    setRestaurantName("Su restaurante no ha sido encontrado.");
-                } else {
-                    setRestaurantName(json.name);
-                    setInfo(json)
-                    setRestaurantLoading(true)
-                }
-            });
+const RestaurantInfo = ({ restaurant, isOpen, handleClose }) => {
+	const [restaurantLoading, setRestaurantLoading] = useState(false);
+	const [imagesLoading, setImagesLoading] = useState(false);
+	const [photos, setPhotos] = useState([]);
 
-        const fetchImages = imageId => {
-            fetch(`http://localhost:8080/imagen/${imageId}`)
-                .then(response => response.blob())
-                .then(image => {
-                    // Create a local URL of that image
-                    const localUrl = URL.createObjectURL(image);
-                    setPhotos(photos => [...photos, { url: localUrl, id: imageId }]);
-                    setImagesLoading(true);
-                });
-        }
+	const onHandleClose = () => {
+		setPhotos([]);
+		handleClose();
+	};
 
-        fetch(`http://localhost:8080/imagen/resto/${restaurantId}`)
-            .then(response => response.json())
-            .then(imageIds => {
-                imageIds.map(fetchImages)
-            });
-    }, []);
+	useEffect(() => {
+		if (restaurant && restaurant.id) {
+			fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurant.id}/`)
+				.then((res) => res.json())
+				.then((json) => {
+					if (json.status === 404) {
+						onHandleClose();
+					} else {
+						setRestaurantLoading(true);
+					}
+				});
 
-    return (
-        restaurantLoading ? (
-            <div>
-                <Typography variant="h4" component="h2">{info.name}</Typography>
-                <Paper>
-                    {console.log(info)}
-                    <div>
-                        <p>Horario de atención: {info.workinghours}</p>
-                        <p>Teléfono de contacto: {info.phoneNumber}</p>
-                    </div>
-                    <div>
-                        {imagesLoading ? (
-                            <div>
-                                <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-                                    {photos.map((item) => (
-                                        <ImageListItem key={item.url}>
-                                            <img
-                                                src={item.url}
-                                                alt={item.id}
-                                                loading="lazy"
-                                            />
-                                        </ImageListItem>
-                                    ))}
-                                </ImageList>
-                            </div>
+			const fetchImages = (imageId) => {
+				fetch(`https://ver-la-carta.herokuapp.com/imagen/${imageId}/`)
+					.then((response) => response.blob())
+					.then((image) => {
+						const localUrl = URL.createObjectURL(image);
+						setPhotos((photos) => [...photos, { url: localUrl, id: imageId }]);
+						setImagesLoading(true);
+					});
+			};
 
-                        ) : (
-                            <div>Recuperando imágenes de su restaurante...</div>
-                        )}
-                    </div>
+			fetch(`https://ver-la-carta.herokuapp.com/imagen/resto/${restaurant.id}/`)
+				.then((response) => response.json())
+				.then((imageIds) => {
+					imageIds.map(fetchImages);
+				});
+		}
+	}, [restaurant]);
 
-                </Paper>
-            </div>
-        ) : (
-            <div> Recuperando información del restaurante.</div>
-        )
-    );
+	return restaurantLoading ? (
+		<div className={isOpen ? styles.container : styles.closedContainer}>
+			<div className={styles.title}>
+				<h2 variant="h4" component="h2">
+					{restaurant.name}
+				</h2>
+				<button onClick={onHandleClose} className={styles.button}>
+					X
+				</button>
+			</div>
+			<div>
+				<p>Horario de atención: {restaurant.workinghours}</p>
+				<p>Teléfono de contacto: {restaurant.phoneNumber}</p>
+			</div>
+			<div>
+				{imagesLoading ? (
+					<div>
+						<ImageList
+							sx={{ width: 340, height: 280 }}
+							cols={2}
+							rowHeight={280}
+						>
+							{photos.map((item) => (
+								<ImageListItem key={item.url}>
+									<img src={item.url} alt={item.id} loading="lazy" />
+								</ImageListItem>
+							))}
+						</ImageList>
+					</div>
+				) : (
+					<div>Recuperando imágenes de su restaurante...</div>
+				)}
+			</div>
+			<div>
+				<ButtonGroup>
+					<Button
+						variant="text"
+						href={`http://localhost:3000/menu/${restaurant.id}`}
+					>
+						Ver Carta
+					</Button>
+					<Button
+						variant="text"
+						href={`/restaurante/${restaurant.id}/hacer_pedido`}
+					>
+						Hacer Pedido
+					</Button>
+				</ButtonGroup>
+			</div>
+		</div>
+	) : (
+		<div className={isOpen ? styles.container : styles.closedContainer}>
+			Recuperando información del restaurante.
+		</div>
+	);
 };
 
 export default RestaurantInfo;

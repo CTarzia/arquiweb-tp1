@@ -2,13 +2,6 @@ package springboot.model;
 
 import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 @Entity
 @Inheritance
 //@DiscriminatorColumn(name = "Order_Type")
@@ -27,6 +20,9 @@ public class Order {
 
     @Column(name = "restoId")
     private Long restoId;
+
+    @Column(name = "appId")
+    private int appId;
 
     public Order() {
 
@@ -67,6 +63,14 @@ public class Order {
 
     public void setRestoId(Long restoId) {
         this.restoId = restoId;
+    }
+
+    public int getAppId() {
+        return appId;
+    }
+
+    public void setAppId(int appId) {
+        this.appId = appId;
     }
 }
 

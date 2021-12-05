@@ -17,7 +17,7 @@ const PendingOrders = () => {
     const [ordersLoading, setOrdersLoading] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
+        fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
             .then((res) => res.json())
             .then((json) => {
                 if (json.status === 404) {
@@ -29,18 +29,18 @@ const PendingOrders = () => {
                 }
             });
 
-        fetch(`http://localhost:8080/restaurantes/${restaurantId}/pedidos`)
+        fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}/pedidos`)
             .then((res) => res.json())
             .then((json) => {
                 if (json.status === 404) {
                     setStatusError(true);
                     setRestaurantName("Su restaurante no ha sido encontrado.");
                 } else {
-                    setPendingOrders(json.filter(pendingFilter))
-                    setOrdersLoading(true)                  
+                    setPendingOrders(json.filter(pendingFilter));
+                    setOrdersLoading(true);                  
                 }
             });
-        // apiGet(`http://localhost:8080/restaurantes/${restaurantId}`)
+        // apiGet(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
     }, []);
 
     
@@ -49,6 +49,7 @@ const PendingOrders = () => {
             <div>
                 <div className={styles.titleContainer}>
                     <Typography variant="h3" component="h1">{restaurantName}</Typography>
+
                     <GoBackButton route={ROUTES.HOME} />
                 </div>
                 

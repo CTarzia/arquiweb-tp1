@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.exception.ResourceNotFoundException;
+import springboot.model.App;
 import springboot.model.Order;
 import springboot.model.Restaurant;
 import springboot.repository.OrderRepository;
@@ -20,11 +21,19 @@ import java.util.stream.Collectors;
 @RequestMapping("/restaurantes/")
 public class RestuarantController {
 
-	@Autowired
 	private RestaurantRepository restaurantRepository;
 
+	private final OrderRepository orderRepository;
+
+	public RestuarantController(OrderRepository orderRepository) {
+		this.orderRepository = orderRepository;
+	}
+
 	@Autowired
-	private OrderRepository orderRepository;
+	public RestuarantController(RestaurantRepository restaurantRepository, OrderRepository orderRepository) {
+		this.restaurantRepository = restaurantRepository;
+		this.orderRepository = orderRepository;
+	}
 
 	@GetMapping("/")
 	public List<Restaurant> getAllRestaurants(){
@@ -33,6 +42,7 @@ public class RestuarantController {
 
 	@PostMapping("/")
 	public Restaurant createRestaurant(@RequestBody Restaurant restaurant) {
+		restaurant.setAppId(App.APP_ID);
 		return restaurantRepository.save(restaurant);
 	}
 

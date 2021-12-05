@@ -1,60 +1,101 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
-import styles from "./styles.module.scss";
-import GoBackButton from "../../components/GoBack";
-import { ROUTES } from "../../constants/routes";
-import { Button, ButtonGroup, Typography, Box } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
+import { Link } from "react-router-dom";
 
+import { ROUTES } from "../../constants/routes";
+
+import Restaurant from "./Restaurant";
 import RestaurantInfo from "./RestaurantInfo";
+import styles from "./styles.module.scss";
 
 const NearbyRestaurants = () => {
-	const [restaurantName, setRestaurantName] = useState();
-	const [statusError, setStatusError] = useState(false);
-	const [restaurantLoading, setRestaurantLoading] = useState(false);
-
-	const { restoId: restaurantId } = useParams();
+	const [restaurantsOne, setRestaurantsOne] = useState([]);
+	const [restaurantsTwo, setRestaurantsTwo] = useState([]);
+	const [restaurants, setRestaurants] = useState([]);
+	const [selectedRestaurant, setSelectedRestaurant] = useState();
+	const [isPanelOpen, setIsPanelOpen] = useState(false);
 
 	useEffect(() => {
-		fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
+		fetch("https://ver-la-carta.herokuapp.com/restaurantes/")
 			.then((res) => res.json())
 			.then((json) => {
 				if (json.status === 404) {
-					setStatusError(true);
-					setRestaurantName("Su restaurante no ha sido encontrado.");
+					console.log("error");
 				} else {
-					setRestaurantName(json.name);
-					setRestaurantLoading(true)
+					setRestaurantsOne(json);
 				}
+			});
+		fetch(
+			"https://virtserver.swaggerhub.com/adrian-castiglione/arquiweb-tp1/1.0.1/api/restaurants"
+		)
+			.then((res) => res.json())
+			.then((json) => {
+				setRestaurantsTwo(json.items);
 			});
 	}, []);
 
+	useEffect(() => {
+		setRestaurants([...restaurantsOne, ...restaurantsTwo]);
+	}, [restaurantsOne, restaurantsTwo]);
+
+	// console.log(restaurants, selectedRestaurant);
+
+	const onSelectRestaurant = (restaurant) => {
+		setSelectedRestaurant(restaurant);
+		setIsPanelOpen(true);
+	};
+
+	const closePanel = () => setIsPanelOpen(false);
+
+	// console.log(selectedRestaurant);
+
 	return (
-		restaurantLoading ? (
-			<div>
-				<div className={styles.titleContainer}>
-					<Typography variant="h3" component="h1">Restaurantes cercanos</Typography>
-					<GoBackButton route={ROUTES.HOME} />
-				</div>
-
-				<div className={styles.managementSection}>
-					<div>
-						<RestaurantInfo
-							restoId={1} //CAMBIAR
-						/>
-					</div>
-
-					<div className={styles.rectangleOfDeath}>
-						<img
-							src='https://nick-intl.mtvnimages.com/uri/mgid:file:gsp:scenic:/international/nick/shows/nickjr/dora-the-explorer/site-image/character-large-map.jpg?quality=0.75&height=0&width=480&matte=true&crop=false'
-							alt="Soy el mapa!"
-						/>
-
-					</div>
-				</div>
+		<div className={styles.container}>
+			<div className={styles.title}>
+				<h1> Restaurantes cercanos </h1>
+				<Link to={ROUTES.HOME}>
+					<button className={styles.button}> Volver </button>
+				</Link>
 			</div>
-		) : (
-			<div> Recuperando información del restaurante.</div>
-		)
+			<div className={styles.infoContainer}>
+				<MapContainer
+					className={styles.map}
+					center={[-34.603722, -58.381592]}
+					zoom={12}
+					scrollWheelZoom
+				>
+					<TileLayer
+						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+						attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+					/>
+					{restaurants.map((restaurant) => (
+						<Marker
+							position={[
+								parseFloat(restaurant.latitude),
+								parseFloat(restaurant.longitude),
+							]}
+						>
+							<Popup>
+								<div className={styles.pin}>
+									<Restaurant
+										restaurant={restaurant}
+										handleClick={onSelectRestaurant}
+										
+									/>
+								</div>
+							</Popup>
+						</Marker>
+					))}
+				</MapContainer>
+				{selectedRestaurant && isPanelOpen && (
+					<RestaurantInfo
+						restaurant={selectedRestaurant}
+						isOpen={isPanelOpen}
+						handleClose={closePanel}
+					/>
+				)}
+			</div>
+		</div>
 	);
 };
 

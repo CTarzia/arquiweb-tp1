@@ -1,13 +1,30 @@
 import { Button, Card, CardContent, Typography} from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import DisplayOrderContent from "../../../../components/DisplayOrderContent";
+
 import styles from "../../styles.module.scss"
 
 const DisplayOrderPending = ({order}) => {
+	const [numberOfTable, setTableNumber] = useState();
+	const [statusError, setStatusError] = useState(false);
+	const [ready, setReady] = useState()
+
+	useEffect(() => {
+		//console.log(order.tableNumber)
+        fetch(`https://ver-la-carta.herokuapp.com/mesas/${order.restoId}/${order.tableNumber}`)
+            .then((res) => res.json())
+            .then((json) => {
+                if (json.status === 404) {
+                    setStatusError(true);
+                } else {
+                    setTableNumber(json.tableNumber);
+                }
+            });
+		}, []);
 
 	const handleAccept = () =>{
 		window.location.reload(false);
-        fetch(`http://localhost:8080/orders/${order.orderId}`, {
+        fetch(`https://ver-la-carta.herokuapp.com/orders/${order.orderId}`, {
 			method: "PUT",
 			body: JSON.stringify({"status": "PROGRESS","content": order.content}),
 			headers: {
@@ -18,20 +35,22 @@ const DisplayOrderPending = ({order}) => {
 
 	const handleDeny = () =>{
 		window.location.reload(false);
-        fetch(`http://localhost:8080/orders/${order.orderId}`, {
+        fetch(`https://ver-la-carta.herokuapp.com/orders/${order.orderId}`, {
 			method: "PUT",
 			body: JSON.stringify({"status": "DENIED","content": order.content}),
 			headers: {
 				"Content-Type": "application/json",
 			},
-		});
-		fetch(`http://localhost:8080/mesas/${order.restoId}/${order.tableNumber}/status`, {
+
+		})
+		fetch(`https://ver-la-carta.herokuapp.com/mesas/${order.restoId}/${order.tableNumber}/status`, {
 			method: "PUT",
 			body: JSON.stringify({}),
 			headers: {
 				"Content-Type": "application/json",
 			},
 		})
+		window.location.reload(true);
     };
 
 	return(
@@ -42,14 +61,14 @@ const DisplayOrderPending = ({order}) => {
 					Orden {order.orderId}
 					{(order.clientName) ? (
     	                <Typography>
-    	                    Nombre del cliente: {order["clientName"]}
+    	                    Nombre del cliente: {order.clientName}
     	                </Typography>
     	            ) : (
     	                <Typography>
-    	                    Número de mesa: {order["tableNumber"]}
+    	                    Número de mesa: {numberOfTable}
     	                </Typography>
     	            )}
-					<div class="btn-group">
+					<div>
 						<DisplayOrderContent
     			    	    order={order}
     			    	/>

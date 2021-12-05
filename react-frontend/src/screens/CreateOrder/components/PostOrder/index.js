@@ -8,11 +8,12 @@ import { Typography } from "@mui/material";
 const PostOrder = ({
     handleSubmit,
     handleOnInputChange,
-    tableNumber,
+    tableId,
+    tableNumber
 }) => {
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
-            {(!tableNumber) ? (
+            {(!tableId) ? (
                 <div>
                     <Typography variant="h6">Ingrese su nombre:</Typography>
                     <TextField name="clientName" label="Ingrese su nombre" variant="outlined" onChange={handleOnInputChange}/>

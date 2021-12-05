@@ -2,6 +2,13 @@
 @import "src/styles/styles.scss";
 
 
+.table{
+	display: flex;
+	justify-content:center;
+	padding: 5px;
+}
+
+
 .menuButton{
 	display: flex;
 	flex-direction: column;
@@ -9,3 +16,4 @@
 	padding: 5px;
 	background-color: $light-green;
 }
+

@@ -18,14 +18,16 @@ const CreateOrder = () => {
 	const [orderLoading, setOrderLoading] = useState(true);
 	const [orderTaken, setOrderTaken] = useState(false);
 	const [orderStatus, setOrderStatus] = useState();
+	const [tableNumber, setTableNumber] = useState();
+	const [tableLoading, setTableLoading] = useState(false);
 
 	const { id: restaurantId } = useParams();
 	const search = useLocation().search;
-	const tableNumber = new URLSearchParams(search).get('mesa');
+	const tableId = new URLSearchParams(search).get('mesa');
 
 
 	useEffect(() => {
-		fetch(`http://localhost:8080/restaurantes/${restaurantId}`)
+		fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
 		.then((res) => res.json())
 		.then((json) => {
 			if (json.status === 404) {
@@ -36,14 +38,28 @@ const CreateOrder = () => {
 				setRestaurantLoading(true)
 			}
 		});
-		fetch(`http://localhost:8080/mesas/${restaurantId}/${tableNumber}`)
-		.then((res) => res.json())
-		.then((json) => {
-			console.log(orderTaken);
-			if (json.status) {
-				setOrderTaken(json.status);
-			}
-		});
+
+		if (tableId) {
+			fetch(`https://ver-la-carta.herokuapp.com/mesas/${restaurantId}/${tableId}`)
+			.then((res) => res.json())
+			.then((json) => {
+				
+				if (json.status === 404) {
+					setStatusError(true);
+					setRestaurantName("Su mesa no ha sido encontrada.");
+				} else {
+					console.log(restaurantId);
+					console.log(tableId);
+					console.log(json.status);
+					if (json.status) {
+						setOrderTaken(json.status);
+					}
+					setTableNumber(json.tableNumber);
+					setTableLoading(true);
+					console.log(orderTaken);
+				}
+			});	
+		};
 	}, []);
 
 	const handleOnInputChange = (evt) => {
@@ -53,14 +69,17 @@ const CreateOrder = () => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault()
 		setOrderLoading(false)
+		console.log(tableNumber);
+		console.log(orderTaken);
+
 		if(!orderTaken){
-			const type = (tableNumber) ? ("table") : ("client")
+			const type = (tableId) ? ("table") : ("client")
 			let orderToSend = order
-			if (tableNumber) {
-				orderToSend = { ...order, tableNumber }
-			};
-			console.log(typeof(orderTaken));
-			fetch(`http://localhost:8080/orders/${type}/${restaurantId}`, {
+			if (tableId) {
+				orderToSend = { ...order, ["tableNumber"]: tableId}
+			}
+			console.log(orderToSend);
+			fetch(`https://ver-la-carta.herokuapp.com/orders/${type}/${restaurantId}`, {
 				method: "POST",
 				body: JSON.stringify(orderToSend),
 				headers: {
@@ -70,13 +89,17 @@ const CreateOrder = () => {
 			.then((res) => res.json())
 			.then((json) => {
 				setOrderLoading(true)
-				if (tableNumber) {
+				console.log(tableId)
+				if (tableId) {
 					window.alert(`Su pedido ha sido enviado.`);
+					window.location.reload();
 				} else {
 					window.alert(`Su pedido ha sido enviado. Su número de pedido es: ${json}.`);
+					window.location.reload();
 				}
 			});
-			fetch(`http://localhost:8080/mesas/${restaurantId}/${tableNumber}/status`, {
+
+			fetch(`https://ver-la-carta.herokuapp.com/mesas/${restaurantId}/${tableId}/status`, {
 				method: "PUT",
 				body: JSON.stringify({}),
 				headers: {
@@ -86,36 +109,55 @@ const CreateOrder = () => {
 		}else{
 			setOrderLoading(true);
 			window.alert(`no puede realizar mas de un pedido`);
+			window.location.reload();
 		}
-		window.location.reload();
+		
 	};
 
 	return (
 		!statusError ? (
 			restaurantLoading ? (
 				orderLoading ? (
-					<div>
-						<div className={styles.titleContainer}>
-							<Typography variant="h3" component="h1">{restaurantName}</Typography>
-							<GoBackButton route={ROUTES.HOME} />
-						</div>
-						<PostOrder
-							handleSubmit={handleSubmit}
-							handleOnInputChange={handleOnInputChange}
-							tableNumber={tableNumber}
-						/>
-					</div>
+					tableId ? (
+						tableLoading ? (
+							<div>
+								<div className={styles.titleContainer}>
+									<Typography variant="h3" component="h1">{restaurantName}</Typography>
+									<GoBackButton route={ROUTES.NEARBY_RESTAURANTS} />
+								</div>
 
+								<PostOrder
+									handleSubmit={handleSubmit}
+									handleOnInputChange={handleOnInputChange}
+									tableId={tableId}
+									tableNumber={tableNumber}
+								/>
+							</div>
+						):(<p>cargando la mesa</p>)
+					):(
+						<div>
+							<div className={styles.titleContainer}>
+								<Typography variant="h3" component="h1">{restaurantName}</Typography>
+								<GoBackButton route={ROUTES.NEARBY_RESTAURANTS} />
+							</div>
+
+							<PostOrder
+								handleSubmit={handleSubmit}
+								handleOnInputChange={handleOnInputChange}
+								tableId={tableId}
+								tableNumber={tableNumber}
+							/>
+						</div>
+					)
 				) : (<p>Enviando su pedido.</p>)
 
 			) : (
 				<p>Recuperando información del restaurante.</p>
 			)
 		) : (
-			<p>Ha ocurrido un error.</p>
+			<p>{tableId}
+			Ha ocurrido un error.</p>
 		)
-
-
 	);
 };
 export default CreateOrder;

@@ -1,20 +1,40 @@
 @import "src/styles/_colors.scss";
 
 .container {
-	align-items: center;
-	background-color: $light-tan;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
+	background-color: $light-tan;
 }
 
 .title {
 	display: flex;
 	background-color: $dark-green;
 	color: $light-green;
-	justify-content: center;
 	width: 100%;
 	padding: 40px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: flex-start;
+
+	padding: 40px;
+	justify-content: center;
+}
+
+.input {
+	display: flex;
+	margin-bottom: 15px;
+	align-items: center;
+}
+
+.label {
+	display: flex;
+	align-self: center;
+	margin-right: 10px;
 }
 
 .button {
@@ -32,11 +52,4 @@
 	&:hover {
 		background-color: darken($gray, 20);
 	}
-}
-
-.buttonsContainer {
-	margin-top: 40px;
-	align-items: center;
-	display: flex;
-	flex-direction: column;
 }

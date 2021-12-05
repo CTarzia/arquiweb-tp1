@@ -25,6 +25,10 @@ public class Restaurant {
 	@Column(name = "working_hours")
 	private String workingHours;
 
+	@Column(name = "appId")
+	private int appId;
+
+
 	public Restaurant() {
 
 	}
@@ -40,6 +44,7 @@ public class Restaurant {
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -82,5 +87,13 @@ public class Restaurant {
 
 	public void setWorkingHours(String workingHours) {
 		this.workingHours = workingHours;
+	}
+
+	public int getAppId() {
+		return appId;
+	}
+
+	public void setAppId(int appId) {
+		this.appId = appId;
 	}
 }

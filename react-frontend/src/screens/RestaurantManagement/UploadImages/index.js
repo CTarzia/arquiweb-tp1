@@ -26,7 +26,7 @@ const UploadImages = ({
     useEffect(() => {
 
         const fetchImages = imageId => {
-            fetch(`http://localhost:8080/imagen/${imageId}`)
+            fetch(`https://ver-la-carta.herokuapp.com/imagen/${imageId}`)
                 .then(response => response.blob())
                 .then(image => {
                     // Create a local URL of that image
@@ -36,7 +36,7 @@ const UploadImages = ({
                 });
         }
 
-        fetch(`http://localhost:8080/imagen/resto/${restaurantId}`)
+        fetch(`https://ver-la-carta.herokuapp.com/imagen/resto/${restaurantId}`)
             .then(response => response.json())
             .then(imageIds => {
                 imageIds.map(fetchImages)
@@ -59,7 +59,7 @@ const UploadImages = ({
         const data = new FormData()
         data.append('file', file)
 
-        fetch(`http://localhost:8080/imagen/${restaurantId}`, {
+        fetch(`https://ver-la-carta.herokuapp.com/imagen/${restaurantId}`, {
             method: "POST",
             body: data
         })
