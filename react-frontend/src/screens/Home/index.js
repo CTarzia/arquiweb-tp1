@@ -9,7 +9,7 @@ const Home = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.title}>
-				<h1> Bienvenido! </h1>
+				<h1> ¡Bienvenido a Ver la Carta! </h1>
 			</div>
 			<div className={styles.buttonsContainer}>
 				<Link to={ROUTES.NEARBY_RESTAURANTS}>

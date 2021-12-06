@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, ButtonGroup } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { Link } from "react-router-dom";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 import styles from "./styles.module.scss";
 
 const RestaurantInfo = ({ restaurant, isOpen, handleClose }) => {
-	const [restaurantLoading, setRestaurantLoading] = useState(false);
 	const [imagesLoading, setImagesLoading] = useState(false);
 	const [photos, setPhotos] = useState([]);
 
@@ -18,16 +18,6 @@ const RestaurantInfo = ({ restaurant, isOpen, handleClose }) => {
 
 	useEffect(() => {
 		if (restaurant && restaurant.id) {
-			fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurant.id}/`)
-				.then((res) => res.json())
-				.then((json) => {
-					if (json.status === 404) {
-						onHandleClose();
-					} else {
-						setRestaurantLoading(true);
-					}
-				});
-
 			const fetchImages = (imageId) => {
 				fetch(`https://ver-la-carta.herokuapp.com/imagen/${imageId}/`)
 					.then((response) => response.blob())
@@ -38,7 +28,9 @@ const RestaurantInfo = ({ restaurant, isOpen, handleClose }) => {
 					});
 			};
 
-			fetch(`https://ver-la-carta.herokuapp.com/imagen/resto/${restaurant.id}/`)
+			fetch(
+				`https://ver-la-carta.herokuapp.com/imagen/resto/${restaurant.id}/`
+			)
 				.then((response) => response.json())
 				.then((imageIds) => {
 					imageIds.map(fetchImages);
@@ -46,59 +38,53 @@ const RestaurantInfo = ({ restaurant, isOpen, handleClose }) => {
 		}
 	}, [restaurant]);
 
-	return restaurantLoading ? (
-		<div className={isOpen ? styles.container : styles.closedContainer}>
-			<div className={styles.title}>
-				<h2 variant="h4" component="h2">
-					{restaurant.name}
-				</h2>
-				<button onClick={onHandleClose} className={styles.button}>
-					X
-				</button>
-			</div>
+	return (
+		<div className={styles.container}>
 			<div>
-				<p>Horario de atención: {restaurant.workinghours}</p>
-				<p>Teléfono de contacto: {restaurant.phoneNumber}</p>
+				<div className={styles.title}>
+					<h2>{restaurant?.name}</h2>
+					<button onClick={onHandleClose} className={styles.closeButton}>
+						X
+					</button>
+				</div>
+				<div className={styles.infoContainer}>
+					<LocalPhoneIcon className={styles.icon} />
+					<span className={styles.label}> {restaurant?.phoneNumber} </span>
+				</div>
+				<div className={styles.infoContainer}>
+					<AccessTimeIcon className={styles.icon} />
+					<span className={styles.label}>{restaurant?.workingHours} </span>
+				</div>
+				<div>
+					{imagesLoading ? (
+						<div>
+							<ImageList
+								sx={{ width: 330, height: 280 }}
+								cols={2}
+								rowHeight={280}
+							>
+								{photos.map((item) => (
+									<ImageListItem key={item.url}>
+										<img src={item.url} alt={item.id} loading="lazy" />
+									</ImageListItem>
+								))}
+							</ImageList>
+						</div>
+					) : (
+						<div>Recuperando imágenes de su restaurante...</div>
+					)}
+				</div>
 			</div>
-			<div>
-				{imagesLoading ? (
-					<div>
-						<ImageList
-							sx={{ width: 340, height: 280 }}
-							cols={2}
-							rowHeight={280}
-						>
-							{photos.map((item) => (
-								<ImageListItem key={item.url}>
-									<img src={item.url} alt={item.id} loading="lazy" />
-								</ImageListItem>
-							))}
-						</ImageList>
-					</div>
-				) : (
-					<div>Recuperando imágenes de su restaurante...</div>
-				)}
+			<div className={styles.buttonContainers}>
+				<Link to={`/menu/${restaurant?.id}`}>
+					<button className={styles.button}> Ver Menu </button>
+				</Link>
+				<Link
+					to={`/restaurante/${restaurant?.id}/hacer_pedido?nombre=${restaurant?.name}`}
+				>
+					<button className={styles.button}> Hacer Pedido </button>
+				</Link>
 			</div>
-			<div>
-				<ButtonGroup>
-					<Button
-						variant="text"
-						href={`http://localhost:3000/menu/${restaurant.id}`}
-					>
-						Ver Carta
-					</Button>
-					<Link to={`/menu/${restaurant.id}`}>
-						<button> Hacer Pedido </button>
-					</Link>
-					<Link to={`/restaurante/${restaurant.id}/hacer_pedido`}>
-						<button> Hacer Pedido </button>
-					</Link>
-				</ButtonGroup>
-			</div>
-		</div>
-	) : (
-		<div className={isOpen ? styles.container : styles.closedContainer}>
-			Recuperando información del restaurante.
 		</div>
 	);
 };

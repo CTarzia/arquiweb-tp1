@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
-import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../constants/routes";
+import Topbar from "../../components/Topbar";
 
 import Restaurant from "./Restaurant";
 import RestaurantInfo from "./RestaurantInfo";
@@ -17,11 +17,18 @@ const NearbyRestaurants = () => {
 
 	useEffect(() => {
 		fetch("https://ver-la-carta.herokuapp.com/restaurantes/")
-			.then((res) => res.json())
+			.then((res) => {
+				console.log(res);
+				if (res.status === 200) {
+					return res.json();
+				}
+				return { error: "No se encontraron restaurantes" };
+			})
 			.then((json) => {
-				if (json.status === 404) {
+				if (json.error) {
 					console.log("error");
 				} else {
+					console.log("hola");
 					setRestaurantsOne(json);
 				}
 			});
@@ -38,8 +45,6 @@ const NearbyRestaurants = () => {
 		setRestaurants([...restaurantsOne, ...restaurantsTwo]);
 	}, [restaurantsOne, restaurantsTwo]);
 
-	// console.log(restaurants, selectedRestaurant);
-
 	const onSelectRestaurant = (restaurant) => {
 		setSelectedRestaurant(restaurant);
 		setIsPanelOpen(true);
@@ -47,16 +52,9 @@ const NearbyRestaurants = () => {
 
 	const closePanel = () => setIsPanelOpen(false);
 
-	// console.log(selectedRestaurant);
-
 	return (
 		<div className={styles.container}>
-			<div className={styles.title}>
-				<h1> Restaurantes cercanos </h1>
-				<Link to={ROUTES.HOME}>
-					<button className={styles.button}> Volver </button>
-				</Link>
-			</div>
+			<Topbar returnRoute={ROUTES.HOME} title="Restaurantes cercanos" />
 			<div className={styles.infoContainer}>
 				<MapContainer
 					className={styles.map}
@@ -76,12 +74,10 @@ const NearbyRestaurants = () => {
 							]}
 						>
 							<Popup>
-								<div className={styles.pin}>
-									<Restaurant
-										restaurant={restaurant}
-										handleClick={onSelectRestaurant}
-									/>
-								</div>
+								<Restaurant
+									restaurant={restaurant}
+									handleClick={onSelectRestaurant}
+								/>
 							</Popup>
 						</Marker>
 					))}
@@ -89,7 +85,7 @@ const NearbyRestaurants = () => {
 				{selectedRestaurant && isPanelOpen && (
 					<RestaurantInfo
 						restaurant={selectedRestaurant}
-						isOpen={isPanelOpen}
+						isOpen={isPanelOpen && selectedRestaurant}
 						handleClose={closePanel}
 					/>
 				)}

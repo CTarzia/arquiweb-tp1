@@ -5,10 +5,19 @@ export const ROUTES = {
 	CURRENT_ORDERS: "/restaurante/:id/pedidos_en_curso",
 	PENDING_ORDERS: "/restaurante/:id/pedidos_pendientes",
 	MENU: "/menu/:restoId",
-	HOME: "/",
-	RESTAURANT_MANAGMENT: "/restaurante/:restoId",
+	HOME: "/", // Listo
 	NEARBY_RESTAURANTS: "/restaurantes_cercanos",
 	LOGIN: "/login",
+	SIGN_UP: "/signup",
 	BACKOFFICE_HOME: "/backoffice",
+	RESTAURANT_MANAGMENT: "/restaurante",
+	ORDERS_MANAGEMENT: "/pedidos",
 	TABLE_STATUS: "/backoffice/:id/mesas",
 };
+
+export const PRIVATE_ROUTES = [
+	ROUTES.BACKOFFICE_HOME,
+	ROUTES.RESTAURANT_MANAGMENT,
+	ROUTES.ORDERS_MANAGEMENT,
+	ROUTES.TABLE_STATUS,
+];
