@@ -7,9 +7,12 @@ import springboot.model.User;
 import springboot.repository.UserRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 @RequestMapping("/usuarios/")
 public class UserController {
@@ -30,6 +33,18 @@ public class UserController {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + id));
 		return ResponseEntity.ok(user);
+	}
+
+	@GetMapping("/")
+	public ResponseEntity<Long> checkUser(@RequestBody User user) {
+		List<User> userList =  userRepository.findAll().stream()
+				.filter(u -> Objects.equals(u.getUsername(), user.getUsername()) && Objects.equals(u.getPassword(), user.getPassword()))
+				.collect(Collectors.toList());
+
+		if (userList.isEmpty()) {
+			throw new ResourceNotFoundException("User or password is incorrect");
+		}
+		return ResponseEntity.ok(userList.get(0).getId());
 	}
 
 	@DeleteMapping("/{id}")
