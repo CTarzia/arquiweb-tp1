@@ -31,13 +31,16 @@ const NearbyRestaurants = () => {
 					setRestaurantsOne(json);
 				}
 			});
-		fetch(
-			"https://virtserver.swaggerhub.com/adrian-castiglione/arquiweb-tp1/1.0.1/api/restaurants"
-		)
-			.then((res) => res.json())
-			.then((json) => {
-				setRestaurantsTwo(json.items);
-			});
+		try {
+			fetch("https://arquiweb-tp1.herokuapp.com/api/restaurants", {})
+				.then((res) => res.json())
+				.catch((error) => console.log(error))
+				.then((json) => {
+					setRestaurantsTwo(json?.items || []);
+				});
+		} catch {
+			setRestaurantsTwo([]);
+		}
 	}, []);
 
 	useEffect(() => {
