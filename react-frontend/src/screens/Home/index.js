@@ -19,6 +19,10 @@ const Home = () => {
 				<Link to={ROUTES.ORDER_STATUS}>
 					<button className={styles.button}>Ver estado de pedido</button>
 				</Link>
+
+				<Link to={ROUTES.LOGIN}>
+					<button className={styles.button}>Login Admins</button>
+				</Link>
 			</div>
 		</div>
 	);

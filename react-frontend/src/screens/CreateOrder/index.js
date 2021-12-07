@@ -82,7 +82,7 @@ const CreateOrder = () => {
 		<div className={styles.container}>
 			<Topbar
 				returnRoute={ROUTES.NEARBY_RESTAURANTS}
-				title={`Hacer Pedido: ${restaurantName}`}
+				title={`Hacer Pedido`}
 			/>
 			<PostOrder
 				handleSubmit={handleSubmit}
