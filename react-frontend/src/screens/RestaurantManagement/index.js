@@ -15,6 +15,7 @@ const RestaurantManagment = ({ history }) => {
 		useContext(UserContext);
 
 	const [generalDialogOpen, setGeneralDialogOpen] = useState();
+	const [addressDialogOpen, setAddressDialogOpen] = useState();
 	const [values, setValues] = useState({
 		name: restaurant.name,
 		workingHours: restaurant.workingHours,
@@ -74,10 +75,11 @@ const RestaurantManagment = ({ history }) => {
 
 	const handleEdit = (key) => setGeneralDialogOpen(key);
 
-	const handleEditAddress = () => setGeneralDialogOpen("address");
+	const handleEditAddress = () => setAddressDialogOpen("address");
 
 	const handleCloseDialogs = () => {
 		setGeneralDialogOpen(null);
+		setAddressDialogOpen(null);
 		setLoading(false);
 	};
 
@@ -129,22 +131,26 @@ const RestaurantManagment = ({ history }) => {
 						handleEdit={handleEdit}
 						handleEditAddress={handleEditAddress}
 					/>
-					<UpdateGeneralInformationDialog
-						generalDialogOpen={generalDialogOpen}
-						handleCloseDialogs={handleCloseDialogs}
-						handleSubmit={handleSubmitGeneralInfo}
-						handleChange={handleChange}
-						values={values}
-						loading={loading}
-					/>
-					<UpdateAddressInformationDialog
-						generalDialogOpen={generalDialogOpen}
-						handleCloseDialogs={handleCloseDialogs}
-						handleSubmit={handleSubmitGeneralInfo}
-						handleChange={handleChange}
-						values={values}
-						loading={loading}
-					/>
+					{generalDialogOpen && (
+						<UpdateGeneralInformationDialog
+							generalDialogOpen={generalDialogOpen}
+							handleCloseDialogs={handleCloseDialogs}
+							handleSubmit={handleSubmitGeneralInfo}
+							handleChange={handleChange}
+							values={values}
+							loading={loading}
+						/>
+					)}
+					{addressDialogOpen && (
+						<UpdateAddressInformationDialog
+							generalDialogOpen={addressDialogOpen}
+							handleCloseDialogs={handleCloseDialogs}
+							handleSubmit={handleSubmitGeneralInfo}
+							handleChange={handleChange}
+							values={values}
+							loading={loading}
+						/>
+					)}
 					<div>
 						<div className={styles.menuContainer}>
 							{menuUrl && (
