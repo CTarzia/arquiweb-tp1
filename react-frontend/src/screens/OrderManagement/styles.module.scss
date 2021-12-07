@@ -1,0 +1,81 @@
+@import "src/styles/_colors.scss";
+@import "src/styles/styles.scss";
+
+.container {
+	align-items: center;
+	background-color: $light-tan;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	height: 100%;
+}
+
+.content {
+	display: flex;
+	padding: 40px 80px;
+	width: 100%;
+}
+
+.ordersContainer {
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	margin: 0 10px;
+}
+
+.orderCard {
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0;
+	border: 1px solid $gray;
+	padding: 10px;
+	align-items: center;
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+.title {
+	font-weight: 700;
+	margin-bottom: 15px;
+}
+
+.acceptButton {
+	background-color: transparent;
+	border: none;
+	color: lighten($dark-green, 20);
+	padding: 5x;
+	text-align: center;
+
+	&:hover {
+		color: lighten($dark-green, 30);
+	}
+}
+
+.icon {
+	height: 45px !important;
+	width: 45px !important;
+}
+
+.deleteButton {
+	background-color: transparent;
+	border: none;
+	color: lighten($red, 20);
+	padding: 5x;
+	text-align: center;
+
+	&:hover {
+		color: lighten($red, 30);
+	}
+}
+
+.viewContentButton {
+	background-color: transparent;
+	border: none;
+	color: lighten($blue, 20);
+	padding: 5x;
+	text-align: center;
+
+	&:hover {
+		color: lighten($blue, 30);
+	}
+}

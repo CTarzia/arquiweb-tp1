@@ -11,14 +11,23 @@ const Restaurant = ({ restaurant, handleClick }) => {
 	return (
 		<div className={styles.container}>
 			<span className={styles.name}> {restaurant.name} </span>
-			<div className={styles.infoContainer}>
-				<LocalPhoneIcon className={styles.icon} />
-				<span className={styles.label}> {restaurant.phoneNumber} </span>
-			</div>
-			<div className={styles.infoContainer}>
-				<AccessTimeIcon className={styles.icon} />
-				<span className={styles.label}>{restaurant.workingHours} </span>
-			</div>
+			{restaurant.phoneNumber && (
+				<div className={styles.infoContainer}>
+					<LocalPhoneIcon className={styles.icon} />
+					<span className={styles.label}> {restaurant.phoneNumber} </span>
+				</div>
+			)}
+			{restaurant.workingHours && (
+				<div className={styles.infoContainer}>
+					<AccessTimeIcon className={styles.icon} />
+					<span className={styles.label}>{restaurant.workingHours} </span>
+				</div>
+			)}
+			{restaurant.description && (
+				<div className={styles.infoContainer}>
+					<span className={styles.label}>{restaurant.description} </span>
+				</div>
+			)}
 			{restaurant.appId === 1 && (
 				<button onClick={onSelectRestaurant} className={styles.button}>
 					Ver detalle

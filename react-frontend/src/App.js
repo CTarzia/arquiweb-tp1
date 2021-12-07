@@ -6,15 +6,13 @@ import Home from "./screens/Home";
 import LogIn from "./screens/Login";
 import Signup from "./screens/Signup";
 import OrderStatus from "./screens/OrderStatus";
-import WelcomeTable from "./screens/WelcomeTable";
 import Menu from "./screens/Menu";
-import PendingOrders from "./screens/PendingOrders";
-import CurrentOrders from "./screens/CurrentOrders";
 import CreateOrder from "./screens/CreateOrder";
 import RestaurantManagment from "./screens/RestaurantManagement";
 import NearbyRestaurants from "./screens/NearbyRestaurants";
 import BackofficeHome from "./screens/BackofficeHome";
 import TableManagement from "./screens/TableManagement";
+import OrderManagement from "./screens/OrderManagement";
 import { UserContext } from "./context";
 
 function App() {
@@ -66,23 +64,12 @@ function App() {
 					/>
 					<Route exact path={ROUTES.CREATE_ORDER} component={CreateOrder} />
 					<Route exact path={ROUTES.ORDER_STATUS} component={OrderStatus} />
-
 					<Route
 						exact
-						path={ROUTES.WELCOME_TABLE}
-						component={WelcomeTable}
-					></Route>
-					<Route exact path={ROUTES.MENU} component={Menu}></Route>
-					<Route
-						exact
-						path={ROUTES.CURRENT_ORDERS}
-						component={CurrentOrders}
-					></Route>
-					<Route
-						exact
-						path={ROUTES.PENDING_ORDERS}
-						component={PendingOrders}
-					></Route>
+						path={ROUTES.ORDERS_MANAGEMENT}
+						component={OrderManagement}
+					/>
+					<Route exact path={ROUTES.MENU} component={Menu} />
 				</Switch>
 			</Router>
 		</UserContext.Provider>

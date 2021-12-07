@@ -122,8 +122,8 @@
 }
 
 .deleteButton {
-	background-color: #d40a28;
+	background-color: $red;
 	&:hover {
-		background-color: lighten(#d40a28, 30);
+		background-color: lighten($red, 30);
 	}
 }
