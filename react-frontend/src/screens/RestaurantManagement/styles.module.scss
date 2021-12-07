@@ -11,59 +11,37 @@
 
 .content {
 	display: flex;
-	padding: 40px;
-	width: 900px;
+	padding: 40px 80px;
+	width: 100%;
 }
 
-.managementSection {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	padding: 5px;
-	background-color: $light-green;
-	//border: 1px solid #888;
+.uploadImage {
+	@extend %button;
+	width: 140px;
+	cursor: pointer;
 }
 
-.info {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.uploadImageButton {
+	@extend %button;
+	padding: 10px 25px;
+	width: 140px;
+	height: 54px;
+	margin-right: 15px;
 }
 
-.rectangleOfDeath {
-	display: flex;
-	width: 80%;
-	background-color: $light-tan;
-}
-
-.displayOrdersColumns {
+.leftContent {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
-	padding: 5px;
-	//background-color: $light-green;
-	//border: 1px solid #888;
+	width: 50%;
 }
 
-.cards {
-	//background-color: $blue;
+.rightContent {
+	width: 50%;
 }
 
-.cardColumns {
-	padding: 5px;
-}
-
-.tableTitle {
+.menuContainer {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	padding: 5px;
-}
-
-.tableAttributes {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	padding: 5px;
+	justify-content: flex-start;
+	width: 100%;
+	margin-top: 15px;
 }

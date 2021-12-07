@@ -4,14 +4,13 @@
 .informationContainer {
 	display: flex;
 	flex-direction: column;
-	width: 50%;
+	width: 100%;
 }
 
 .informationTitle {
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	margin-top: 15px;
 	width: 100%;
 	font-weight: 800;
 }
@@ -20,7 +19,7 @@
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	margin-top: 15px;
+	margin-top: 5px;
 	width: 100%;
 }
 

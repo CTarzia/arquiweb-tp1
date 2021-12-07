@@ -14,7 +14,7 @@ import CreateOrder from "./screens/CreateOrder";
 import RestaurantManagment from "./screens/RestaurantManagement";
 import NearbyRestaurants from "./screens/NearbyRestaurants";
 import BackofficeHome from "./screens/BackofficeHome";
-import TableStatus from "./screens/TableStatus";
+import TableManagement from "./screens/TableManagement";
 import { UserContext } from "./context";
 
 function App() {
@@ -54,6 +54,11 @@ function App() {
 						path={ROUTES.RESTAURANT_MANAGMENT}
 						component={RestaurantManagment}
 					/>
+					<Route
+						exact
+						path={ROUTES.TABLE_MANAGEMENT}
+						component={TableManagement}
+					/>
 
 					<Route
 						exact
@@ -85,11 +90,6 @@ function App() {
 						exact
 						path={ROUTES.NEARBY_RESTAURANTS}
 						component={NearbyRestaurants}
-					></Route>
-					<Route
-						exact
-						path={ROUTES.TABLE_STATUS}
-						component={TableStatus}
 					></Route>
 				</Switch>
 			</Router>

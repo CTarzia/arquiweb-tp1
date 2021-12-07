@@ -1,0 +1,33 @@
+@import "src/styles/_colors.scss";
+@import "src/styles/styles.scss";
+
+.form {
+	display: flex;
+	padding: 20px;
+	flex-direction: column;
+}
+
+.button {
+	@extend %button;
+	margin-top: 15px;
+	min-width: 150px;
+	padding: 10px;
+}
+
+.disabledButton {
+	@extend %button;
+	background-color: $light-gray;
+	margin-top: 15px;
+	min-width: 150px;
+	padding: 10px;
+
+	&:hover {
+		background-color: $light-gray;
+	}
+}
+
+.progress {
+	height: 15px !important;
+	width: 15px !important;
+	color: $gray !important;
+}

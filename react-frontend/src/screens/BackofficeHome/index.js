@@ -48,7 +48,7 @@ const BackofficeHome = ({ history }) => {
 						<button className={styles.button}>Gestionar pedidos</button>
 					</Link>
 
-					<Link to={ROUTES.TABLE_STATUS}>
+					<Link to={ROUTES.TABLE_MANAGEMENT}>
 						<button className={styles.button}>Gestionar mesas</button>
 					</Link>
 				</div>
