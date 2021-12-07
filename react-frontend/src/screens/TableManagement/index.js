@@ -72,7 +72,7 @@ const TableManagement = ({ history }) => {
 	const showOrderQR = (table) => {
 		setQrIsOpen(true);
 		setQrValue(
-			`https://verlacarta6.herokuapp.com/restaurante/${restaurantId}/hacer_pedido?mesa=${table.tableId}`
+			`https://verlacarta6.herokuapp.com/restaurante/${restaurantId}/hacer_pedido?mesa=${table.tableId}&name=${restaurant.name}`
 		);
 	};
 

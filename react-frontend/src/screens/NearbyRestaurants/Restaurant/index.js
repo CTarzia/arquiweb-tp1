@@ -19,13 +19,15 @@ const Restaurant = ({ restaurant, handleClick }) => {
 				<AccessTimeIcon className={styles.icon} />
 				<span className={styles.label}>{restaurant.workingHours} </span>
 			</div>
-			{restaurant.appId === 0 && (
+			{restaurant.appId === 1 && (
 				<button onClick={onSelectRestaurant} className={styles.button}>
 					Ver detalle
 				</button>
 			)}
-			{restaurant.appId === 2 && (
-				<Link to={`/restaurante/${restaurant.id}/hacer_pedido?appId=2`}>
+			{restaurant.appId === "2" && (
+				<Link
+					to={`/restaurante/${restaurant.id}/hacer_pedido?appId=2&name=${restaurant.name}`}
+				>
 					<button className={styles.button}> Hacer Pedido </button>
 				</Link>
 			)}

@@ -28,7 +28,6 @@ const NearbyRestaurants = () => {
 				if (json.error) {
 					console.log("error");
 				} else {
-					console.log("hola");
 					setRestaurantsOne(json);
 				}
 			});
@@ -66,21 +65,25 @@ const NearbyRestaurants = () => {
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 						attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					/>
-					{restaurants.map((restaurant) => (
-						<Marker
-							position={[
-								parseFloat(restaurant.latitude),
-								parseFloat(restaurant.longitude),
-							]}
-						>
-							<Popup>
-								<Restaurant
-									restaurant={restaurant}
-									handleClick={onSelectRestaurant}
-								/>
-							</Popup>
-						</Marker>
-					))}
+					{restaurants.map(
+						(restaurant) =>
+							restaurant.latitude &&
+							restaurant.longitude && (
+								<Marker
+									position={[
+										parseFloat(restaurant.latitude),
+										parseFloat(restaurant.longitude),
+									]}
+								>
+									<Popup>
+										<Restaurant
+											restaurant={restaurant}
+											handleClick={onSelectRestaurant}
+										/>
+									</Popup>
+								</Marker>
+							)
+					)}
 				</MapContainer>
 				{selectedRestaurant && isPanelOpen && (
 					<RestaurantInfo

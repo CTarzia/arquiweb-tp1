@@ -1,39 +1,62 @@
 @import "src/styles/_colors.scss";
 @import "src/styles/styles.scss";
 
+.container {
+	align-items: center;
+	background-color: $light-tan;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
 
-.titleContainer{
+.titleContainer {
 	// background-color: $light-tan;
 	display: flex;
 	justify-content: space-between;
 	padding: 5px;
-	background-color:$dark-green;
-	color: $white
+	background-color: $dark-green;
+	color: $white;
 }
-.form{
+.form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 25px;
+	margin-top: 20px;
+	border-radius: 15px;
+	border: 1px solid $gray;
+
+	background-color: $light-green;
+}
+
+.button {
+	@extend %button;
+	margin-top: 25px;
+	min-width: 200px;
+}
+
+.input {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	margin-bottom: 15px;
+}
+
+.displayOrder {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	padding: 5px;
-
-	.submitButton{
-		align-self: flex-end;
-	}
-
-	background-color: $light-green
 }
 
-.displayOrder{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding: 5px;
+.span {
+	margin-bottom: 5px;
 }
 
-.displayOrdersColumns{
+.displayOrdersColumns {
 	display: flex;
 	flex-direction: row;
-	justify-content:space-around;
+	justify-content: space-around;
 	padding: 5px;
 	background-color: $light-green;
 	border: 1px solid #888;
@@ -49,30 +72,30 @@
 	width: 100%; /* Full width */
 	height: 100%; /* Full height */
 	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content/Box */
-  .modal-content {
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
 	background-color: #fefefe;
 	margin: 15% auto; /* 15% from the top and centered */
 	padding: 20px;
 	border: 1px solid #888;
 	width: 80%; /* Could be more or less, depending on screen size */
-  }
-  
-  /* The Close Button */
-  .close {
+}
+
+/* The Close Button */
+.close {
 	color: #aaa;
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
-  }
+}

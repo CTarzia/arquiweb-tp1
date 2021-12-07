@@ -7,7 +7,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 import styles from "./styles.module.scss";
 
-const RestaurantInfo = ({ restaurant, isOpen, handleClose }) => {
+const RestaurantInfo = ({ restaurant, handleClose }) => {
 	const [imagesLoading, setImagesLoading] = useState(false);
 	const [photos, setPhotos] = useState([]);
 
@@ -80,7 +80,7 @@ const RestaurantInfo = ({ restaurant, isOpen, handleClose }) => {
 					<button className={styles.button}> Ver Menu </button>
 				</Link>
 				<Link
-					to={`/restaurante/${restaurant?.id}/hacer_pedido?nombre=${restaurant?.name}`}
+					to={`/restaurante/${restaurant?.id}/hacer_pedido?name=${restaurant?.name}`}
 				>
 					<button className={styles.button}> Hacer Pedido </button>
 				</Link>

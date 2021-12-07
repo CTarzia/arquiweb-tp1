@@ -6,14 +6,14 @@ export const ROUTES = {
 	RESTAURANT_MANAGMENT: "/backoffice/restaurante", // Listo
 	TABLE_MANAGEMENT: "/backoffice/mesas", // Listo
 	ORDERS_MANAGEMENT: "/backoffice/pedidos",
-	MENU: "/menu/:restoId",
-	CREATE_ORDER: "/restaurante/:id/hacer_pedido",
+	MENU: "/menu/:restoId", // Listo
+	CREATE_ORDER: "/restaurante/:id/hacer_pedido", // Listo
+	NEARBY_RESTAURANTS: "/restaurantes_cercanos", // Listo
+	ORDER_STATUS: "/estado_del_pedido", // Listo
 
 	WELCOME_TABLE: "/restaurante/:restoId/:tableId/welcomeTable",
-	ORDER_STATUS: "/estado_del_pedido",
 	CURRENT_ORDERS: "/restaurante/:id/pedidos_en_curso",
 	PENDING_ORDERS: "/restaurante/:id/pedidos_pendientes",
-	NEARBY_RESTAURANTS: "/restaurantes_cercanos",
 };
 
 export const PRIVATE_ROUTES = [

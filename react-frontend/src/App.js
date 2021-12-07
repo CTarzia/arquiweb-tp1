@@ -59,17 +59,14 @@ function App() {
 						path={ROUTES.TABLE_MANAGEMENT}
 						component={TableManagement}
 					/>
+					<Route
+						exact
+						path={ROUTES.NEARBY_RESTAURANTS}
+						component={NearbyRestaurants}
+					/>
+					<Route exact path={ROUTES.CREATE_ORDER} component={CreateOrder} />
+					<Route exact path={ROUTES.ORDER_STATUS} component={OrderStatus} />
 
-					<Route
-						exact
-						path={ROUTES.CREATE_ORDER}
-						component={CreateOrder}
-					></Route>
-					<Route
-						exact
-						path={ROUTES.ORDER_STATUS}
-						component={OrderStatus}
-					></Route>
 					<Route
 						exact
 						path={ROUTES.WELCOME_TABLE}
@@ -85,11 +82,6 @@ function App() {
 						exact
 						path={ROUTES.PENDING_ORDERS}
 						component={PendingOrders}
-					></Route>
-					<Route
-						exact
-						path={ROUTES.NEARBY_RESTAURANTS}
-						component={NearbyRestaurants}
 					></Route>
 				</Switch>
 			</Router>
