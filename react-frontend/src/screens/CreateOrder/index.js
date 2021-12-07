@@ -55,7 +55,7 @@ const CreateOrder = () => {
 		} else {
 			console.log("tendria que haber entrado aca");
 			fetch(
-				`https://url_tp.heroku.com/api/restaurants/${restaurantId}/orders/new`,
+				`https://arquiweb-tp1.herokuapp.com/api/restaurants/${restaurantId}/orders/new`,
 				{
 					method: "POST",
 					body: JSON.stringify({ order_text: orderToSend.content }),
