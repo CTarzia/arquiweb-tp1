@@ -4,13 +4,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.exception.ResourceNotFoundException;
 import springboot.model.User;
+import springboot.repository.RestaurantRepository;
 import springboot.repository.UserRepository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -18,13 +17,22 @@ import java.util.stream.Collectors;
 public class UserController {
 
 	private final UserRepository userRepository;
+	private final RestaurantRepository restaurantRepository;
 
-	public UserController(UserRepository userRepository) {
+	public UserController(UserRepository userRepository, RestaurantRepository restaurantRepository) {
 		this.userRepository = userRepository;
+		this.restaurantRepository = restaurantRepository;
 	}
 
 	@PostMapping("/")
 	public User createUser(@RequestBody User user) {
+		if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
+			throw new IllegalArgumentException("Missing username or password");
+		}
+		if (!restaurantRepository.findById(user.getRestaurantId()).isPresent()) {
+			throw new IllegalArgumentException(String.format("Restaurant with id %d does not exist.", user.getRestaurantId()));
+		}
+
 		return userRepository.save(user);
 	}
 
@@ -35,16 +43,14 @@ public class UserController {
 		return ResponseEntity.ok(user);
 	}
 
-	@GetMapping("/")
-	public ResponseEntity<Long> checkUser(@RequestBody User user) {
-		List<User> userList =  userRepository.findAll().stream()
-				.filter(u -> Objects.equals(u.getUsername(), user.getUsername()) && Objects.equals(u.getPassword(), user.getPassword()))
-				.collect(Collectors.toList());
+	@GetMapping("/{username}/{password}")
+	public ResponseEntity<User> checkUser(@PathVariable String username, @PathVariable String password) {
+		List<User> userList =  userRepository.findByUsernameAndPassword(username, password);
 
 		if (userList.isEmpty()) {
 			throw new ResourceNotFoundException("User or password is incorrect");
 		}
-		return ResponseEntity.ok(userList.get(0).getId());
+		return ResponseEntity.ok(userList.get(0));
 	}
 
 	@DeleteMapping("/{id}")

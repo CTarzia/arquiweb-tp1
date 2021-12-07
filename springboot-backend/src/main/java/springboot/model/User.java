@@ -17,7 +17,7 @@ public class User {
 	private String password;
 
 	@Column(name = "restaurantId")
-	private int restaurantId;
+	private Long restaurantId;
 
 	public User() {
 
@@ -28,10 +28,11 @@ public class User {
 		this.username = username;
 		this.password = password;
 	}
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -51,11 +52,11 @@ public class User {
 		this.password = password;
 	}
 
-	public int getRestaurantId() {
+	public Long getRestaurantId() {
 		return restaurantId;
 	}
 
-	public void setRestaurantId(int restaurantId) {
+	public void setRestaurantId(Long restaurantId) {
 		this.restaurantId = restaurantId;
 	}
 }
