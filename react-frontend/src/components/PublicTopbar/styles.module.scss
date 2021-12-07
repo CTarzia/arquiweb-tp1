@@ -1,0 +1,27 @@
+@import "src/styles/_colors.scss";
+
+.title {
+	align-items: center;
+	display: flex;
+	background-color: $dark-green;
+	color: $light-green;
+	justify-content: space-between;
+	width: 100%;
+	padding: 15px;
+}
+
+.button {
+	background-color: transparent;
+	border: none;
+	border-radius: 50px;
+	color: $white;
+	padding: 10px 25px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+
+	&:hover {
+		background-color: lighten($dark-green, 10);
+	}
+}

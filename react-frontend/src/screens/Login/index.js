@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 import { ROUTES } from "../../constants/routes";
+import { UserContext } from "../../context";
+import PasswordField from "../../components/PasswordField";
 
 import styles from "./styles.module.scss";
 
 const LogIn = ({ history }) => {
+	const { setUserId, setUserName, setRestaurantId } = useContext(UserContext);
+
+	const [loading, setLoading] = useState(false);
+
 	const [values, setValues] = useState({
 		username: "",
 		password: "",
@@ -13,8 +20,19 @@ const LogIn = ({ history }) => {
 
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
+		setLoading(true);
 
-		history.push(ROUTES.BACKOFFICE_HOME);
+		fetch(
+			`https://ver-la-carta.herokuapp.com/usuarios/${values.username}/${values.password}`
+		)
+			.then((res) => res.json())
+			.then((json) => {
+				setRestaurantId(json.restaurantId);
+				setUserId(json.id);
+				setUserName(json.username);
+				setLoading(false);
+				history.push(ROUTES.BACKOFFICE_HOME);
+			});
 	};
 
 	const handleChange = (e) => {
@@ -41,18 +59,18 @@ const LogIn = ({ history }) => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div className={styles.input}>
-					<label className={styles.label}>Password:</label>
-					<input
-						type="password"
-						name="password"
-						id="password"
-						onChange={handleChange}
-					/>
-				</div>
+				<PasswordField onChangePassword={handleChange} />
 
-				<button className={styles.button} onClick={handleSubmit}>
-					Iniciar sesion
+				<button
+					className={loading ? styles.disabledButton : styles.button}
+					onClick={handleSubmit}
+					disabled={loading}
+				>
+					{loading ? (
+						<CircularProgress classes={{ root: styles.progress }} />
+					) : (
+						"Iniciar sesion"
+					)}
 				</button>
 
 				<Link to={ROUTES.SIGN_UP}>

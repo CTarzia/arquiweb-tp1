@@ -1,4 +1,5 @@
 @import "src/styles/_colors.scss";
+@import "src/styles/_styles.scss";
 
 .container {
 	align-items: center;
@@ -17,26 +18,22 @@
 	padding: 40px;
 }
 
-.button {
-	background-color: $gray;
-	border: none;
-	color: $white;
-	padding: 20px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin-top: 10px;
-	min-width: 300px;
-
-	&:hover {
-		background-color: darken($gray, 20);
-	}
-}
-
 .buttonsContainer {
 	margin-top: 40px;
 	align-items: center;
 	display: flex;
 	flex-direction: column;
+}
+
+.button {
+	@extend %button;
+	margin-top: 15px;
+	min-width: 300px;
+}
+
+.progress {
+	height: 40px !important;
+	width: 40px !important;
+	color: $gray !important;
+	margin-top: 40px !important;
 }

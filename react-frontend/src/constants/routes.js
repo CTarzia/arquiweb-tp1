@@ -1,18 +1,19 @@
 export const ROUTES = {
+	HOME: "/", // Listo
+	LOGIN: "/login", // Listo
+	SIGN_UP: "/signup", // Listo
+	BACKOFFICE_HOME: "/backoffice", // Listo
+	RESTAURANT_MANAGMENT: "/backoffice/restaurante",
+	ORDERS_MANAGEMENT: "/backoffice/pedidos",
+	TABLE_STATUS: "/backoffice/mesas",
+
 	WELCOME_TABLE: "/restaurante/:restoId/:tableId/welcomeTable",
 	ORDER_STATUS: "/estado_del_pedido",
 	CREATE_ORDER: "/restaurante/:id/hacer_pedido",
 	CURRENT_ORDERS: "/restaurante/:id/pedidos_en_curso",
 	PENDING_ORDERS: "/restaurante/:id/pedidos_pendientes",
 	MENU: "/menu/:restoId",
-	HOME: "/", // Listo
 	NEARBY_RESTAURANTS: "/restaurantes_cercanos",
-	LOGIN: "/login",
-	SIGN_UP: "/signup",
-	BACKOFFICE_HOME: "/backoffice",
-	RESTAURANT_MANAGMENT: "/restaurante",
-	ORDERS_MANAGEMENT: "/pedidos",
-	TABLE_STATUS: "/backoffice/:id/mesas",
 };
 
 export const PRIVATE_ROUTES = [

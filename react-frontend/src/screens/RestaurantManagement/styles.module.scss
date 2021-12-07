@@ -1,45 +1,59 @@
 @import "src/styles/_colors.scss";
 @import "src/styles/styles.scss";
 
-.managementSection{
+.container {
+	align-items: center;
+	background-color: $light-tan;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+.content {
+	display: flex;
+	padding: 40px;
+	width: 900px;
+}
+
+.managementSection {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	padding: 5px;
 	background-color: $light-green;
-	//border: 1px solid #888; 
+	//border: 1px solid #888;
 }
 
-.info{
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-}
-
-.rectangleOfDeath{
-	display: flex;
-    width: 80%;
-    background-color: $light-tan;
-}
-
-.displayOrdersColumns{
+.info {
 	display: flex;
 	flex-direction: column;
-	justify-content:space-around;
+	align-items: center;
+}
+
+.rectangleOfDeath {
+	display: flex;
+	width: 80%;
+	background-color: $light-tan;
+}
+
+.displayOrdersColumns {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 	padding: 5px;
 	//background-color: $light-green;
 	//border: 1px solid #888;
 }
 
-.cards{
+.cards {
 	//background-color: $blue;
 }
 
-.cardColumns{
+.cardColumns {
 	padding: 5px;
 }
 
-.tableTitle{
+.tableTitle {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -47,7 +61,7 @@
 	padding: 5px;
 }
 
-.tableAttributes{
+.tableAttributes {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
