@@ -33,7 +33,7 @@ const Restaurant = ({ restaurant, handleClick }) => {
 					Ver detalle
 				</button>
 			)}
-			{restaurant.appId === "2" && (
+			{restaurant.appId.toString() === "2" && (
 				<Link
 					to={`/restaurante/${restaurant.id}/hacer_pedido?appId=2&name=${restaurant.name}`}
 				>

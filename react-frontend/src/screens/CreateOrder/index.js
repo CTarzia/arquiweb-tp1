@@ -58,7 +58,10 @@ const CreateOrder = () => {
 				`https://arquiweb-tp1.herokuapp.com/api/restaurants/${restaurantId}/orders/new`,
 				{
 					method: "POST",
-					body: JSON.stringify({ order_text: orderToSend.content }),
+					body: JSON.stringify({
+						order_text: orderToSend.content,
+						table_id: 0,
+					}),
 					headers: {
 						"Content-Type": "application/json",
 					},
@@ -80,10 +83,7 @@ const CreateOrder = () => {
 
 	return (
 		<div className={styles.container}>
-			<Topbar
-				returnRoute={ROUTES.NEARBY_RESTAURANTS}
-				title={`Hacer Pedido`}
-			/>
+			<Topbar returnRoute={ROUTES.NEARBY_RESTAURANTS} title={`Hacer Pedido`} />
 			<PostOrder
 				handleSubmit={handleSubmit}
 				handleOnInputChange={handleOnInputChange}
