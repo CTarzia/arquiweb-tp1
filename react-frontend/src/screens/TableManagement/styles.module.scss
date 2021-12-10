@@ -1,0 +1,129 @@
+@import "src/styles/_colors.scss";
+@import "src/styles/styles.scss";
+
+.container {
+	align-items: center;
+	background-color: $light-tan;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 100vh;
+}
+
+.content {
+	display: flex;
+	padding: 40px 80px;
+	width: 100%;
+	flex-wrap: wrap;
+}
+
+.addTableContainer {
+	border: 1px solid $gray;
+	border-radius: 10px;
+	padding: 20px;
+	height: 250px;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin: 10px;
+}
+
+.addTableTitle {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+
+.addTableButton {
+	background-color: transparent;
+	border: none;
+	border-radius: 15px;
+	background-color: lighten($dark-green, 20);
+	color: $white;
+	padding: 10px;
+	text-align: center;
+
+	&:hover {
+		background-color: lighten($dark-green, 30);
+	}
+}
+
+.addTableButtonLoading {
+	background-color: transparent;
+	border: none;
+	border-radius: 15px;
+	background-color: $gray;
+	padding: 10px;
+	text-align: center;
+}
+
+.addIcon {
+	height: 40px;
+	width: 40px;
+}
+
+.progress {
+	height: 20px !important;
+	width: 20px !important;
+	color: $gray !important;
+}
+
+.tableContainer {
+	border: 1px solid $gray;
+	border-radius: 10px;
+	padding: 20px;
+	height: 250px;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin: 10px;
+}
+
+.button {
+	@extend %button;
+	padding: 10px;
+	margin: 5px;
+}
+
+.infoContainer {
+	display: flex;
+	align-self: flex-start;
+	width: 50%;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.callingServer {
+	width: 30px;
+	height: 30px;
+	background-color: lighten($dark-green, 30);
+	border-radius: 50px;
+}
+
+.notCallingServer {
+	width: 30px;
+	height: 30px;
+	background-color: $gray;
+	border-radius: 50px;
+}
+
+.buttonsContainer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.deleteButton {
+	background-color: $red;
+	&:hover {
+		background-color: lighten($red, 30);
+	}
+}

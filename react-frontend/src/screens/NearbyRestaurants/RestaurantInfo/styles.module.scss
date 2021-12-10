@@ -1,14 +1,13 @@
 @import "src/styles/_colors.scss";
 
-.closedContainer {
-	width: 0px;
-}
-
 .container {
-	max-width: 350px;
-	width: 350px;
+	max-width: 400px;
+	width: 400px;
 	max-height: calc(100vh - 86px);
 	padding: 15px;
+	height: calc(100vh - 86px);
+	display: flex;
+	flex-direction: column;
 }
 
 .title {
@@ -17,19 +16,57 @@
 	align-items: center;
 }
 
-.button {
-	background-color: $gray;
+.closeButton {
+	background-color: transparent;
 	border: none;
-	border-radius: 20px;
-	color: $white;
-	padding: 7px;
+	border-radius: 50px;
+	color: black;
+	padding: 5px 11px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
 
+	&:hover {
+		background-color: darken($light-green, 10);
+	}
+}
+
+.infoContainer {
+	align-items: center;
+	display: flex;
+	margin-top: 10px;
+}
+
+.icon {
+	color: $dark-tan;
+	font-size: 16px;
+}
+
+.label {
+	margin-left: 8px;
+	font-size: 16px;
+}
+
+.button {
+	background-color: $dark-green;
+	border: none;
+	border-radius: 50px;
+	color: $white;
+	padding: 10px 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 10px 0 0;
 
 	&:hover {
-		background-color: darken($gray, 20);
+		background-color: lighten($dark-green, 10);
 	}
+}
+
+.buttonContainers {
+	margin-top: auto;
+	display: flex;
+	justify-content: space-between;
 }

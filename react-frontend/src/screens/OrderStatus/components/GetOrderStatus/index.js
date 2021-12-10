@@ -1,4 +1,9 @@
 import React from "react";
+import Topbar from "../../../../components/Topbar";
+
+import { ROUTES } from "../../../../constants/routes";
+
+import styles from "./styles.module.scss";
 
 const GetOrderStatus = ({
 	handleSubmit,
@@ -8,14 +13,15 @@ const GetOrderStatus = ({
 	showError,
 }) => {
 	return (
-		<div>
-			<h1> Estado de Pedido </h1>
-			<form onSubmit={handleSubmit}>
-				<label>
-					Numero de pedido:
-					<input type="text" value={inputValue} onChange={handleChange} />
-				</label>
-				<input type="submit" value="Buscar Pedido" />
+		<div className={styles.container}>
+			<Topbar
+				returnRoute={ROUTES.NEARBY_RESTAURANTS}
+				title={`Estado de pedido`}
+			/>
+			<form onSubmit={handleSubmit} className={styles.form}>
+				<label className={styles.label}>Numero de pedido:</label>
+				<input type="text" value={inputValue} onChange={handleChange} />
+				<input type="submit" value="Buscar Pedido" className={styles.button} />
 			</form>
 			{showError && (
 				<p>

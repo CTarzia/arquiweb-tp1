@@ -1,0 +1,48 @@
+@import "src/styles/_colors.scss";
+@import "src/styles/styles.scss";
+
+.informationContainer {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.informationTitle {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	font-weight: 800;
+}
+
+.information {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 5px;
+	width: 100%;
+}
+
+.informationName {
+	display: flex;
+}
+
+.bullet {
+	color: $dark-green;
+}
+
+.iconButton {
+	background-color: transparent;
+	border: none;
+	border-radius: 50px;
+	color: $dark-green;
+	padding: 10px 25px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+
+	&:hover {
+		background-color: darken($light-tan, 10);
+	}
+}

@@ -1,0 +1,27 @@
+@import "src/styles/_colors.scss";
+@import "src/styles/_styles.scss";
+
+.input {
+	display: flex;
+	margin-bottom: 15px;
+	align-items: center;
+	width: 100%;
+	justify-content: space-between;
+	position: relative;
+}
+
+.label {
+	display: flex;
+	align-self: center;
+	margin-right: 10px;
+}
+
+.icon {
+	color: $dark-green !important;
+	cursor: pointer !important;
+}
+
+.iconContainer {
+	position: absolute;
+	right: 5px;
+}

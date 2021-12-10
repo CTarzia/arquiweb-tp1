@@ -20,26 +20,22 @@ class OrderStatus extends React.Component {
 	}
 
 	handleSubmit(event) {
+		event.preventDefault();
 		fetch("https://ver-la-carta.herokuapp.com/orders/" + this.state.value)
 			.then((res) => res.json())
 			.then((json) => {
 				this.setState({
 					order: json,
-					dataisLoaded: true,
 				});
 			});
-		event.preventDefault();
 	}
-	
 
 	render() {
-		const { dataisLoaded, order } = this.state;
+		const { order } = this.state;
 
 		const showError = order.status === "404";
 
-		return dataisLoaded ? (
-			<p> Recuperando informacion del pedido </p>
-		) : (
+		return (
 			<GetOrderStatus
 				handleSubmit={this.handleSubmit}
 				handleChange={this.handleChange}

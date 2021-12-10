@@ -1,130 +1,196 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
-import styles from "./styles.module.scss";
-import GoBackButton from "../../components/GoBack";
+import React, { useContext, useEffect, useState } from "react";
+import { CardMedia } from "@mui/material";
+
+import PublicTopbar from "../../components/PublicTopbar";
+import { UserContext } from "../../context";
 import { ROUTES } from "../../constants/routes";
-import { Button, ButtonGroup, Typography, Box } from "@mui/material";
 
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import GeneralInformation from "./components/GeneralInformation";
+import UpdateAddressInformationDialog from "./components/UpdateAddressInformationDialog";
+import UpdateGeneralInformationDialog from "./components/UpdateGeneralInformationDialog";
+import styles from "./styles.module.scss";
 
-import UploadImages from "./UploadImages";
-import FetchTables from "./FetchTables";
+const RestaurantManagment = ({ history }) => {
+	const { userId, restaurantId, restaurant, setRestaurant } =
+		useContext(UserContext);
 
-const RestaurantManagment = () => {
-	const [restaurantName, setRestaurantName] = useState();
-	const [statusError, setStatusError] = useState(false);
-	const [restaurantLoading, setRestaurantLoading] = useState(false);
-
-	const { restoId: restaurantId } = useParams();
+	const [generalDialogOpen, setGeneralDialogOpen] = useState();
+	const [addressDialogOpen, setAddressDialogOpen] = useState();
+	const [values, setValues] = useState({
+		name: restaurant.name,
+		workingHours: restaurant.workingHours,
+		phoneNumber: restaurant.phoneNumber,
+		latitude: restaurant.latitude,
+		longitude: restaurant.longitude,
+	});
+	const [loading, setLoading] = useState(false);
+	const [menuUrl, setMenuUrl] = useState();
+	const [showMenu, setShowMenu] = useState(false);
 
 	useEffect(() => {
-		fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
-			.then((res) => res.json())
-			.then((json) => {
-				if (json.status === 404) {
-					setStatusError(true);
-					setRestaurantName("Su restaurante no ha sido encontrado.");
-				} else {
-					setRestaurantName(json.name);
-					setRestaurantLoading(true)
+		if (!userId || !restaurantId) {
+			history.push(ROUTES.LOGIN);
+		}
+
+		fetch(`https://ver-la-carta.herokuapp.com/carta/${restaurantId}`)
+			.then((response) => {
+				if (response.status === 404) {
+					return "error";
+				}
+				return response.blob();
+			})
+			.then((image) => {
+				console.log(image);
+				if (image !== "error") {
+					const localUrl = URL.createObjectURL(image);
+					setMenuUrl(localUrl);
 				}
 			});
 	}, []);
-	//TABS
 
-	function TabPanel(props) {
-		const { children, value, index, ...other } = props;
+	const handleSubmitGeneralInfo = (evt) => {
+		evt.preventDefault();
+		setLoading(true);
+		fetch(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`, {
+			method: "PUT",
+			body: JSON.stringify({ ...values }),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((res) => res.json())
+			.then((json) => {
+				setRestaurant(json);
+				handleCloseDialogs(false);
+			});
+	};
 
-		return (
-			<div
-				role="tabpanel"
-				hidden={value !== index}
-				id={`vertical-tabpanel-${index}`}
-				aria-labelledby={`vertical-tab-${index}`}
-				{...other}
-			>
-				{value === index && (
-					<Box sx={{ p: 3 }}>
-						<Typography>{children}</Typography>
-					</Box>
-				)}
-			</div>
-		);
-	}
+	const handleChange = (e) => {
+		const { id, value } = e.target;
+		setValues((prevState) => ({
+			...prevState,
+			[id]: value,
+		}));
+	};
 
-	function a11yProps(index) {
-		return {
-			id: `vertical-tab-${index}`,
-			'aria-controls': `vertical-tabpanel-${index}`,
-		};
-	}
-	const [value, setValue] = React.useState(0);
-	const handleChange = (event, newValue) => {
-		setValue(newValue);
+	const handleEdit = (key) => setGeneralDialogOpen(key);
+
+	const handleEditAddress = () => setAddressDialogOpen("address");
+
+	const handleCloseDialogs = () => {
+		setGeneralDialogOpen(null);
+		setAddressDialogOpen(null);
+		setLoading(false);
+	};
+
+	const fileToDataUri = (file) =>
+		new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = (event) => {
+				resolve(event.target.result);
+			};
+			reader.readAsDataURL(file);
+		});
+
+	const onShowMenu = () => setShowMenu(!showMenu);
+
+	const onUploadMenu = (file) => {
+		let method = "PUT";
+		if (!menuUrl) {
+			method = "POST";
+		}
+
+		fileToDataUri(file).then((dataUri) => {
+			setMenuUrl(dataUri);
+		});
+
+		const data = new FormData();
+		data.append("file", file);
+
+		fetch(`https://ver-la-carta.herokuapp.com/carta/${restaurantId}`, {
+			method,
+			body: data,
+		})
+			.then((res) => {
+				console.log(res);
+			})
+			.catch(setMenuUrl(null));
 	};
 
 	return (
-		restaurantLoading ? (
-		<div>
-			<div className={styles.titleContainer}>
-				<Typography variant="h3" component="h1">{restaurantName}</Typography>
-				<GoBackButton route={ROUTES.HOME} />
-			</div>
-			<Typography verient="h5" className={styles.subtitle}>
-				<h4>Gestion del local</h4>
-			</Typography>
-
-			<div className={styles.managementSection}>
-				<div>
-					<div className={styles.info}>
-						<p>nombre del local:</p>
-						<p>horarios:</p>
-						<p>datos de contacto:</p>
-						<p>direccion:</p>
+		<div className={styles.container}>
+			<PublicTopbar
+				title={`Gestionar: ${restaurant.name}`}
+				history={history}
+				withGoBack
+			/>
+			<div className={styles.content}>
+				<div className={styles.leftContent}>
+					<GeneralInformation
+						restaurant={restaurant}
+						handleEdit={handleEdit}
+						handleEditAddress={handleEditAddress}
+					/>
+					{generalDialogOpen && (
+						<UpdateGeneralInformationDialog
+							generalDialogOpen={generalDialogOpen}
+							handleCloseDialogs={handleCloseDialogs}
+							handleSubmit={handleSubmitGeneralInfo}
+							handleChange={handleChange}
+							values={values}
+							loading={loading}
+						/>
+					)}
+					{addressDialogOpen && (
+						<UpdateAddressInformationDialog
+							generalDialogOpen={addressDialogOpen}
+							handleCloseDialogs={handleCloseDialogs}
+							handleSubmit={handleSubmitGeneralInfo}
+							handleChange={handleChange}
+							values={values}
+							loading={loading}
+						/>
+					)}
+					<div>
+						<div className={styles.menuContainer}>
+							{menuUrl && (
+								<button
+									className={styles.uploadImageButton}
+									onClick={onShowMenu}
+								>
+									Ver carta
+								</button>
+							)}
+							<label className={styles.uploadImage} for="upload-menu">
+								{menuUrl ? "Editar carta" : "Subir carta"}
+							</label>
+							<input
+								style={{ display: "none" }}
+								id="upload-menu"
+								name="upload-menu"
+								type="file"
+								onChange={(event) =>
+									onUploadMenu(event.target.files[0] || null)
+								}
+							/>
+						</div>
 					</div>
-
-					<Tabs
-						orientation="vertical"
-						variant="scrollable"
-						value={value}
-						onChange={handleChange}
-						aria-label="Vertical tabs example"
-						sx={{ borderRight: 1, borderColor: 'divider' }}
-					>
-						<Tab label="Editar Logo" {...a11yProps(0)} />
-						<Tab label="Editar Carta" {...a11yProps(1)} />
-						<Tab label="Editar Fotos" {...a11yProps(2)} />
-						<Tab label="Gestionar Mesas" {...a11yProps(3)} />
-					</Tabs>
 				</div>
-
-				<div className={styles.rectangleOfDeath}>
-
-					<TabPanel value={value} index={0}>
-						Editar logo...
-					</TabPanel>
-					<TabPanel value={value} index={1}>
-						Editar carta...
-					</TabPanel>
-					<TabPanel value={value} index={2}>
-						<UploadImages
-							restaurantId={restaurantId}
-						/>
-					</TabPanel>
-					<TabPanel value={value} index={3}>
-						<FetchTables
-							restaurantId={restaurantId}
-						/>
-					</TabPanel>
-
+				<div className={styles.rightContent}>
+					<div className={styles.showMenu}>
+						{menuUrl && showMenu && (
+							<CardMedia
+								component="img"
+								height="400"
+								width="400"
+								image={menuUrl}
+								alt="img reastaurant"
+							/>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>
-		):(
-			<div> Recuperando información del restaurante.</div>
-		)
 	);
 };
 

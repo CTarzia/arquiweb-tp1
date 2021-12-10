@@ -1,26 +1,42 @@
-import { SliderValueLabelUnstyled } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 import { ROUTES } from "../../constants/routes";
+import { UserContext } from "../../context";
+import PasswordField from "../../components/PasswordField";
 
 import styles from "./styles.module.scss";
 
-const LogIn = () => {
+const LogIn = ({ history }) => {
+	const { setUserId, setUserName, setRestaurantId } = useContext(UserContext);
+
+	const [loading, setLoading] = useState(false);
+
 	const [values, setValues] = useState({
-		name: "",
+		username: "",
 		password: "",
 	});
 
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
+		setLoading(true);
 
-		console.log(SliderValueLabelUnstyled);
+		fetch(
+			`https://ver-la-carta.herokuapp.com/usuarios/${values.username}/${values.password}`
+		)
+			.then((res) => res.json())
+			.then((json) => {
+				setRestaurantId(json.restaurantId);
+				setUserId(json.id);
+				setUserName(json.username);
+				setLoading(false);
+				history.push(ROUTES.BACKOFFICE_HOME);
+			});
 	};
 
 	const handleChange = (e) => {
 		const { id, value } = e.target;
-		console.log(id, value);
 		setValues((prevState) => ({
 			...prevState,
 			[id]: value,
@@ -35,30 +51,30 @@ const LogIn = () => {
 
 			<form onSubmit={handleSubmit} className={styles.form}>
 				<div className={styles.input}>
-					<label htmlFor="email" className={styles.label}>
-						Nombre de usuario:
-					</label>
+					<label className={styles.label}>Nombre de usuario:</label>
 					<input
 						type="text"
-						name="name"
-						id="name"
-						placeholder="Username"
+						name="username"
+						id="username"
 						onChange={handleChange}
 					/>
 				</div>
-				<div className={styles.input}>
-					<label htmlFor="password" className={styles.label}>
-						Password:
-					</label>
-					<input
-						type="password"
-						name="password"
-						id="password"
-						onChange={handleChange}
-					/>
-				</div>
-				<Link to={ROUTES.BACKOFFICE_HOME}>
-					<button className={styles.button}>Iniciar sesion</button>
+				<PasswordField onChangePassword={handleChange} />
+
+				<button
+					className={loading ? styles.disabledButton : styles.button}
+					onClick={handleSubmit}
+					disabled={loading}
+				>
+					{loading ? (
+						<CircularProgress classes={{ root: styles.progress }} />
+					) : (
+						"Iniciar sesion"
+					)}
+				</button>
+
+				<Link to={ROUTES.SIGN_UP}>
+					<button className={styles.button}>Crear usuario</button>
 				</Link>
 			</form>
 		</div>

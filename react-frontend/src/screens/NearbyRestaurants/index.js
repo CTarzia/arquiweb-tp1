@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
-import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../constants/routes";
+import Topbar from "../../components/Topbar";
 
 import Restaurant from "./Restaurant";
 import RestaurantInfo from "./RestaurantInfo";
@@ -17,28 +17,35 @@ const NearbyRestaurants = () => {
 
 	useEffect(() => {
 		fetch("https://ver-la-carta.herokuapp.com/restaurantes/")
-			.then((res) => res.json())
+			.then((res) => {
+				console.log(res);
+				if (res.status === 200) {
+					return res.json();
+				}
+				return { error: "No se encontraron restaurantes" };
+			})
 			.then((json) => {
-				if (json.status === 404) {
+				if (json.error) {
 					console.log("error");
 				} else {
 					setRestaurantsOne(json);
 				}
 			});
-		fetch(
-			"https://virtserver.swaggerhub.com/adrian-castiglione/arquiweb-tp1/1.0.1/api/restaurants"
-		)
-			.then((res) => res.json())
-			.then((json) => {
-				setRestaurantsTwo(json.items);
-			});
+		try {
+			fetch("https://arquiweb-tp1.herokuapp.com/api/restaurants", {})
+				.then((res) => res.json())
+				.catch((error) => console.log(error))
+				.then((json) => {
+					setRestaurantsTwo(json?.items || []);
+				});
+		} catch {
+			setRestaurantsTwo([]);
+		}
 	}, []);
 
 	useEffect(() => {
 		setRestaurants([...restaurantsOne, ...restaurantsTwo]);
 	}, [restaurantsOne, restaurantsTwo]);
-
-	// console.log(restaurants, selectedRestaurant);
 
 	const onSelectRestaurant = (restaurant) => {
 		setSelectedRestaurant(restaurant);
@@ -47,16 +54,9 @@ const NearbyRestaurants = () => {
 
 	const closePanel = () => setIsPanelOpen(false);
 
-	// console.log(selectedRestaurant);
-
 	return (
 		<div className={styles.container}>
-			<div className={styles.title}>
-				<h1> Restaurantes cercanos </h1>
-				<Link to={ROUTES.HOME}>
-					<button className={styles.button}> Volver </button>
-				</Link>
-			</div>
+			<Topbar returnRoute={ROUTES.HOME} title="Restaurantes cercanos" />
 			<div className={styles.infoContainer}>
 				<MapContainer
 					className={styles.map}
@@ -68,28 +68,30 @@ const NearbyRestaurants = () => {
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 						attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					/>
-					{restaurants.map((restaurant) => (
-						<Marker
-							position={[
-								parseFloat(restaurant.latitude),
-								parseFloat(restaurant.longitude),
-							]}
-						>
-							<Popup>
-								<div className={styles.pin}>
-									<Restaurant
-										restaurant={restaurant}
-										handleClick={onSelectRestaurant}
-									/>
-								</div>
-							</Popup>
-						</Marker>
-					))}
+					{restaurants.map(
+						(restaurant) =>
+							restaurant.latitude &&
+							restaurant.longitude && (
+								<Marker
+									position={[
+										parseFloat(restaurant.latitude),
+										parseFloat(restaurant.longitude),
+									]}
+								>
+									<Popup>
+										<Restaurant
+											restaurant={restaurant}
+											handleClick={onSelectRestaurant}
+										/>
+									</Popup>
+								</Marker>
+							)
+					)}
 				</MapContainer>
 				{selectedRestaurant && isPanelOpen && (
 					<RestaurantInfo
 						restaurant={selectedRestaurant}
-						isOpen={isPanelOpen}
+						isOpen={isPanelOpen && selectedRestaurant}
 						handleClose={closePanel}
 					/>
 				)}

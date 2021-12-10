@@ -9,7 +9,7 @@ const Home = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.title}>
-				<h1> Bienvenido! </h1>
+				<h1> ¡Bienvenido a Ver la Carta! </h1>
 			</div>
 			<div className={styles.buttonsContainer}>
 				<Link to={ROUTES.NEARBY_RESTAURANTS}>
@@ -18,6 +18,10 @@ const Home = () => {
 
 				<Link to={ROUTES.ORDER_STATUS}>
 					<button className={styles.button}>Ver estado de pedido</button>
+				</Link>
+
+				<Link to={ROUTES.LOGIN}>
+					<button className={styles.button}>Login Admins</button>
 				</Link>
 			</div>
 		</div>
