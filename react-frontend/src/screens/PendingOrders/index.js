@@ -40,7 +40,6 @@ const PendingOrders = () => {
                     setOrdersLoading(true)                  
                 }
             });
-        // apiGet(`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}`)
     }, []);
 
     

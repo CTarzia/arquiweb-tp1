@@ -147,7 +147,7 @@ const OrderManagement = ({ history }) => {
 					))}
 				</div>
 				<div className={styles.ordersContainer}>
-					<span className={styles.title}> En curso </span>
+					<span className={styles.title}> Listo </span>
 					{readyOrders.map((order) => (
 						<div className={styles.orderCard}>
 							<span>
