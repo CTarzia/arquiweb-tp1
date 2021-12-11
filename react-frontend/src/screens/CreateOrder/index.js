@@ -15,7 +15,7 @@ const CreateOrder = () => {
 	const search = useLocation().search;
 	const tableNumber = new URLSearchParams(search).get("mesa");
 	const restaurantName = new URLSearchParams(search).get("name");
-	const appId = new URLSearchParams(search).get("appId");
+	const appId = parseInt(new URLSearchParams(search).get("appId"));
 
 	const handleOnInputChange = (evt) => {
 		setOrder({ ...order, [evt.target.name]: evt.target.value });
@@ -30,54 +30,64 @@ const CreateOrder = () => {
 			orderToSend = { ...order, tableNumber };
 		}
 
-		if (appId !== "2") {
-			fetch(
-				`https://ver-la-carta.herokuapp.com/orders/${type}/${restaurantId}`,
-				{
-					method: "POST",
-					body: JSON.stringify({ ...orderToSend }),
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			)
-				.then((res) => res.json())
-				.then((json) => {
-					if (tableNumber) {
-						window.alert(`Su pedido ha sido enviado.`);
-					} else {
+		switch (appId) {
+			case 1:
+				fetch(
+					`https://ver-la-carta.herokuapp.com/orders/${type}/${restaurantId}`,
+					{
+						method: "POST",
+						body: JSON.stringify({ ...orderToSend }),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				)
+					.then((res) => res.json())
+					.then((json) => {
+						if (tableNumber) {
+							window.alert(`Su pedido ha sido enviado.`);
+						} else {
+							console.log(json);
+							window.alert(
+								`Su pedido ha sido enviado. Su número de pedido es: ${json.orderId}.`
+							);
+						}
+					});
+				break;
+			case 2:
+				fetch(
+					`https://arquiweb-tp1.herokuapp.com/api/restaurants/${restaurantId}/orders/new`,
+					{
+						method: "POST",
+						body: JSON.stringify({
+							order_text: orderToSend.content,
+							table_id: 0,
+						}),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				)
+					.then((res) => res.json())
+					.then((json) => {
 						console.log(json);
 						window.alert(
 							`Su pedido ha sido enviado. Su número de pedido es: ${json.orderId}.`
 						);
-					}
-				});
-		} else {
-			console.log("tendria que haber entrado aca");
-			fetch(
-				`https://arquiweb-tp1.herokuapp.com/api/restaurants/${restaurantId}/orders/new`,
-				{
-					method: "POST",
-					body: JSON.stringify({
-						order_text: orderToSend.content,
-						table_id: 0,
-					}),
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			)
-				.then((res) => res.json())
-				.then((json) => {
-					if (tableNumber) {
-						window.alert(`Su pedido ha sido enviado.`);
-					} else {
+					});
+				break;
+			default:
+				fetch(
+					`http://moorfy.com:5000/clients/place_an_order?branch_id=${restaurantId}&table_id=0&user_id=0&order_content=${orderToSend.content}`
+				)
+					.then((res) => res.json())
+					.then((json) => {
 						console.log(json);
 						window.alert(
-							`Su pedido ha sido enviado. Su número de pedido es: ${json.orderId}.`
+							`Su pedido ha sido enviado. Su número de pedido es: ${json["orden id"]}.`
 						);
-					}
-				});
+					});
+				break;
 		}
 	};
 
