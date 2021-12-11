@@ -11,6 +11,7 @@ import styles from "./styles.module.scss";
 const NearbyRestaurants = () => {
 	const [restaurantsOne, setRestaurantsOne] = useState([]);
 	const [restaurantsTwo, setRestaurantsTwo] = useState([]);
+	const [restaurantsThree, setRestaurantsThree] = useState([]);
 	const [restaurants, setRestaurants] = useState([]);
 	const [selectedRestaurant, setSelectedRestaurant] = useState();
 	const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -41,11 +42,21 @@ const NearbyRestaurants = () => {
 		} catch {
 			setRestaurantsTwo([]);
 		}
+		try {
+			fetch("http://moorfy.com:5000/clients/branches", {})
+				.then((res) => res.json())
+				.catch((error) => console.log(error))
+				.then((json) => {
+					setRestaurantsThree(json?.map((rest) => ({ ...rest, appId: 3 })) || []);
+				});
+		} catch {
+			setRestaurantsThree([]);
+		}
 	}, []);
 
 	useEffect(() => {
-		setRestaurants([...restaurantsOne, ...restaurantsTwo]);
-	}, [restaurantsOne, restaurantsTwo]);
+		setRestaurants([...restaurantsOne, ...restaurantsTwo, ...restaurantsThree]);
+	}, [restaurantsOne, restaurantsTwo, restaurantsThree]);
 
 	const onSelectRestaurant = (restaurant) => {
 		setSelectedRestaurant(restaurant);
@@ -53,7 +64,7 @@ const NearbyRestaurants = () => {
 	};
 
 	const closePanel = () => setIsPanelOpen(false);
-
+	
 	return (
 		<div className={styles.container}>
 			<Topbar returnRoute={ROUTES.HOME} title="Restaurantes cercanos" />
