@@ -49,7 +49,7 @@ const CreateOrder = () => {
 						} else {
 							console.log(json);
 							window.alert(
-								`Su pedido ha sido enviado. Su número de pedido es: ${json.orderId}.`
+								`Su pedido ha sido enviado. Su número de pedido es: 1-${json.orderId}. `
 							);
 						}
 					});
@@ -72,7 +72,7 @@ const CreateOrder = () => {
 					.then((json) => {
 						console.log(json);
 						window.alert(
-							`Su pedido ha sido enviado. Su número de pedido es: ${json.orderId}.`
+							`Su pedido ha sido enviado. Su número de pedido es: 2-${json.order_id}.`
 						);
 					});
 				break;
@@ -84,7 +84,7 @@ const CreateOrder = () => {
 					.then((json) => {
 						console.log(json);
 						window.alert(
-							`Su pedido ha sido enviado. Su número de pedido es: ${json["orden id"]}.`
+							`Su pedido ha sido enviado. Su número de pedido es: 3-${json["orden id"]}.`
 						);
 					});
 				break;
