@@ -8,15 +8,15 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const DisplayImages = ({ img }) => {
+const DisplayImages = ({ img, onDelete }) => {
     const handleDelete = () => {
-        window.location.reload(false);
         fetch(`https://ver-la-carta.herokuapp.com/imagen/${img.id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },
-        })
+        }).then(() => {onDelete()})
+
     };
     return (
         <Card sx={{ maxWidth: 345 }}>

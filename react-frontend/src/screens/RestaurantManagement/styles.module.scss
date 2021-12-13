@@ -45,3 +45,11 @@
 	width: 100%;
 	margin-top: 15px;
 }
+
+.uploadButton {
+	@extend %button;
+	padding: 10px 25px;
+	width: 170px;
+	height: 54px;
+	margin-right: 15px;
+}
