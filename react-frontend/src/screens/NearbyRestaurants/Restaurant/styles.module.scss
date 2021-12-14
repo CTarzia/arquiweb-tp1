@@ -43,3 +43,9 @@
 		background-color: lighten($dark-green, 10);
 	}
 }
+
+.buttonContainers {
+	margin-top: auto;
+	display: flex;
+	justify-content: space-around;
+}
