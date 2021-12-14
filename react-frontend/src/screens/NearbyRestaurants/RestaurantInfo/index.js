@@ -76,7 +76,7 @@ const RestaurantInfo = ({ restaurant, handleClose }) => {
 				</div>
 			</div>
 			<div className={styles.buttonContainers}>
-				<Link to={`/menu/${restaurant?.id}`}>
+				<Link to={`/menu/${restaurant?.id}?appId=1`}>
 					<button className={styles.button}> Ver Menu </button>
 				</Link>
 				<Link

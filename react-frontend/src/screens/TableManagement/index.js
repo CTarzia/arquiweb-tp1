@@ -65,14 +65,14 @@ const TableManagement = ({ history }) => {
 	const showMenuQR = (table) => {
 		setQrIsOpen(true);
 		setQrValue(
-			`https://verlacarta6.herokuapp.com/menu/${restaurantId}?mesa=${table.tableId}`
+			`https://verlacarta6.herokuapp.com/menu/${restaurantId}?mesa=${table.tableId}&appId=1`
 		);
 	};
 
 	const showOrderQR = (table) => {
 		setQrIsOpen(true);
 		setQrValue(
-			`https://verlacarta6.herokuapp.com/restaurante/${restaurantId}/hacer_pedido?mesa=${table.tableId}&name=${restaurant.name}`
+			`https://verlacarta6.herokuapp.com/restaurante/${restaurantId}/hacer_pedido?mesa=${table.tableId}&name=${restaurant.name}&appId=1`
 		);
 	};
 

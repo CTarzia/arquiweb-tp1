@@ -21,3 +21,19 @@
 	margin-top: 15px;
 	min-width: 300px;
 }
+
+.content {
+	margin: 20px 10px 0;
+	width: 800px;
+}
+
+.image {
+	object-fit: contain !important;
+}
+
+.buttons {
+	display: flex;
+	width: 800px;
+	justify-content: space-between;
+	padding: 15px 0;
+}

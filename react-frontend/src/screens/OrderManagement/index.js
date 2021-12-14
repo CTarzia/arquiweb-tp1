@@ -13,17 +13,20 @@ const OrderManagement = ({ history }) => {
 	const { userId, restaurantId, restaurant } = useContext(UserContext);
 	const [orders, setOrders] = useState([]);
 
+	const getOrders = () =>
+		fetch(
+			`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}/pedidos`
+		)
+			.then((response) => response.json())
+			.then((json) => {
+				setOrders(json);
+			});
+
 	useEffect(() => {
 		if (!userId || !restaurantId) {
 			history.push(ROUTES.LOGIN);
 		} else {
-			fetch(
-				`https://ver-la-carta.herokuapp.com/restaurantes/${restaurantId}/pedidos`
-			)
-				.then((response) => response.json())
-				.then((json) => {
-					setOrders(json);
-				});
+			getOrders();
 		}
 	}, []);
 
@@ -39,8 +42,6 @@ const OrderManagement = ({ history }) => {
 		() => orders.filter((order) => order.status === "READY"),
 		[orders]
 	);
-
-	console.log(orders);
 
 	const viewOrder = (order) =>
 		window.alert(
@@ -90,6 +91,8 @@ const OrderManagement = ({ history }) => {
 				title={`Gestionar: ${restaurant.name}`}
 				history={history}
 				withGoBack
+				withRefresh
+				refreshFunction={getOrders}
 			/>
 			<div className={styles.content}>
 				<div className={styles.ordersContainer}>
