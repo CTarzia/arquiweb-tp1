@@ -101,8 +101,8 @@ const Menu = ({ history }) => {
 					<Link
 						to={
 							tableId
-								? `/restaurante/${restaurantId}/hacer_pedido?mesa=${tableId}`
-								: `/restaurante/${restaurantId}/hacer_pedido`
+								? `/restaurante/${restaurantId}/hacer_pedido?mesa=${tableId}&appId=${appId}`
+								: `/restaurante/${restaurantId}/hacer_pedido?appId=${appId}`
 						}
 					>
 						<button className={styles.button}>Hacer pedido</button>
