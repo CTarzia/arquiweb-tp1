@@ -47,9 +47,8 @@ const CreateOrder = () => {
 						if (tableNumber) {
 							window.alert(`Su pedido ha sido enviado.`);
 						} else {
-							console.log(json);
 							window.alert(
-								`Su pedido ha sido enviado. Su número de pedido es: 1-${json.orderId}. `
+								`Su pedido ha sido enviado. Su número de pedido es: 1-${restaurantId}-${json.orderId}. `
 							);
 						}
 					});
@@ -70,9 +69,8 @@ const CreateOrder = () => {
 				)
 					.then((res) => res.json())
 					.then((json) => {
-						console.log(json);
 						window.alert(
-							`Su pedido ha sido enviado. Su número de pedido es: 2-${json.order_id}.`
+							`Su pedido ha sido enviado. Su número de pedido es: 2-${restaurantId}-${json.order_id}.`
 						);
 					});
 				break;
@@ -82,9 +80,8 @@ const CreateOrder = () => {
 				)
 					.then((res) => res.json())
 					.then((json) => {
-						console.log(json);
 						window.alert(
-							`Su pedido ha sido enviado. Su número de pedido es: 3-${json["orden id"]}.`
+							`Su pedido ha sido enviado. Su número de pedido es: 3-${restaurantId}-${json["orden id"]}.`
 						);
 					});
 				break;

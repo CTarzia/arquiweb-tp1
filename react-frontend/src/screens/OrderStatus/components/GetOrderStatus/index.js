@@ -29,12 +29,7 @@ const GetOrderStatus = ({
 					nuevo.
 				</p>
 			)}
-			{order && !showError && (
-				<p>
-					Numero de pedido: {order.orderId}, Contenido: {order.content}, Estado:
-					{order.status}
-				</p>
-			)}
+			{order && !showError && <p className={styles.order}>{order}</p>}
 		</div>
 	);
 };

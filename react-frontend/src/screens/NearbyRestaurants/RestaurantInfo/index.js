@@ -28,9 +28,7 @@ const RestaurantInfo = ({ restaurant, handleClose }) => {
 					});
 			};
 
-			fetch(
-				`https://ver-la-carta.herokuapp.com/imagen/resto/${restaurant.id}/`
-			)
+			fetch(`https://ver-la-carta.herokuapp.com/imagen/resto/${restaurant.id}/`)
 				.then((response) => response.json())
 				.then((imageIds) => {
 					imageIds.map(fetchImages);
@@ -80,7 +78,7 @@ const RestaurantInfo = ({ restaurant, handleClose }) => {
 					<button className={styles.button}> Ver Menu </button>
 				</Link>
 				<Link
-					to={`/restaurante/${restaurant?.id}/hacer_pedido?name=${restaurant?.name}`}
+					to={`/restaurante/${restaurant?.id}/hacer_pedido?name=${restaurant?.name}&appId=1`}
 				>
 					<button className={styles.button}> Hacer Pedido </button>
 				</Link>

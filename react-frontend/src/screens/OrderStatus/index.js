@@ -21,13 +21,45 @@ class OrderStatus extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		fetch("https://ver-la-carta.herokuapp.com/orders/" + this.state.value)
-			.then((res) => res.json())
-			.then((json) => {
-				this.setState({
-					order: json,
-				});
-			});
+		const params = this.state.value.split("-").map((val) => parseInt(val));
+		console.log(params);
+		switch (params[0]) {
+			case 1:
+				fetch("https://ver-la-carta.herokuapp.com/orders/" + params[2])
+					.then((res) => res.json())
+					.then((json) => {
+						this.setState({
+							order: `Hola ${json.clientName}, su numero de pedido ${this.state.value} se encuentra en estado: ${json.status}.
+							\nPedido: ${json.content}`,
+						});
+					});
+				break;
+			case 2:
+				fetch(
+					`https://arquiweb-tp1.herokuapp.com/api/restaurants/${params[1]}/orders/${params[2]}/check`
+				)
+					.then((res) => res.json())
+					.then((json) => {
+						this.setState({
+							order: `Hola , su numero de pedido ${this.state.value} se encuentra en estado: ${json.state_text}.`,
+						});
+					});
+				break;
+			case 3:
+				fetch(
+					`http://moorfy.com:5000/clients/ask_status_of_order?branch_id=${params[1]}&table_id=0&user_id=0&orden id=${params[2]}`
+				)
+					.then((res) => res.json())
+					.then((json) => {
+						this.setState({
+							order: `Hola , su numero de pedido ${this.state.value} se encuentra en estado: ${json.state_text}.`,
+						});
+					});
+				break;
+			default:
+				window.alert("Ingreso un numero de pedido incorrecto");
+				break;
+		}
 	}
 
 	render() {
