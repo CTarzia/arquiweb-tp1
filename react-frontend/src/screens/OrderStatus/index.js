@@ -47,12 +47,12 @@ class OrderStatus extends React.Component {
 				break;
 			case 3:
 				fetch(
-					`http://moorfy.com:5000/clients/ask_status_of_order?branch_id=${params[1]}&table_id=0&user_id=0&orden id=${params[2]}`
+					`http://moorfy.com:5000/clients/ask_status_of_order?order_id=${params[2]}`
 				)
 					.then((res) => res.json())
 					.then((json) => {
 						this.setState({
-							order: `Hola , su numero de pedido ${this.state.value} se encuentra en estado: ${json.state_text}.`,
+							order: `Hola , su numero de pedido ${this.state.value} se encuentra en estado: ${json.order_status_id}.`,
 						});
 					});
 				break;

@@ -28,6 +28,8 @@ const RestaurantInfo = ({ restaurant, handleClose }) => {
 					});
 			};
 
+			setPhotos([]);
+
 			fetch(`https://ver-la-carta.herokuapp.com/imagen/resto/${restaurant.id}/`)
 				.then((response) => response.json())
 				.then((imageIds) => {
